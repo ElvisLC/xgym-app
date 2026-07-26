@@ -1,5 +1,3 @@
-import { useState, useEffect, useRef } from 'react'
-import { motion } from 'framer-motion'
 import SEO from '../components/SEO'
 
 const PILLARS = [
@@ -11,44 +9,6 @@ const PILLARS = [
 ]
 
 export default function Nosotros() {
-  const [activePillar, setActivePillar] = useState(0)
-  const pillarsRef = useRef(null)
-
-  useEffect(() => {
-    const section = pillarsRef.current
-    if (!section) return
-
-    const handleScroll = () => {
-      const rect = section.getBoundingClientRect()
-      const windowHeight = window.innerHeight
-      const totalHeight = rect.bottom - rect.top
-
-      if (totalHeight <= 0) return
-
-      const scrolled = windowHeight - rect.top
-      const totalScrollable = totalHeight + windowHeight
-
-      if (scrolled <= 0) {
-        setActivePillar(0)
-        return
-      }
-
-      if (scrolled >= totalScrollable - windowHeight) {
-        setActivePillar(4)
-        return
-      }
-
-      const rawProgress = scrolled / totalScrollable
-      const index = Math.min(4, Math.floor(rawProgress * 5))
-      setActivePillar(index)
-    }
-
-    window.addEventListener('scroll', handleScroll, { passive: true })
-    handleScroll()
-
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
-
   return (
     <>
       <SEO
@@ -119,70 +79,15 @@ export default function Nosotros() {
           </div>
 
           {/* Pilares */}
-          <div ref={pillarsRef}>
-            <h2 className="display text-3xl text-white mb-12">Los cinco pilares de XGYM</h2>
-
-            {/* Desktop: horizontal */}
-            <div className="hidden md:block relative mb-20">
-              <div className="absolute top-[19px] left-0 right-0 h-0.5 bg-white/10" />
-              <div className="absolute top-[19px] left-0 right-0 h-0.5 overflow-hidden">
-                <motion.div
-                  className="h-full bg-[var(--accent)]"
-                  initial={{ width: '0%' }}
-                  animate={{ width: `${(activePillar / 4) * 100}%` }}
-                  transition={{ duration: 0.3 }}
-                />
+          <h2 className="display text-3xl text-white mb-8">Los cinco pilares de XGYM</h2>
+          <div className="grid md:grid-cols-5 gap-px bg-white/10 mb-20">
+            {PILLARS.map((p) => (
+              <div key={p.num} className="bg-[var(--canvas)] p-6">
+                <span className="font-mono text-[var(--accent)] text-lg font-bold">{p.num}</span>
+                <h3 className="text-white font-semibold mt-3 mb-2 text-sm leading-snug">{p.title}</h3>
+                <p className="text-[var(--muted)] text-xs leading-relaxed">{p.text}</p>
               </div>
-
-              <div className="grid grid-cols-5 gap-4 relative z-10">
-                {PILLARS.map((p, i) => {
-                  const isActive = i <= activePillar
-                  return (
-                    <div key={p.num} className="flex flex-col">
-                      <div className="flex justify-center mb-6">
-                        <div className={`w-10 h-10 flex items-center justify-center border-2 font-mono text-xs font-bold transition-colors duration-300 ${isActive ? 'bg-[var(--canvas)] border-[var(--accent)] text-[var(--accent)]' : 'bg-[var(--surface)] border-white/10 text-[var(--subtle)]'}`}>
-                          {p.num}
-                        </div>
-                      </div>
-                      <div className={`flex-1 border p-5 transition-all duration-300 ${isActive ? 'border-[var(--accent)]/40 bg-[var(--surface)]' : 'border-white/10 bg-[var(--surface)]'}`}>
-                        <h3 className={`font-semibold text-sm mb-2 transition-colors duration-300 ${isActive ? 'text-white' : 'text-[var(--subtle)]'}`}>{p.title}</h3>
-                        <p className="text-[var(--muted)] text-xs leading-relaxed">{p.text}</p>
-                      </div>
-                    </div>
-                  )
-                })}
-              </div>
-            </div>
-
-            {/* Mobile: vertical */}
-            <div className="md:hidden relative pl-10 mb-16">
-              <div className="absolute left-[19px] top-0 bottom-0 w-0.5 bg-white/10" />
-              <div className="absolute left-[19px] top-0 bottom-0 w-0.5 overflow-hidden">
-                <motion.div
-                  className="w-full bg-[var(--accent)]"
-                  initial={{ height: '0%' }}
-                  animate={{ height: `${(activePillar / 4) * 100}%` }}
-                  transition={{ duration: 0.3 }}
-                />
-              </div>
-
-              <div className="space-y-6">
-                {PILLARS.map((p, i) => {
-                  const isActive = i <= activePillar
-                  return (
-                    <div key={p.num} className="relative">
-                      <div className={`absolute left-[-33px] top-3 w-8 h-8 flex items-center justify-center border-2 font-mono text-[10px] font-bold z-10 transition-colors duration-300 ${isActive ? 'bg-[var(--canvas)] border-[var(--accent)] text-[var(--accent)]' : 'bg-[var(--surface)] border-white/10 text-[var(--subtle)]'}`}>
-                        {p.num}
-                      </div>
-                      <div className={`border p-5 transition-all duration-300 ${isActive ? 'border-[var(--accent)]/40 bg-[var(--surface)]' : 'border-white/10 bg-[var(--surface)]'}`}>
-                        <h3 className={`font-semibold text-sm mb-1 transition-colors duration-300 ${isActive ? 'text-white' : 'text-[var(--subtle)]'}`}>{p.title}</h3>
-                        <p className="text-[var(--muted)] text-xs leading-relaxed">{p.text}</p>
-                      </div>
-                    </div>
-                  )
-                })}
-              </div>
-            </div>
+            ))}
           </div>
 
           {/* PENDIENTE (no visible en el sitio): insertar aquí, tal cual, el texto oficial de
