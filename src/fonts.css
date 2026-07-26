@@ -1,0 +1,21 @@
+/* ============================================
+   XGYM — Fuentes autohospedadas (via @fontsource)
+   Solo los pesos realmente usados en el proyecto:
+   - Inter: 400 (body), 500 (medium), 600 (semibold), 700 (bold)
+   - JetBrains Mono: 400, 500, 600 (eyebrow/mono)
+   - Bebas Neue: 400 (display)
+   ============================================ */
+
+/* Inter */
+@import "@fontsource/inter/400.css";
+@import "@fontsource/inter/500.css";
+@import "@fontsource/inter/600.css";
+@import "@fontsource/inter/700.css";
+
+/* JetBrains Mono */
+@import "@fontsource/jetbrains-mono/400.css";
+@import "@fontsource/jetbrains-mono/500.css";
+@import "@fontsource/jetbrains-mono/600.css";
+
+/* Bebas Neue (solo tiene un peso: 400) */
+@import "@fontsource/bebas-neue/400.css";
