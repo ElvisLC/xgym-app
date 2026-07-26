@@ -18,7 +18,19 @@ const FAQS = [
   },
   {
     q: '¿Qué pasa si no se completa el quórum de una clase?',
-    a: 'Se necesita un mínimo de 5 personas para que la clase se dicte. Si no se alcanza, la clase puede cancelarse o reprogramarse — te avisamos por nuestro canal oficial.',
+    a: (
+      <>
+        Se necesita un mínimo de 5 personas para que la clase se dicte. Si no se alcanza, la clase puede cancelarse o reprogramarse — te avisamos por nuestro{' '}
+        <a
+          href="https://www.whatsapp.com/channel/0029VbDJNyuKgsNnQG1QXg3o"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-[var(--accent)] underline underline-offset-4"
+        >
+          canal oficial
+        </a>.
+      </>
+    ),
   },
   {
     q: '¿Las clases de salón tienen costo aparte?',
