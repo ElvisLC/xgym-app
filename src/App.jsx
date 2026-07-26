@@ -1,19 +1,20 @@
 import { Routes, Route, useLocation } from 'react-router-dom'
-import { useEffect } from 'react'
+import { useEffect, Suspense, lazy } from 'react'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import WhatsAppFloat from './components/WhatsAppFloat'
 import Home from './pages/Home'
-import Planes from './pages/Planes'
-import IndoorCycling from './pages/IndoorCycling'
-import ClasesGrupales from './pages/ClasesGrupales'
-import FitBar from './pages/FitBar'
-import Horarios from './pages/Horarios'
-import Entrenadores from './pages/Entrenadores'
-import Nosotros from './pages/Nosotros'
-import Contacto from './pages/Contacto'
-import FAQ from './pages/FAQ'
 import { trackPageView } from './lib/analytics'
+
+const Planes = lazy(() => import('./pages/Planes'))
+const IndoorCycling = lazy(() => import('./pages/IndoorCycling'))
+const ClasesGrupales = lazy(() => import('./pages/ClasesGrupales'))
+const FitBar = lazy(() => import('./pages/FitBar'))
+const Horarios = lazy(() => import('./pages/Horarios'))
+const Entrenadores = lazy(() => import('./pages/Entrenadores'))
+const Nosotros = lazy(() => import('./pages/Nosotros'))
+const Contacto = lazy(() => import('./pages/Contacto'))
+const FAQ = lazy(() => import('./pages/FAQ'))
 
 function ScrollToTop() {
   const { pathname } = useLocation()
@@ -30,7 +31,8 @@ export default function App() {
       <ScrollToTop />
       <Navbar />
       <main>
-        <Routes>
+        <Suspense>
+          <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/planes" element={<Planes />} />
           <Route path="/indoor-cycling" element={<IndoorCycling />} />
@@ -42,6 +44,7 @@ export default function App() {
           <Route path="/contacto" element={<Contacto />} />
           <Route path="/preguntas-frecuentes" element={<FAQ />} />
         </Routes>
+        </Suspense>
       </main>
       <Footer />
       <WhatsAppFloat />

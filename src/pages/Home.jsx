@@ -88,7 +88,6 @@ export default function Home() {
             loop
             playsInline
             preload="none"
-            poster="https://images.pexels.com/videos/6388405/pexels-photo-6388405.jpeg?auto=compress&cs=tinysrgb&h=1080&w=1920"
           >
             <source
               src="https://videos.pexels.com/video-files/18941351/18941351-hd_1080_1920_50fps.mp4"
