@@ -64,9 +64,9 @@ export default function Entrenadores() {
           </p>
 
           <h2 className="display text-3xl text-white mb-3">Indoor Cycling y clases de salón</h2>
-          <p className="text-[var(--subtle)] text-sm mb-8 max-w-2xl">
+          {/* <p className="text-[var(--subtle)] text-sm mb-8 max-w-2xl">
             Por ahora, solo con nombre y horario — sus fotos y "Poder" se agregan en una fase posterior.
-          </p>
+          </p> */}
           <div className="grid sm:grid-cols-2 gap-4">
             <div className="border border-white/10 bg-[var(--surface)] p-6">
               <p className="eyebrow mb-3">Indoor Cycling</p>
