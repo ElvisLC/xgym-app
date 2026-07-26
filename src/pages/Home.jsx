@@ -1,3 +1,4 @@
+import { useRef, useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import { ArrowRight, Zap, Dumbbell, Users, TrendingUp, Play } from 'lucide-react'
@@ -49,6 +50,22 @@ const GALLERY = [
 ]
 
 export default function Home() {
+  const videoRef = useRef(null)
+  const [videoLoaded, setVideoLoaded] = useState(false)
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !videoLoaded) {
+          setVideoLoaded(true)
+        }
+      },
+      { threshold: 0.1 }
+    )
+    if (videoRef.current) observer.observe(videoRef.current)
+    return () => observer.disconnect()
+  }, [videoLoaded])
+
   return (
     <>
       <SEO
@@ -58,21 +75,22 @@ export default function Home() {
       />
 
       {/* 1.1 HERO */}
-      <section className="relative min-h-[100svh] flex items-end overflow-hidden bg-black">
-        <video
-          className="absolute inset-0 w-full h-full object-cover opacity-55"
-          autoPlay
-          muted
-          loop
-          playsInline
-          poster="https://images.pexels.com/videos/6388405/pexels-photo-6388405.jpeg?auto=compress&cs=tinysrgb&h=1080&w=1920"
-        >
-          {/* Placeholder: reemplazar por video real de XGYM, 6-10s loop, comprimido, sin audio */}
-          <source
-            src="https://videos.pexels.com/video-files/18941351/18941351-hd_1080_1920_50fps.mp4"
-            type="video/mp4"
-          />
-        </video>
+      <section ref={videoRef} className="relative min-h-[100svh] flex items-end overflow-hidden bg-black">
+        {videoLoaded && (
+          <video
+            className="absolute inset-0 w-full h-full object-cover opacity-55"
+            autoPlay
+            muted
+            loop
+            playsInline
+            poster="https://images.pexels.com/videos/6388405/pexels-photo-6388405.jpeg?auto=compress&cs=tinysrgb&h=1080&w=1920"
+          >
+            <source
+              src="https://videos.pexels.com/video-files/18941351/18941351-hd_1080_1920_50fps.mp4"
+              type="video/mp4"
+            />
+          </video>
+        )}
 
         <div className="absolute inset-0 bg-gradient-to-t from-[var(--canvas)] via-[var(--canvas)]/45 to-[var(--canvas)]/70" />
 
