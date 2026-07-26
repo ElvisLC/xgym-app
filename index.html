@@ -43,9 +43,7 @@
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-      // send_page_view en false: las vistas de página se mandan a mano en cada cambio de ruta
-      // (ver src/lib/analytics.js), porque esto es una SPA y Google no detecta los cambios de ruta solo.
-      gtag('config', 'G-8YCGLW732P', { send_page_view: false });
+      gtag('config', 'G-8YCGLW732P');
     </script>
 
     <!-- Meta Pixel — reemplaza YOUR_META_PIXEL_ID por el ID real (15-16 dígitos) cuando lo tengas.
