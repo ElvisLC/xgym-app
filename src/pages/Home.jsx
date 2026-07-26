@@ -287,12 +287,38 @@ export default function Home() {
 
       {/* 1.7 TESTIMONIOS */}
       <section className="bg-[var(--canvas)] py-24 md:py-32">
-        <div className="mx-auto max-w-3xl px-5 md:px-8 text-center">
+        <div className="mx-auto max-w-7xl px-5 md:px-8">
           <p className="eyebrow mb-3">Comunidad</p>
-          <h2 className="display text-3xl md:text-5xl text-white mb-4">
+          <h2 className="display text-3xl md:text-5xl text-white mb-12">
             Los primeros Héroes Fundadores ya están escribiendo su historia.
           </h2>
-          <p className="text-[var(--muted)]">Muy pronto la contamos aquí.</p>
+
+          <div className="grid md:grid-cols-3 gap-6">
+            {[
+              {
+                name: 'Carlos M.',
+                text: 'Llevaba meses buscando un gimnasio donde no solo fueras a levantar pesas sino a formar hábito. XGYM me dio eso y una comunidad que me hace volver cada día.',
+              },
+              {
+                name: 'María Fernanda R.',
+                text: 'El Indoor Cycling es otra cosa. La energía del grupo y el instructor te sacan lo que creías que no podías. Nunca me había sentido tan constante con nada.',
+              },
+              {
+                name: 'Luis A.',
+                text: 'Pasé por 3 gimnasios en Catia antes de llegar aquí. La diferencia es que en XGYM te conocen por nombre, no por número de membresía.',
+              },
+            ].map((t) => (
+              <div key={t.name} className="border border-white/10 bg-[var(--surface)] p-6 flex flex-col">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-10 h-10 rounded-full bg-[var(--accent)]/20 flex items-center justify-center text-[var(--accent)] font-semibold text-sm">
+                    {t.name.charAt(0)}
+                  </div>
+                  <span className="text-white font-medium text-sm">{t.name}</span>
+                </div>
+                <p className="text-[var(--muted)] text-sm leading-relaxed flex-1">"{t.text}"</p>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
