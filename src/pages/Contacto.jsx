@@ -83,12 +83,11 @@ export default function Contacto() {
                 </div>
               </div>
 
-              {/* Mapa embebido — el query es aproximado por dirección; reemplazar por el link
-                  de "Compartir ubicación" de Google Maps cuando XGYM tenga las coordenadas exactas */}
+              {/* Mapa embebido — coordenadas exactas de XGYM */}
               <div className="border border-white/10 aspect-video overflow-hidden">
                 <iframe
                   title="Ubicación de XGYM — CC La Laguna, Recta de Los Magallanes, Catia"
-                  src="https://www.google.com/maps?q=CC+La+Laguna+Recta+de+Los+Magallanes+Catia+Caracas&output=embed"
+                  src="https://www.google.com/maps?q=10.4917,-66.9664&z=17&output=embed"
                   className="w-full h-full grayscale invert-[92%] contrast-[1.1]"
                   loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"
