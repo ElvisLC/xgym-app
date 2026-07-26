@@ -1,0 +1,84 @@
+@import "tailwindcss";
+
+/* ============================================
+   XGYM — Design tokens
+   Paleta tomada del branding real (negro + verde lima)
+   Sistema inspirado en NVIDIA: negro puro, un solo acento,
+   bordes rectos, sin gradientes atmosféricos.
+   ============================================ */
+:root {
+  /* #D8F835 es el hex oficial de marca — no sustituir por aproximaciones */
+  --canvas: #111111;
+  --canvas-soft: #0c0c0c;
+  --surface: #191919;
+  --ink: #f5f5f5;
+  --muted: #a3a3a3;
+  --subtle: #6e6e6e;
+  --accent: #d8f835;
+  --accent-dim: #b8d420;
+  --border: rgba(255, 255, 255, 0.08);
+  --border-strong: rgba(255, 255, 255, 0.16);
+
+  --font-display: "Bebas Neue", "Arial Narrow", sans-serif;
+  --font-body: "Inter", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--canvas);
+  color: var(--ink);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Signature: corte diagonal tipo "X" — usado en botones, tarjetas y separadores */
+.x-cut {
+  clip-path: polygon(12px 0, 100% 0, calc(100% - 12px) 100%, 0 100%);
+}
+
+.x-cut-left {
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 12px 100%);
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  color: var(--accent);
+}
+
+.display {
+  font-family: var(--font-display);
+  letter-spacing: 0.01em;
+  line-height: 0.92;
+  text-transform: uppercase;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+::selection {
+  background: var(--accent);
+  color: #060606;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}

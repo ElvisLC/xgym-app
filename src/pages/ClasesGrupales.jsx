@@ -1,0 +1,89 @@
+import SEO from '../components/SEO'
+
+const DAYS = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado']
+
+// Nota: "Johan — Baile/Funcionales" aquí es una persona distinta del Johan
+// personal trainer que aparece en /entrenadores. Mismo nombre, perfiles independientes.
+const SCHEDULE = [
+  {
+    time: '8:00am',
+    slots: ['Alex — Cardiodance', 'Reimer — Fitcombat', 'Brayan — Baile', 'Elvis — Aeróbicos', 'Johan — Funcionales', '—'],
+  },
+  {
+    time: '9:00am',
+    slots: ['—', '—', '—', '—', '—', 'Elvis — Aeróbicos'],
+  },
+  {
+    time: '5:30pm',
+    slots: ['Elvis — Aeróbicos', 'Miguel Ángel — Funcionales', 'Reimer — Fitcombat', 'Miguel Ángel — Funcionales', 'Alex — Cardiodance', '—'],
+  },
+  {
+    time: '6:30pm',
+    slots: ['—', 'Johan — Baile', '—', '—', '—', '—'],
+  },
+]
+
+export default function ClasesGrupales() {
+  return (
+    <>
+      <SEO
+        title="Clases Grupales | XGYM"
+        description="Programación semanal de clases grupales en XGYM: cardiodance, fitcombat, baile, aeróbicos y funcionales."
+        path="/clases-grupales"
+      />
+
+      <section className="pt-36 pb-24 bg-[var(--canvas)]">
+        <div className="mx-auto max-w-7xl px-5 md:px-8">
+          <p className="eyebrow mb-3">Salón</p>
+          <h1 className="display text-4xl md:text-6xl text-white mb-6">Programación de la semana</h1>
+          <p className="text-[var(--muted)] text-base md:text-lg max-w-2xl mb-2">
+            Héroe, aquí tienes tu ruta semanal. Cada clase es una oportunidad de entrenar tu cuerpo, tu mente y tu carácter.
+            Elige tu hora, aparece, y haz que cuente.
+          </p>
+          <p className="text-[var(--subtle)] text-sm mb-14">
+            Incluidas en tu mensualidad · Clase individual $2
+          </p>
+
+          <div className="overflow-x-auto border border-white/10 mb-4">
+            <table className="w-full min-w-[760px] border-collapse font-mono text-sm">
+              <thead>
+                <tr className="bg-[var(--surface)]">
+                  <th className="text-left text-[var(--subtle)] font-medium px-4 py-3 border-b border-white/10">Hora</th>
+                  {DAYS.map((d) => (
+                    <th key={d} className="text-left text-[var(--subtle)] font-medium px-4 py-3 border-b border-white/10">
+                      {d}
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {SCHEDULE.map((row) => (
+                  <tr key={row.time} className="odd:bg-[var(--canvas-soft)]">
+                    <td className="px-4 py-3 text-white border-b border-white/5">{row.time}</td>
+                    {row.slots.map((s, i) => (
+                      <td
+                        key={i}
+                        className={`px-4 py-3 border-b border-white/5 ${
+                          s === '—' ? 'text-[var(--subtle)]' : 'text-[var(--accent)]'
+                        }`}
+                      >
+                        {s}
+                      </td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          <p className="text-[var(--subtle)] text-xs mb-14">
+            * Hay dos instructores llamados "Johan" en XGYM (este de clases de salón, y uno distinto entre los personal
+            trainers) — son personas diferentes.
+          </p>
+
+          <p className="display text-3xl text-white">Elige tu hora. <span className="text-[var(--accent)]">Aparece.</span></p>
+        </div>
+      </section>
+    </>
+  )
+}
