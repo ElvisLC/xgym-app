@@ -42,10 +42,10 @@ const PLANS_PREVIEW = [
 ]
 
 const GALLERY = [
-  'https://images.pexels.com/photos/29224211/pexels-photo-29224211.jpeg?auto=compress&cs=tinysrgb&w=1000',
-  'https://images.pexels.com/photos/17227607/pexels-photo-17227607.jpeg?auto=compress&cs=tinysrgb&w=1000',
-  'https://images.pexels.com/videos/6388405/pexels-photo-6388405.jpeg?auto=compress&cs=tinysrgb&w=1000',
-  'https://assets.mixkit.co/videos/14661/14661-thumb-720-0.jpg',
+  'https://images.pexels.com/photos/29224211/pexels-photo-29224211.jpeg?auto=compress&cs=tinysrgb&w=500',
+  'https://images.pexels.com/photos/17227607/pexels-photo-17227607.jpeg?auto=compress&cs=tinysrgb&w=500',
+  'https://images.pexels.com/videos/6388405/pexels-photo-6388405.jpeg?auto=compress&cs=tinysrgb&w=500',
+  'https://assets.mixkit.co/videos/14661/14661-thumb-480-0.jpg',
 ]
 
 export default function Home() {
@@ -146,7 +146,7 @@ export default function Home() {
           <div className="grid md:grid-cols-2 gap-px bg-white/10">
             {VALUE_PROPS.map((v) => (
               <div key={v.title} className="bg-[var(--canvas)] p-8 md:p-10">
-                <h3 className="text-white text-xl font-semibold mb-2">{v.title}</h3>
+                <h2 className="text-white text-xl font-semibold mb-2">{v.title}</h2>
                 <p className="text-[var(--muted)] text-sm leading-relaxed">{v.text}</p>
               </div>
             ))}
