@@ -210,9 +210,6 @@ export default function Home() {
               </div>
             ))}
           </div>
-          <p className="text-[var(--subtle)] text-xs font-mono mt-6">
-            * Imágenes de referencia — se reemplazan por fotos/video reales de XGYM.
-          </p>
         </div>
       </section>
 
