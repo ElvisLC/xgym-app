@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion'
 import SEO from '../components/SEO'
 
 const PILLARS = [
@@ -83,7 +84,15 @@ export default function Nosotros() {
           <div className="grid md:grid-cols-5 gap-px bg-white/10 mb-20">
             {PILLARS.map((p) => (
               <div key={p.num} className="bg-[var(--canvas)] p-6">
-                <span className="font-mono text-[var(--accent)] text-lg font-bold">{p.num}</span>
+                <motion.span
+                  initial={{ opacity: 0, y: 10 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: '-50px' }}
+                  transition={{ duration: 0.4 }}
+                  className="font-mono text-[var(--accent)] text-lg font-bold block"
+                >
+                  {p.num}
+                </motion.span>
                 <h3 className="text-white font-semibold mt-3 mb-2 text-sm leading-snug">{p.title}</h3>
                 <p className="text-[var(--muted)] text-xs leading-relaxed">{p.text}</p>
               </div>
