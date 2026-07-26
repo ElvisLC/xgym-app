@@ -1,7 +1,7 @@
 import { useRef, useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
-import { ArrowRight, Zap, Dumbbell, Users, TrendingUp, Play } from 'lucide-react'
+import { ArrowRight, Zap, Dumbbell, Users, TrendingUp, Play, Quote } from 'lucide-react'
 import SEO from '../components/SEO'
 import { BRAND, waLink } from '../config'
 import { trackWhatsAppClick } from '../lib/analytics'
@@ -297,25 +297,40 @@ export default function Home() {
             {[
               {
                 name: 'Carlos M.',
+                role: 'Miembro desde 2024',
                 text: 'Llevaba meses buscando un gimnasio donde no solo fueras a levantar pesas sino a formar hábito. XGYM me dio eso y una comunidad que me hace volver cada día.',
               },
               {
                 name: 'María Fernanda R.',
+                role: 'Indoor Cycling',
                 text: 'El Indoor Cycling es otra cosa. La energía del grupo y el instructor te sacan lo que creías que no podías. Nunca me había sentido tan constante con nada.',
               },
               {
                 name: 'Luis A.',
+                role: 'Miembro desde 2024',
                 text: 'Pasé por 3 gimnasios en Catia antes de llegar aquí. La diferencia es que en XGYM te conocen por nombre, no por número de membresía.',
               },
             ].map((t) => (
-              <div key={t.name} className="border border-white/10 bg-[var(--surface)] p-6 flex flex-col">
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="w-10 h-10 rounded-full bg-[var(--accent)]/20 flex items-center justify-center text-[var(--accent)] font-semibold text-sm">
+              <div
+                key={t.name}
+                className="group relative border border-white/10 bg-[var(--surface)] p-6 pt-8 flex flex-col hover:border-[var(--accent)]/40 transition-colors"
+              >
+                <Quote
+                  size={20}
+                  className="text-[var(--accent)]/30 mb-4 group-hover:text-[var(--accent)]/60 transition-colors"
+                />
+                <p className="text-[var(--muted)] text-sm leading-relaxed flex-1 mb-6">
+                  {t.text}
+                </p>
+                <div className="flex items-center gap-3 pt-4 border-t border-white/5">
+                  <div className="w-10 h-10 rounded-full bg-[var(--accent)]/10 border border-[var(--accent)]/20 flex items-center justify-center text-[var(--accent)] font-semibold text-sm shrink-0">
                     {t.name.charAt(0)}
                   </div>
-                  <span className="text-white font-medium text-sm">{t.name}</span>
+                  <div>
+                    <p className="text-white font-medium text-sm">{t.name}</p>
+                    <p className="text-[var(--subtle)] text-xs">{t.role}</p>
+                  </div>
                 </div>
-                <p className="text-[var(--muted)] text-sm leading-relaxed flex-1">"{t.text}"</p>
               </div>
             ))}
           </div>
