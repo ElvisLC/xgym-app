@@ -31,36 +31,49 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="preconnect" href="https://images.pexels.com" />
-    <link rel="preconnect" href="https://assets.mixkit.co" />
+    <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin />
+    <link rel="preconnect" href="https://connect.facebook.net" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
     <noscript>
       <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
     </noscript>
     <link rel="preload" as="image" href="https://images.pexels.com/photos/6388405/pexels-photo-6388405.jpeg?auto=compress&cs=tinysrgb&h=1080&w=1920" type="image/jpeg" fetchpriority="high" />
 
-    <!-- Google Analytics 4 -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-8YCGLW732P"></script>
+    <!-- Google Analytics 4 — diferido para no bloquear render -->
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-8YCGLW732P');
+      function loadGtag(){
+        var s=document.createElement('script');
+        s.async=true;
+        s.src='https://www.googletagmanager.com/gtag/js?id=G-8YCGLW732P';
+        document.head.appendChild(s);
+        s.onload=function(){gtag('js',new Date());gtag('config','G-8YCGLW732P');};
+      }
+      window.addEventListener('load',function(){
+        if('requestIdleCallback' in window){requestIdleCallback(loadGtag,{timeout:2000})}
+        else{setTimeout(loadGtag,0)}
+      });
     </script>
 
-    <!-- Meta Pixel — reemplaza YOUR_META_PIXEL_ID por el ID real (15-16 dígitos) cuando lo tengas.
-         Aparece en dos lugares en este bloque: dentro del script y en la URL del <img> de noscript. -->
+    <!-- Meta Pixel — diferido para no bloquear render -->
     <script>
-      !function(f,b,e,v,n,t,s)
-      {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-      n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-      n.queue=[];t=b.createElement(e);t.async=!0;
-      t.src=v;s=b.getElementsByTagName(e)[0];
-      s.parentNode.insertBefore(t,s)}(window, document,'script',
-      'https://connect.facebook.net/en_US/fbevents.js');
-      fbq('init', 'YOUR_META_PIXEL_ID');
-      fbq('track', 'PageView');
+      window.addEventListener('load',function(){
+        function loadFb(){
+          !function(f,b,e,v,n,t,s)
+          {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+          n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+          if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+          n.queue=[];t=b.createElement(e);t.async=!0;
+          t.src=v;s=b.getElementsByTagName(e)[0];
+          s.parentNode.insertBefore(t,s)}(window,document,'script',
+          'https://connect.facebook.net/en_US/fbevents.js');
+          fbq('init','YOUR_META_PIXEL_ID');
+          fbq('track','PageView');
+        }
+        if('requestIdleCallback' in window){requestIdleCallback(loadFb,{timeout:2000})}
+        else{setTimeout(loadFb,0)}
+      });
     </script>
 
     <script type="application/ld+json">

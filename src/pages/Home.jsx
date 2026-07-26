@@ -77,12 +77,17 @@ export default function Home() {
       {/* 1.1 HERO */}
       <section ref={videoRef} className="relative min-h-[100svh] flex items-end overflow-hidden bg-black">
         {videoLoaded && (
+          /* Video placeholder: cuando se ponga el video real, debe ser:
+             - Horizontal (1920x1080), H.264, bitrate razonable
+             - Duración 8-10s en loop, sin audio
+             - Peso menor a 3-4MB, preferiblemente comprimido a 720p */
           <video
             className="absolute inset-0 w-full h-full object-cover opacity-55"
             autoPlay
             muted
             loop
             playsInline
+            preload="none"
             poster="https://images.pexels.com/videos/6388405/pexels-photo-6388405.jpeg?auto=compress&cs=tinysrgb&h=1080&w=1920"
           >
             <source
@@ -112,8 +117,8 @@ export default function Home() {
           </motion.p>
 
           <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
+            initial={{ y: 20 }}
+            animate={{ y: 0 }}
             transition={{ duration: 0.7, delay: 0.1 }}
             className="display text-white text-6xl sm:text-7xl md:text-8xl lg:text-[7.5rem] mb-6"
           >
