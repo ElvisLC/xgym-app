@@ -1,5 +1,18 @@
-import { motion } from 'framer-motion'
+import { useState, useEffect, useRef } from 'react'
+import { motion, useInView } from 'framer-motion'
 import SEO from '../components/SEO'
+
+const fadeUp = {
+  initial: { opacity: 0, y: 20 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true, margin: '-60px' },
+  transition: { duration: 0.5 },
+}
+
+const stagger = {
+  whileInView: { transition: { staggerChildren: 0.06 } },
+  viewport: { once: true, margin: '-60px' },
+}
 
 const PILLARS = [
   { num: '01', title: 'Disciplina antes que motivación', text: 'La motivación inspira; la disciplina transforma.' },
@@ -10,6 +23,21 @@ const PILLARS = [
 ]
 
 export default function Nosotros() {
+  const [count, setCount] = useState(0)
+  const pillarsRef = useRef(null)
+  const isInView = useInView(pillarsRef, { once: true, margin: '-100px' })
+
+  useEffect(() => {
+    if (!isInView) return
+    let current = 0
+    const interval = setInterval(() => {
+      current++
+      setCount(current)
+      if (current >= 5) clearInterval(interval)
+    }, 150)
+    return () => clearInterval(interval)
+  }, [isInView])
+
   return (
     <>
       <SEO
@@ -21,13 +49,13 @@ export default function Nosotros() {
       <section className="pt-36 pb-24 bg-[var(--canvas)]">
         <div className="mx-auto max-w-7xl px-5 md:px-8">
           <p className="eyebrow mb-3">Nuestra filosofía</p>
-          <h1 className="display text-4xl md:text-6xl text-white mb-16">
+          <motion.h1 {...fadeUp} className="display text-4xl md:text-6xl text-white mb-16">
             En un mundo que admira lo extraordinario, nosotros admiramos lo constante.
-          </h1>
+          </motion.h1>
 
           {/* Misión / Visión / Propósito */}
-          <div className="grid md:grid-cols-3 gap-px bg-white/10 mb-20">
-            <div className="bg-[var(--canvas)] p-8">
+          <motion.div {...stagger} className="grid md:grid-cols-3 gap-px bg-white/10 mb-20">
+            <motion.div {...fadeUp} className="bg-[var(--canvas)] p-8">
               <p className="eyebrow mb-3">Misión</p>
               <p className="text-neutral-300 text-sm leading-relaxed">
                 Despertar el héroe que existe en cada persona a través de la disciplina, el entrenamiento y una comunidad
@@ -35,28 +63,28 @@ export default function Nosotros() {
                 espacio donde cada entrenamiento fortalece el carácter, donde cada pequeño progreso importa y donde las
                 personas descubren que el verdadero poder nace de la constancia.
               </p>
-            </div>
-            <div className="bg-[var(--canvas)] p-8">
+            </motion.div>
+            <motion.div {...fadeUp} className="bg-[var(--canvas)] p-8">
               <p className="eyebrow mb-3">Visión</p>
               <p className="text-neutral-300 text-sm leading-relaxed">
                 Convertirnos en la comunidad fitness más inspiradora de Venezuela y un referente latinoamericano de cómo
                 una marca puede transformar vidas a través de la disciplina. Queremos demostrar que un gimnasio puede ser
                 mucho más que un lugar para hacer ejercicio.
               </p>
-            </div>
-            <div className="bg-[var(--canvas)] p-8">
+            </motion.div>
+            <motion.div {...fadeUp} className="bg-[var(--canvas)] p-8">
               <p className="eyebrow mb-3">Propósito</p>
               <p className="text-neutral-300 text-sm leading-relaxed">
                 Recordarle a las personas que los héroes sí existen. No aparecen en películas. No llevan capa. Llevan
                 uniforme de trabajo, llegan cansados después de una jornada difícil, cuidan a su familia, superan
                 pérdidas, empiezan de nuevo — y aun así deciden entrenar.
               </p>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
 
           {/* Filosofía */}
-          <div className="grid md:grid-cols-2 gap-12 mb-20">
-            <div className="space-y-5 text-neutral-300 leading-relaxed">
+          <motion.div {...stagger} className="grid md:grid-cols-2 gap-12 mb-20">
+            <motion.div {...fadeUp} className="space-y-5 text-neutral-300 leading-relaxed">
               <p>
                 En un mundo que admira lo extraordinario, nosotros admiramos lo constante: a quien se levanta temprano, a
                 quien cumple su palabra, a quien sigue adelante cuando nadie está mirando, a quien vuelve después de haber
@@ -67,8 +95,8 @@ export default function Nosotros() {
                 Por eso cada repetición importa, cada gota de sudor importa, cada pequeño avance importa. Porque el héroe
                 no aparece el día que alcanza su meta: empieza a existir el día que decide no rendirse.
               </p>
-            </div>
-            <div className="border border-white/10 bg-[var(--surface)] p-10 flex flex-col justify-center">
+            </motion.div>
+            <motion.div {...fadeUp} className="border border-white/10 bg-[var(--surface)] p-10 flex flex-col justify-center">
               <p className="display text-3xl md:text-4xl text-white leading-tight mb-6">
                 "XGYM. El <span className="text-[var(--accent)]">hábito</span> forja héroes."
               </p>
@@ -76,27 +104,23 @@ export default function Nosotros() {
                 "XGYM no existe para fabricar atletas. Existe para formar{' '}
                 <span className="text-[var(--accent)]">personas más fuertes para la vida</span>."
               </p>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
 
           {/* Pilares */}
-          <h2 className="display text-3xl text-white mb-8">Los cinco pilares de XGYM</h2>
-          <div className="grid md:grid-cols-5 gap-px bg-white/10 mb-20">
-            {PILLARS.map((p) => (
-              <div key={p.num} className="bg-[var(--canvas)] p-6">
-                <motion.span
-                  initial={{ opacity: 0, y: 10 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: '-50px' }}
-                  transition={{ duration: 0.4 }}
-                  className="font-mono text-[var(--accent)] text-lg font-bold block"
-                >
-                  {p.num}
-                </motion.span>
-                <h3 className="text-white font-semibold mt-3 mb-2 text-sm leading-snug">{p.title}</h3>
-                <p className="text-[var(--muted)] text-xs leading-relaxed">{p.text}</p>
-              </div>
-            ))}
+          <div ref={pillarsRef}>
+            <h2 className="display text-3xl text-white mb-8">Los cinco pilares de XGYM</h2>
+            <div className="grid md:grid-cols-5 gap-px bg-white/10 mb-20">
+              {PILLARS.map((p, i) => (
+                <div key={p.num} className="bg-[var(--canvas)] p-6">
+                  <span className={`font-mono text-lg font-bold transition-all duration-300 ${i < count ? 'text-[var(--accent)] opacity-100' : 'text-transparent opacity-0'}`}>
+                    {p.num}
+                  </span>
+                  <h3 className="text-white font-semibold mt-3 mb-2 text-sm leading-snug">{p.title}</h3>
+                  <p className="text-[var(--muted)] text-xs leading-relaxed">{p.text}</p>
+                </div>
+              ))}
+            </div>
           </div>
 
           {/* PENDIENTE (no visible en el sitio): insertar aquí, tal cual, el texto oficial de

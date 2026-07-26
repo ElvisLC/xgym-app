@@ -1,4 +1,17 @@
+import { motion } from 'framer-motion'
 import SEO from '../components/SEO'
+
+const fadeUp = {
+  initial: { opacity: 0, y: 20 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true, margin: '-60px' },
+  transition: { duration: 0.5 },
+}
+
+const stagger = {
+  whileInView: { transition: { staggerChildren: 0.06 } },
+  viewport: { once: true, margin: '-60px' },
+}
 
 const TRAINERS = [
   { name: 'Alejandro ("Ale")', photo: '/entrenadores/alejandro.jpg', power: 'Levantar el ánimo antes que levantar el peso' },
@@ -29,15 +42,15 @@ export default function Entrenadores() {
       <section className="pt-36 pb-24 bg-[var(--canvas)]">
         <div className="mx-auto max-w-7xl px-5 md:px-8">
           <p className="eyebrow mb-3">El equipo</p>
-          <h1 className="display text-4xl md:text-6xl text-white mb-4">El equipo XGYM</h1>
+          <motion.h1 {...fadeUp} className="display text-4xl md:text-6xl text-white mb-4">El equipo XGYM</motion.h1>
           <p className="text-[var(--muted)] text-base md:text-lg max-w-2xl mb-16">
             Detrás de cada entrenamiento hay alguien que ya eligió ser su propio héroe todos los días. Este es nuestro equipo.
           </p>
 
           <h2 className="display text-3xl text-white mb-8">Personal trainers / monitores de sala</h2>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-20">
+          <motion.div {...stagger} className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-20">
             {TRAINERS.map((t) => (
-              <div key={t.name} className="border border-white/10 bg-[var(--surface)] overflow-hidden group">
+              <motion.div {...fadeUp} key={t.name} className="border border-white/10 bg-[var(--surface)] overflow-hidden group">
                 <div className="aspect-[2/3] overflow-hidden">
                   <img
                     src={t.photo}
@@ -54,9 +67,9 @@ export default function Entrenadores() {
                   <p className="eyebrow mb-1">Poder</p>
                   <p className="text-[var(--muted)] text-sm italic leading-snug">{t.power}</p>
                 </div>
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
 
           <p className="text-[var(--subtle)] text-xs mb-20 max-w-2xl">
             * El Johan de este equipo es una persona distinta del Johan instructor de clases de salón. Mismo nombre, dos
@@ -67,16 +80,16 @@ export default function Entrenadores() {
           {/* <p className="text-[var(--subtle)] text-sm mb-8 max-w-2xl">
             Por ahora, solo con nombre y horario — sus fotos y "Poder" se agregan en una fase posterior.
           </p> */}
-          <div className="grid sm:grid-cols-2 gap-4">
-            <div className="border border-white/10 bg-[var(--surface)] p-6">
+          <motion.div {...stagger} className="grid sm:grid-cols-2 gap-4">
+            <motion.div {...fadeUp} className="border border-white/10 bg-[var(--surface)] p-6">
               <p className="eyebrow mb-3">Indoor Cycling</p>
               <p className="text-neutral-300 text-sm">{OTHER_INSTRUCTORS.cycling.join(' · ')}</p>
-            </div>
-            <div className="border border-white/10 bg-[var(--surface)] p-6">
+            </motion.div>
+            <motion.div {...fadeUp} className="border border-white/10 bg-[var(--surface)] p-6">
               <p className="eyebrow mb-3">Clases de salón</p>
               <p className="text-neutral-300 text-sm">{OTHER_INSTRUCTORS.salon.join(' · ')}</p>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
         </div>
       </section>
     </>

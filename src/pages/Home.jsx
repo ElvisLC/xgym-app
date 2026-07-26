@@ -6,6 +6,18 @@ import SEO from '../components/SEO'
 import { BRAND, waLink } from '../config'
 import { trackWhatsAppClick } from '../lib/analytics'
 
+const fadeUp = {
+  initial: { opacity: 0, y: 20 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true, margin: '-60px' },
+  transition: { duration: 0.5 },
+}
+
+const stagger = {
+  whileInView: { transition: { staggerChildren: 0.06 } },
+  viewport: { once: true, margin: '-60px' },
+}
+
 const VALUE_PROPS = [
   {
     title: 'Más energía es un superpoder.',
@@ -165,14 +177,14 @@ export default function Home() {
       {/* 1.2 PROPUESTA DE VALOR */}
       <section className="bg-[var(--canvas)] py-24 md:py-32">
         <div className="mx-auto max-w-7xl px-5 md:px-8">
-          <div className="grid md:grid-cols-2 gap-px bg-white/10">
+          <motion.div {...stagger} className="grid md:grid-cols-2 gap-px bg-white/10">
             {VALUE_PROPS.map((v) => (
-              <div key={v.title} className="bg-[var(--canvas)] p-8 md:p-10">
+              <motion.div key={v.title} {...fadeUp} className="bg-[var(--canvas)] p-8 md:p-10">
                 <h2 className="text-white text-xl font-semibold mb-2">{v.title}</h2>
                 <p className="text-[var(--muted)] text-sm leading-relaxed">{v.text}</p>
-              </div>
+              </motion.div>
             ))}
-            <div className="bg-[var(--surface)] p-8 md:p-10 flex flex-col justify-center">
+            <motion.div {...fadeUp} className="bg-[var(--surface)] p-8 md:p-10 flex flex-col justify-center">
               <p className="display text-2xl md:text-3xl text-white leading-tight mb-4">
                 No vendemos cuerpos perfectos. Construimos <span className="text-[var(--accent)]">héroes reales</span>.
               </p>
@@ -185,19 +197,19 @@ export default function Home() {
               >
                 Quiero empezar <ArrowRight size={14} />
               </a>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
         </div>
       </section>
 
       {/* 1.3 GALERÍA */}
       <section className="bg-[var(--canvas-soft)] py-24 border-y border-white/5">
         <div className="mx-auto max-w-7xl px-5 md:px-8">
-          <p className="eyebrow mb-3">El espacio</p>
-          <h2 className="display text-4xl md:text-6xl text-white mb-10">Así se entrena en XGYM</h2>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <motion.p {...fadeUp} className="eyebrow mb-3">El espacio</motion.p>
+          <motion.h2 {...fadeUp} className="display text-4xl md:text-6xl text-white mb-10">Así se entrena en XGYM</motion.h2>
+          <motion.div {...stagger} className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {GALLERY.map((src, i) => (
-              <div key={i} className="aspect-[3/4] overflow-hidden border border-white/10">
+              <motion.div key={i} {...fadeUp} className="aspect-[3/4] overflow-hidden border border-white/10">
                 <img
                   src={src}
                   alt="Instalaciones y entrenamiento en XGYM"
@@ -207,37 +219,38 @@ export default function Home() {
                   height={533}
                   className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
                 />
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </section>
 
       {/* 1.4 BENEFICIOS */}
       <section className="bg-[var(--canvas)] py-24 md:py-32">
         <div className="mx-auto max-w-7xl px-5 md:px-8">
-          <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-6">
+          <motion.div {...stagger} className="grid sm:grid-cols-2 md:grid-cols-4 gap-6">
             {BENEFITS.map((b) => (
-              <div key={b.category} className="border border-white/10 bg-[var(--surface)] p-6">
+              <motion.div key={b.category} {...fadeUp} className="border border-white/10 bg-[var(--surface)] p-6">
                 <b.icon className="text-[var(--accent)] mb-4" size={26} strokeWidth={1.5} />
                 <p className="eyebrow mb-1">{b.category}</p>
                 <p className="text-white font-medium">{b.text}</p>
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </section>
 
       {/* 1.5 VISTA RÁPIDA DE PLANES */}
       <section className="bg-[var(--canvas-soft)] py-24 md:py-32 border-y border-white/5">
         <div className="mx-auto max-w-7xl px-5 md:px-8">
-          <p className="eyebrow mb-3">Membresías</p>
-          <h2 className="display text-4xl md:text-6xl text-white mb-10">Elige cómo entrenas</h2>
+          <motion.p {...fadeUp} className="eyebrow mb-3">Membresías</motion.p>
+          <motion.h2 {...fadeUp} className="display text-4xl md:text-6xl text-white mb-10">Elige cómo entrenas</motion.h2>
 
-          <div className="grid md:grid-cols-3 gap-6 mb-10">
+          <motion.div {...stagger} className="grid md:grid-cols-3 gap-6 mb-10">
             {PLANS_PREVIEW.map((p) => (
-              <div
+              <motion.div
                 key={p.name}
+                {...fadeUp}
                 className={`p-8 relative ${
                   p.featured
                     ? 'bg-[var(--surface)] border-2 border-[var(--accent)]'
@@ -255,9 +268,9 @@ export default function Home() {
                   <span className="text-[var(--subtle)] text-sm">{p.period}</span>
                 </div>
                 <p className="text-[var(--muted)] text-sm">{p.text}</p>
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
 
           <Link
             to="/planes"
@@ -271,7 +284,8 @@ export default function Home() {
 
       {/* 1.6 ACCESO RÁPIDO A HORARIOS */}
       <section className="bg-[var(--canvas)] py-16">
-        <div className="mx-auto max-w-7xl px-5 md:px-8 flex flex-col sm:flex-row items-center justify-between gap-6 border border-white/10 bg-[var(--surface)] p-8">
+        <div className="mx-auto max-w-7xl px-5 md:px-8">
+          <motion.div {...fadeUp} className="flex flex-col sm:flex-row items-center justify-between gap-6 border border-white/10 bg-[var(--surface)] p-8">
           <p className="font-mono text-white text-sm md:text-base text-center sm:text-left">
             Abrimos L-V {BRAND.hours.weekdays} · Sáb y feriados {BRAND.hours.weekend}
           </p>
@@ -282,26 +296,27 @@ export default function Home() {
             Ver horario completo
             <ArrowRight size={16} />
           </Link>
+        </motion.div>
         </div>
       </section>
 
       {/* 1.7 TESTIMONIOS */}
       <section className="bg-[var(--canvas)] py-24 md:py-32">
-        <div className="mx-auto max-w-3xl px-5 md:px-8 text-center">
+        <motion.div {...fadeUp} className="mx-auto max-w-3xl px-5 md:px-8 text-center">
           <p className="eyebrow mb-3">Comunidad</p>
           <h2 className="display text-3xl md:text-5xl text-white mb-4">
             Los primeros Héroes Fundadores ya están escribiendo su historia.
           </h2>
           <p className="text-[var(--muted)]">Muy pronto la contamos aquí.</p>
-        </div>
+        </motion.div>
       </section>
 
       {/* 1.8 MAPA */}
       <section className="bg-[var(--canvas-soft)] py-24 border-y border-white/5">
         <div className="mx-auto max-w-7xl px-5 md:px-8">
-          <p className="eyebrow mb-3">Ubicación</p>
-          <h2 className="display text-3xl md:text-5xl text-white mb-8">Encuéntranos en Catia</h2>
-          <div className="border border-white/10 aspect-video overflow-hidden">
+          <motion.p {...fadeUp} className="eyebrow mb-3">Ubicación</motion.p>
+          <motion.h2 {...fadeUp} className="display text-3xl md:text-5xl text-white mb-8">Encuéntranos en Catia</motion.h2>
+          <motion.div {...fadeUp} className="border border-white/10 aspect-video overflow-hidden">
             <iframe
               title="Ubicación de XGYM — CC La Laguna, Recta de Los Magallanes, Catia"
               src="https://www.google.com/maps?q=10.4917,-66.9664&z=17&output=embed"
@@ -309,16 +324,16 @@ export default function Home() {
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
             />
-          </div>
+          </motion.div>
         </div>
       </section>
 
       {/* 1.10 CIERRE FINAL */}
       <section className="bg-[var(--canvas)] py-24">
         <div className="mx-auto max-w-4xl px-5 md:px-8 text-center">
-          <h2 className="display text-4xl md:text-6xl text-white mb-9">
+          <motion.h2 {...fadeUp} className="display text-4xl md:text-6xl text-white mb-9">
             Tu historia de <span className="text-[var(--accent)]">héroe</span> empieza aquí.
-          </h2>
+          </motion.h2>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a
               href={waLink('Hola, quiero empezar en XGYM')}

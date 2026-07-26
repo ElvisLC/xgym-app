@@ -1,4 +1,17 @@
+import { motion } from 'framer-motion'
 import SEO from '../components/SEO'
+
+const fadeUp = {
+  initial: { opacity: 0, y: 20 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true, margin: '-60px' },
+  transition: { duration: 0.5 },
+}
+
+const stagger = {
+  whileInView: { transition: { staggerChildren: 0.06 } },
+  viewport: { once: true, margin: '-60px' },
+}
 
 const JUICES = [
   { name: 'Loki', ingredients: 'Apio, piña, perejil, espinaca, pepino', tagline: 'Detox que despierta.' },
@@ -26,7 +39,7 @@ export default function FitBar() {
       <section className="pt-36 pb-24 bg-[var(--canvas)]">
         <div className="mx-auto max-w-7xl px-5 md:px-8">
           <p className="eyebrow mb-3">Fit Bar</p>
-          <h1 className="display text-4xl md:text-6xl text-white mb-4">Menú</h1>
+          <motion.h1 {...fadeUp} className="display text-4xl md:text-6xl text-white mb-4">Menú</motion.h1>
           <p className="display text-2xl text-[var(--accent)] mb-6">Fuerza. Energía. Resultados.</p>
           <p className="text-[var(--muted)] text-base md:text-lg max-w-2xl mb-16">
             Mezclas frescas y nutritivas. Combina lo que te hace bien. Impulsa lo que te hace grande.
@@ -38,29 +51,29 @@ export default function FitBar() {
             <h2 className="display text-3xl text-white">Jugos naturales</h2>
             <span className="font-mono text-[var(--accent)] text-lg">$1.80</span>
           </div>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-16">
+          <motion.div {...stagger} className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-16">
             {JUICES.map((j) => (
-              <div key={j.name} className="border border-white/10 bg-[var(--surface)] p-6">
+              <motion.div {...fadeUp} key={j.name} className="border border-white/10 bg-[var(--surface)] p-6">
                 <h3 className="text-white font-semibold text-lg mb-1">{j.name}</h3>
                 <p className="text-[var(--subtle)] text-xs mb-3">{j.ingredients}</p>
                 <p className="text-[var(--muted)] text-sm italic">{j.tagline}</p>
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
 
           {/* Batidos */}
           <div className="flex items-baseline justify-between mb-6">
             <h2 className="display text-3xl text-white">Batidos con proteína</h2>
             <span className="font-mono text-[var(--accent)] text-lg">$2.80</span>
           </div>
-          <div className="grid sm:grid-cols-3 gap-4 mb-16">
+          <motion.div {...stagger} className="grid sm:grid-cols-3 gap-4 mb-16">
             {SHAKES.map((s) => (
-              <div key={s.name} className="border border-white/10 bg-[var(--surface)] p-6">
+              <motion.div {...fadeUp} key={s.name} className="border border-white/10 bg-[var(--surface)] p-6">
                 <h3 className="text-white font-semibold text-lg mb-1">{s.name}</h3>
                 <p className="text-[var(--subtle)] text-xs">{s.ingredients}</p>
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
 
           {/* Nivel Héroe */}
           <div className="border-2 border-[var(--accent)] bg-[var(--surface)] p-8 mb-8">

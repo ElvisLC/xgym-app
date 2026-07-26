@@ -1,10 +1,23 @@
 import { useState } from 'react'
+import { motion } from 'framer-motion'
 import { MapPin, Phone, Send } from 'lucide-react'
 import Instagram from '../components/icons/InstagramIcon'
 import SEO from '../components/SEO'
 import SectionHeading from '../components/SectionHeading'
 import { BRAND } from '../config'
 import { trackFormSubmit } from '../lib/analytics'
+
+const fadeUp = {
+  initial: { opacity: 0, y: 20 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true, margin: '-60px' },
+  transition: { duration: 0.5 },
+}
+
+const stagger = {
+  whileInView: { transition: { staggerChildren: 0.06 } },
+  viewport: { once: true, margin: '-60px' },
+}
 
 export default function Contacto() {
   const [sent, setSent] = useState(false)
@@ -27,11 +40,13 @@ export default function Contacto() {
 
       <section className="pt-36 pb-24 bg-[var(--canvas)]">
         <div className="mx-auto max-w-7xl px-5 md:px-8">
-          <SectionHeading
-            eyebrow="Hablemos"
-            title="¿Listo para empezar?"
-            description="Estamos a un mensaje de distancia."
-          />
+          <motion.div {...fadeUp}>
+            <SectionHeading
+              eyebrow="Hablemos"
+              title="¿Listo para empezar?"
+              description="Estamos a un mensaje de distancia."
+            />
+          </motion.div>
 
           <div className="grid lg:grid-cols-2 gap-10">
             {/* Info + mapa */}
@@ -105,8 +120,8 @@ export default function Contacto() {
                   </p>
                 </div>
               ) : (
-                <form onSubmit={handleSubmit} className="space-y-5">
-                  <div>
+                <motion.form {...stagger} onSubmit={handleSubmit} className="space-y-5">
+                  <motion.div {...fadeUp}>
                     <label htmlFor="name" className="block text-sm text-neutral-300 mb-2">
                       Nombre
                     </label>
@@ -118,8 +133,8 @@ export default function Contacto() {
                       className="w-full bg-[var(--canvas)] border border-white/15 px-4 py-3 text-white focus:border-[var(--accent)] outline-none"
                       placeholder="Tu nombre"
                     />
-                  </div>
-                  <div>
+                  </motion.div>
+                  <motion.div {...fadeUp}>
                     <label htmlFor="phone" className="block text-sm text-neutral-300 mb-2">
                       Teléfono
                     </label>
@@ -131,8 +146,8 @@ export default function Contacto() {
                       className="w-full bg-[var(--canvas)] border border-white/15 px-4 py-3 text-white focus:border-[var(--accent)] outline-none"
                       placeholder="0414 000 0000"
                     />
-                  </div>
-                  <div>
+                  </motion.div>
+                  <motion.div {...fadeUp}>
                     <label htmlFor="reason" className="block text-sm text-neutral-300 mb-2">
                       Motivo
                     </label>
@@ -149,8 +164,8 @@ export default function Contacto() {
                       <option value="indoor-cycling">Indoor Cycling</option>
                       <option value="otro">Otro</option>
                     </select>
-                  </div>
-                  <div>
+                  </motion.div>
+                  <motion.div {...fadeUp}>
                     <label htmlFor="message" className="block text-sm text-neutral-300 mb-2">
                       Mensaje
                     </label>
@@ -162,15 +177,17 @@ export default function Contacto() {
                       className="w-full bg-[var(--canvas)] border border-white/15 px-4 py-3 text-white focus:border-[var(--accent)] outline-none resize-none"
                       placeholder="Cuéntanos qué necesitas"
                     />
-                  </div>
-                  <button
-                    type="submit"
-                    className="w-full inline-flex items-center justify-center gap-2 bg-[var(--accent)] text-black font-semibold px-6 py-3.5 x-cut hover:bg-[var(--accent-dim)] transition-colors"
-                  >
-                    Enviar mensaje
-                    <Send size={16} />
-                  </button>
-                </form>
+                  </motion.div>
+                  <motion.div {...fadeUp}>
+                    <button
+                      type="submit"
+                      className="w-full inline-flex items-center justify-center gap-2 bg-[var(--accent)] text-black font-semibold px-6 py-3.5 x-cut hover:bg-[var(--accent-dim)] transition-colors"
+                    >
+                      Enviar mensaje
+                      <Send size={16} />
+                    </button>
+                  </motion.div>
+                </motion.form>
               )}
             </div>
           </div>

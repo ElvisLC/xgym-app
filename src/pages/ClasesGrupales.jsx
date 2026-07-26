@@ -1,4 +1,12 @@
 import SEO from '../components/SEO'
+import { motion } from 'framer-motion'
+
+const fadeUp = {
+  initial: { opacity: 0, y: 20 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true, margin: '-60px' },
+  transition: { duration: 0.5 },
+}
 
 const DAYS = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado']
 
@@ -35,7 +43,7 @@ export default function ClasesGrupales() {
       <section className="pt-36 pb-24 bg-[var(--canvas)]">
         <div className="mx-auto max-w-7xl px-5 md:px-8">
           <p className="eyebrow mb-3">Salón</p>
-          <h1 className="display text-4xl md:text-6xl text-white mb-6">Programación de la semana</h1>
+          <motion.h1 {...fadeUp} className="display text-4xl md:text-6xl text-white mb-6">Programación de la semana</motion.h1>
           <p className="text-[var(--muted)] text-base md:text-lg max-w-2xl mb-2">
             Héroe, aquí tienes tu ruta semanal. Cada clase es una oportunidad de entrenar tu cuerpo, tu mente y tu carácter.
             Elige tu hora, aparece, y haz que cuente.
@@ -44,7 +52,7 @@ export default function ClasesGrupales() {
             Incluidas en tu mensualidad · Clase individual $2
           </p>
 
-          <div className="overflow-x-auto border border-white/10 mb-4">
+          <motion.div {...fadeUp} className="overflow-x-auto border border-white/10 mb-4">
             <table className="w-full min-w-[760px] border-collapse font-mono text-sm">
               <thead>
                 <tr className="bg-[var(--surface)]">
@@ -74,14 +82,14 @@ export default function ClasesGrupales() {
                 ))}
               </tbody>
             </table>
-          </div>
+          </motion.div>
 
           <p className="text-[var(--subtle)] text-xs mb-14">
             * Hay dos instructores llamados "Johan" en XGYM (este de clases de salón, y uno distinto entre los personal
             trainers) — son personas diferentes.
           </p>
 
-          <p className="display text-3xl text-white">Elige tu hora. <span className="text-[var(--accent)]">Aparece.</span></p>
+          <motion.p {...fadeUp} className="display text-3xl text-white">Elige tu hora. <span className="text-[var(--accent)]">Aparece.</span></motion.p>
         </div>
       </section>
     </>

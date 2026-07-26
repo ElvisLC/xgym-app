@@ -1,8 +1,16 @@
 import { useState } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
 import { ChevronDown } from 'lucide-react'
 import SEO from '../components/SEO'
 import { waLink } from '../config'
 import { trackWhatsAppClick } from '../lib/analytics'
+
+const fadeUp = {
+  initial: { opacity: 0, y: 20 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true, margin: '-60px' },
+  transition: { duration: 0.5 },
+}
 
 const FAQS = [
   { q: '¿Dónde queda XGYM?', a: 'En Catia, Recta de Los Magallanes, CC La Laguna, piso 1.' },
@@ -56,7 +64,19 @@ function FaqItem({ q, a }) {
           className={`text-[var(--accent)] shrink-0 transition-transform ${open ? 'rotate-180' : ''}`}
         />
       </button>
-      {open && <p className="px-5 pb-5 text-[var(--muted)] text-sm leading-relaxed">{a}</p>}
+      <AnimatePresence>
+        {open && (
+          <motion.p
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="px-5 pb-5 text-[var(--muted)] text-sm leading-relaxed overflow-hidden"
+          >
+            {a}
+          </motion.p>
+        )}
+      </AnimatePresence>
     </div>
   )
 }
@@ -73,7 +93,7 @@ export default function FAQ() {
       <section className="pt-36 pb-24 bg-[var(--canvas)]">
         <div className="mx-auto max-w-4xl px-5 md:px-8">
           <p className="eyebrow mb-3">Dudas comunes</p>
-          <h1 className="display text-4xl md:text-6xl text-white mb-14">Preguntas frecuentes</h1>
+          <motion.h1 {...fadeUp} className="display text-4xl md:text-6xl text-white mb-14">Preguntas frecuentes</motion.h1>
 
           <div className="space-y-3 mb-16">
             {FAQS.map((f) => (
