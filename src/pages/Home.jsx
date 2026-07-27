@@ -61,15 +61,16 @@ const GALLERY = [
   },
 ]
 
-// Tarjeta de propuesta de valor: fade + escala sutil, con cascada por posición.
+// Tarjeta de propuesta de valor: slide desde la izquierda/derecha alternado, con cascada.
 function ValueCard({ index, className = '', children }) {
   const [ref, inView] = useInView()
+  const fromLeft = index % 2 === 0
   return (
     <div
       ref={ref}
-      style={{ transitionDelay: inView ? `${index * 100}ms` : '0ms' }}
-      className={`transition-[opacity,scale] duration-600 ease-[cubic-bezier(0.4,0,0.2,1)] ${
-        inView ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
+      style={{ transitionDelay: inView ? `${index * 80}ms` : '0ms' }}
+      className={`transition-[opacity,transform] duration-600 ease-[cubic-bezier(0.4,0,0.2,1)] ${
+        inView ? 'opacity-100 translate-x-0' : `opacity-0 ${fromLeft ? '-translate-x-8' : 'translate-x-8'}`
       } ${className}`}
     >
       {children}
@@ -77,15 +78,15 @@ function ValueCard({ index, className = '', children }) {
   )
 }
 
-// Foto de galería: fade + zoom-out suave, con cascada por posición.
+// Foto de galería: zoom-out suave + rotación sutil, con cascada.
 function GalleryImage({ index, img }) {
   const [ref, inView] = useInView()
   return (
     <div
       ref={ref}
-      style={{ transitionDelay: inView ? `${index * 100}ms` : '0ms' }}
-      className={`transition-[opacity,scale] duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] ${
-        inView ? 'opacity-100 scale-100' : 'opacity-0 scale-105'
+      style={{ transitionDelay: inView ? `${index * 120}ms` : '0ms' }}
+      className={`transition-[opacity,transform] duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] ${
+        inView ? 'opacity-100 scale-100 rotate-0' : 'opacity-0 scale-110 rotate-2'
       } aspect-[3/4] overflow-hidden border border-white/10`}
     >
       <img
@@ -101,15 +102,15 @@ function GalleryImage({ index, img }) {
   )
 }
 
-// Tarjeta de beneficio: fade + escala sutil, con cascada por posición.
+// Tarjeta de beneficio: pop-in con bounce sutil, con cascada.
 function BenefitCard({ index, benefit }) {
   const [ref, inView] = useInView()
   return (
     <div
       ref={ref}
       style={{ transitionDelay: inView ? `${index * 100}ms` : '0ms' }}
-      className={`transition-[opacity,scale] duration-600 ease-[cubic-bezier(0.4,0,0.2,1)] ${
-        inView ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
+      className={`transition-[opacity,transform] duration-500 ease-[cubic-bezier(0.34,1.2,0.64,1)] ${
+        inView ? 'opacity-100 scale-100' : 'opacity-0 scale-90'
       } border border-white/10 bg-[var(--surface)] p-6`}
     >
       <benefit.icon className="text-[var(--accent)] mb-4" size={26} strokeWidth={1.5} />
@@ -119,15 +120,15 @@ function BenefitCard({ index, benefit }) {
   )
 }
 
-// Tarjeta de vista rápida de plan: fade + escala sutil, con cascada por posición.
+// Tarjeta de vista rápida de plan: slide desde abajo con fade, con cascada.
 function PlanPreviewCard({ index, plan }) {
   const [ref, inView] = useInView()
   return (
     <div
       ref={ref}
-      style={{ transitionDelay: inView ? `${index * 100}ms` : '0ms' }}
-      className={`transition-[opacity,scale] duration-600 ease-[cubic-bezier(0.4,0,0.2,1)] ${
-        inView ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
+      style={{ transitionDelay: inView ? `${index * 120}ms` : '0ms' }}
+      className={`transition-[opacity,transform] duration-600 ease-[cubic-bezier(0.4,0,0.2,1)] ${
+        inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
       } p-8 relative ${
         plan.featured
           ? 'bg-[var(--surface)] border-2 border-[var(--accent)]'
@@ -303,8 +304,8 @@ export default function Home() {
           </p>
           <h2
             style={{ transitionDelay: galleryTitleInView ? '100ms' : '0ms' }}
-            className={`transition-[opacity,translate] duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] ${
-              galleryTitleInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'
+            className={`transition-[opacity,transform] duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] ${
+              galleryTitleInView ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-12'
             } display text-4xl md:text-6xl text-white mb-10`}
           >
             Así se entrena en XGYM
@@ -341,8 +342,8 @@ export default function Home() {
           </p>
           <h2
             style={{ transitionDelay: plansTitleInView ? '100ms' : '0ms' }}
-            className={`transition-[opacity,translate] duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] ${
-              plansTitleInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'
+            className={`transition-[opacity,transform] duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] ${
+              plansTitleInView ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-12'
             } display text-4xl md:text-6xl text-white mb-10`}
           >
             Elige cómo entrenas
@@ -369,8 +370,8 @@ export default function Home() {
         <div className="mx-auto max-w-7xl px-5 md:px-8">
           <div
             ref={schedulesRef}
-            className={`transition-opacity duration-500 ${
-              schedulesInView ? 'opacity-100' : 'opacity-0'
+            className={`transition-[opacity,transform] duration-600 ease-[cubic-bezier(0.4,0,0.2,1)] ${
+              schedulesInView ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-12'
             } flex flex-col sm:flex-row items-center justify-between gap-6 border border-white/10 bg-[var(--surface)] p-8`}
           >
           <p className="font-mono text-white text-sm md:text-base text-center sm:text-left">
@@ -391,8 +392,8 @@ export default function Home() {
       <section className="bg-[var(--canvas)] py-24 md:py-32">
         <div
           ref={testimonialsRef}
-          className={`transition-[opacity,translate] duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] ${
-            testimonialsInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'
+          className={`transition-[opacity,transform] duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] ${
+            testimonialsInView ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
           } mx-auto max-w-3xl px-5 md:px-8 text-center`}
         >
           <p className="eyebrow mb-3">Comunidad</p>
@@ -416,16 +417,16 @@ export default function Home() {
           </p>
           <h2
             style={{ transitionDelay: mapTitleInView ? '100ms' : '0ms' }}
-            className={`transition-[opacity,translate] duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] ${
-              mapTitleInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'
+            className={`transition-[opacity,transform] duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] ${
+              mapTitleInView ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-12'
             } display text-3xl md:text-5xl text-white mb-8`}
           >
             Encuéntranos en Catia
           </h2>
           <div
             ref={mapRef}
-            className={`transition-opacity duration-500 ${
-              mapInView ? 'opacity-100' : 'opacity-0'
+            className={`transition-[opacity,transform] duration-600 ease-[cubic-bezier(0.4,0,0.2,1)] ${
+              mapInView ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
             } border border-white/10 aspect-video overflow-hidden`}
           >
             <iframe
@@ -445,8 +446,8 @@ export default function Home() {
         <div className="mx-auto max-w-4xl px-5 md:px-8 text-center">
           <h2
             ref={closingRef}
-            className={`transition-[opacity,translate] duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] ${
-              closingInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'
+            className={`transition-[opacity,transform] duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] ${
+              closingInView ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
             } display text-4xl md:text-6xl text-white mb-9`}
           >
             Tu historia de <span className="text-[var(--accent)]">héroe</span> empieza aquí.

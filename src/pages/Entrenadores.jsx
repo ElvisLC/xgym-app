@@ -18,15 +18,15 @@ const OTHER_INSTRUCTORS = {
   salon: ['Alex', 'Reimer', 'Brayan', 'Elvis', 'Johan', 'Miguel Ángel'],
 }
 
-// Tarjeta de entrenador: fade + escala sutil, con cascada por posición en la grilla.
+// Tarjeta de entrenador: slide desde abajo con bounce, con cascada por posición en la grilla.
 function TrainerCard({ index, trainer }) {
   const [ref, inView] = useInView()
   return (
     <div
       ref={ref}
-      style={{ transitionDelay: inView ? `${index * 100}ms` : '0ms' }}
-      className={`transition-[opacity,scale] duration-600 ease-[cubic-bezier(0.4,0,0.2,1)] ${
-        inView ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
+      style={{ transitionDelay: inView ? `${index * 80}ms` : '0ms' }}
+      className={`transition-[opacity,transform] duration-500 ease-[cubic-bezier(0.34,1.2,0.64,1)] ${
+        inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
       } border border-white/10 bg-[var(--surface)] overflow-hidden group`}
     >
       <div className="aspect-[2/3] overflow-hidden">
@@ -49,15 +49,15 @@ function TrainerCard({ index, trainer }) {
   )
 }
 
-// Tarjeta de instructores (Indoor Cycling / salón): fade + escala sutil.
+// Tarjeta de instructores (Indoor Cycling / salón): slide desde la izquierda.
 function InstructorsCard({ index, className = '', children }) {
   const [ref, inView] = useInView()
   return (
     <div
       ref={ref}
-      style={{ transitionDelay: inView ? `${index * 100}ms` : '0ms' }}
-      className={`transition-[opacity,scale] duration-600 ease-[cubic-bezier(0.4,0,0.2,1)] ${
-        inView ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
+      style={{ transitionDelay: inView ? `${index * 80}ms` : '0ms' }}
+      className={`transition-[opacity,transform] duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] ${
+        inView ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-8'
       } ${className}`}
     >
       {children}
@@ -81,8 +81,8 @@ export default function Entrenadores() {
           <p className="eyebrow mb-3">El equipo</p>
           <h1
             ref={titleRef}
-            className={`transition-[opacity,translate] duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] ${
-              titleInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'
+            className={`transition-[opacity,transform] duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] ${
+              titleInView ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-12'
             } display text-4xl md:text-6xl text-white mb-4`}
           >
             El equipo XGYM

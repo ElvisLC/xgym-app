@@ -9,15 +9,15 @@ const PILLARS = [
   { num: '05', title: 'El progreso es para toda la vida', text: 'No buscamos cambios de treinta días; buscamos personas que construyan hábitos capaces de acompañarlas durante años.' },
 ]
 
-// Tarjeta Misión/Visión/Propósito: fade + escala sutil, con cascada por posición.
+// Tarjeta Misión/Visión/Propósito: slide desde abajo, con cascada por posición.
 function PillarGroupCard({ index, children }) {
   const [ref, inView] = useInView()
   return (
     <div
       ref={ref}
-      style={{ transitionDelay: inView ? `${index * 100}ms` : '0ms' }}
-      className={`transition-[opacity,scale] duration-600 ease-[cubic-bezier(0.4,0,0.2,1)] ${
-        inView ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
+      style={{ transitionDelay: inView ? `${index * 80}ms` : '0ms' }}
+      className={`transition-[opacity,transform] duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] ${
+        inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
       } bg-[var(--canvas)] p-8`}
     >
       {children}
@@ -44,8 +44,8 @@ export default function Nosotros() {
           <p className="eyebrow mb-3">Nuestra filosofía</p>
           <h1
             ref={titleRef}
-            className={`transition-[opacity,translate] duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] ${
-              titleInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'
+            className={`transition-[opacity,transform] duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] ${
+              titleInView ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-12'
             } display text-4xl md:text-6xl text-white mb-16`}
           >
             En un mundo que admira lo extraordinario, nosotros admiramos lo constante.
@@ -102,8 +102,8 @@ export default function Nosotros() {
             <div
               ref={quoteRef}
               style={{ transitionDelay: quoteInView ? '100ms' : '0ms' }}
-              className={`transition-[opacity,scale] duration-600 ease-[cubic-bezier(0.4,0,0.2,1)] ${
-                quoteInView ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
+              className={`transition-[opacity,transform] duration-600 ease-[cubic-bezier(0.4,0,0.2,1)] ${
+                quoteInView ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-12'
               } border border-white/10 bg-[var(--surface)] p-10 flex flex-col justify-center`}
             >
               <p className="display text-3xl md:text-4xl text-white leading-tight mb-6">
@@ -119,8 +119,8 @@ export default function Nosotros() {
           {/* Pilares */}
           <div
             ref={pillarsRef}
-            className={`transition-[opacity,translate] duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] ${
-              pillarsInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'
+            className={`transition-[opacity,transform] duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] ${
+              pillarsInView ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
             }`}
           >
             <h2 className="display text-3xl text-white mb-8">Los cinco pilares de XGYM</h2>

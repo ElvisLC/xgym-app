@@ -7,15 +7,15 @@ import { useInView } from '../lib/useInView'
 import { BRAND } from '../config'
 import { trackFormSubmit } from '../lib/analytics'
 
-// Campo de formulario: fade + elevación mínima, con cascada por posición.
+// Campo de formulario: slide desde la derecha, con cascada por posición.
 function FormField({ index, children }) {
   const [ref, inView] = useInView()
   return (
     <div
       ref={ref}
-      style={{ transitionDelay: inView ? `${index * 100}ms` : '0ms' }}
-      className={`transition-[opacity,translate] duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] ${
-        inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-1'
+      style={{ transitionDelay: inView ? `${index * 80}ms` : '0ms' }}
+      className={`transition-[opacity,transform] duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] ${
+        inView ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-6'
       }`}
     >
       {children}
@@ -48,8 +48,8 @@ export default function Contacto() {
         <div className="mx-auto max-w-7xl px-5 md:px-8">
           <div
             ref={headingRef}
-            className={`transition-[opacity,translate] duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] ${
-              headingInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'
+            className={`transition-[opacity,transform] duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] ${
+              headingInView ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-12'
             }`}
           >
             <SectionHeading
@@ -194,8 +194,8 @@ export default function Contacto() {
                   <div
                     ref={submitRef}
                     style={{ transitionDelay: submitInView ? '400ms' : '0ms' }}
-                    className={`transition-[opacity,scale] duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] ${
-                      submitInView ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
+                    className={`transition-[opacity,transform] duration-500 ease-[cubic-bezier(0.34,1.2,0.64,1)] ${
+                      submitInView ? 'opacity-100 scale-100' : 'opacity-0 scale-90'
                     }`}
                   >
                     <button

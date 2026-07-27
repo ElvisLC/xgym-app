@@ -40,8 +40,8 @@ export default function ClasesGrupales() {
           <p className="eyebrow mb-3">Salón</p>
           <h1
             ref={titleRef}
-            className={`transition-[opacity,translate] duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] ${
-              titleInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'
+            className={`transition-[opacity,transform] duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] ${
+              titleInView ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-12'
             } display text-4xl md:text-6xl text-white mb-6`}
           >
             Programación de la semana
@@ -56,8 +56,8 @@ export default function ClasesGrupales() {
 
           <div
             ref={tableRef}
-            className={`transition-opacity duration-500 ${
-              tableInView ? 'opacity-100' : 'opacity-0'
+            className={`transition-[opacity,transform] duration-600 ease-[cubic-bezier(0.4,0,0.2,1)] ${
+              tableInView ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
             } overflow-x-auto border border-white/10 mb-4`}
           >
             <table aria-label="Horario de clases grupales" className="w-full min-w-[760px] border-collapse font-mono text-sm">
@@ -94,8 +94,8 @@ export default function ClasesGrupales() {
 
           <p
             ref={closingRef}
-            className={`transition-[opacity,translate] duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] ${
-              closingInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'
+            className={`transition-[opacity,transform] duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] ${
+              closingInView ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-12'
             } display text-3xl text-white`}
           >
             Elige tu hora. <span className="text-[var(--accent)]">Aparece.</span>

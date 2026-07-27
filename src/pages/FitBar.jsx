@@ -15,15 +15,15 @@ const SHAKES = [
   { name: 'Reactor', ingredients: 'Cambur, manzana, avena + proteína' },
 ]
 
-// Tarjeta de menú: fade + escala sutil, con cascada por posición en la grilla.
+// Tarjeta de menú: slide desde la derecha, con cascada por posición en la grilla.
 function MenuCard({ index, children }) {
   const [ref, inView] = useInView()
   return (
     <div
       ref={ref}
-      style={{ transitionDelay: inView ? `${index * 100}ms` : '0ms' }}
-      className={`transition-[opacity,scale] duration-600 ease-[cubic-bezier(0.4,0,0.2,1)] ${
-        inView ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
+      style={{ transitionDelay: inView ? `${index * 80}ms` : '0ms' }}
+      className={`transition-[opacity,transform] duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] ${
+        inView ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-8'
       } border border-white/10 bg-[var(--surface)] p-6`}
     >
       {children}
@@ -47,8 +47,8 @@ export default function FitBar() {
           <p className="eyebrow mb-3">Fit Bar</p>
           <h1
             ref={titleRef}
-            className={`transition-[opacity,translate] duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] ${
-              titleInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'
+            className={`transition-[opacity,transform] duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] ${
+              titleInView ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-12'
             } display text-4xl md:text-6xl text-white mb-4`}
           >
             Menú

@@ -5,15 +5,15 @@ import { useInView } from '../lib/useInView'
 import { BRAND, waLink } from '../config'
 import { trackWhatsAppClick } from '../lib/analytics'
 
-// Tarjeta de horario/enlace: fade + escala sutil, con cascada por posición.
+// Tarjeta de horario/enlace: slide desde la derecha, con cascada por posición.
 function InfoCard({ index, className = '', children }) {
   const [ref, inView] = useInView()
   return (
     <div
       ref={ref}
-      style={{ transitionDelay: inView ? `${index * 100}ms` : '0ms' }}
-      className={`transition-[opacity,scale] duration-600 ease-[cubic-bezier(0.4,0,0.2,1)] ${
-        inView ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
+      style={{ transitionDelay: inView ? `${index * 80}ms` : '0ms' }}
+      className={`transition-[opacity,transform] duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] ${
+        inView ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-8'
       } ${className}`}
     >
       {children}
@@ -37,8 +37,8 @@ export default function Horarios() {
           <p className="eyebrow mb-3">Agenda</p>
           <h1
             ref={titleRef}
-            className={`transition-[opacity,translate] duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] ${
-              titleInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'
+            className={`transition-[opacity,transform] duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] ${
+              titleInView ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-12'
             } display text-4xl md:text-6xl text-white mb-14`}
           >
             Horarios

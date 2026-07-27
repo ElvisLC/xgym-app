@@ -27,15 +27,15 @@ const LEVELS = [
   { level: 'Master', meaning: 'Mayor tiempo/experiencia dando la modalidad' },
 ]
 
-// Tarjeta de precio/nivel: fade + escala sutil, con cascada por posición.
+// Tarjeta de precio/nivel: slide desde la izquierda, con cascada por posición.
 function InfoCard({ index, children }) {
   const [ref, inView] = useInView()
   return (
     <div
       ref={ref}
-      style={{ transitionDelay: inView ? `${index * 100}ms` : '0ms' }}
-      className={`transition-[opacity,scale] duration-600 ease-[cubic-bezier(0.4,0,0.2,1)] ${
-        inView ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
+      style={{ transitionDelay: inView ? `${index * 80}ms` : '0ms' }}
+      className={`transition-[opacity,transform] duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] ${
+        inView ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-8'
       } border border-white/10 bg-[var(--surface)] p-6`}
     >
       {children}
@@ -59,8 +59,8 @@ export default function IndoorCycling() {
           <p className="eyebrow mb-3">Modalidad Xtreme Bike</p>
           <h1
             ref={titleRef}
-            className={`transition-[opacity,translate] duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] ${
-              titleInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'
+            className={`transition-[opacity,transform] duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] ${
+              titleInView ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
             } display text-4xl md:text-6xl text-white mb-4`}
           >
             Indoor Cycling
