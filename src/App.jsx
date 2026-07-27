@@ -15,6 +15,7 @@ const Entrenadores = lazy(() => import('./pages/Entrenadores'))
 const Nosotros = lazy(() => import('./pages/Nosotros'))
 const Contacto = lazy(() => import('./pages/Contacto'))
 const FAQ = lazy(() => import('./pages/FAQ'))
+const NotFound = lazy(() => import('./pages/NotFound'))
 
 function ScrollToTop() {
   const { pathname } = useLocation()
@@ -43,6 +44,7 @@ export default function App() {
           <Route path="/nosotros" element={<Nosotros />} />
           <Route path="/contacto" element={<Contacto />} />
           <Route path="/preguntas-frecuentes" element={<FAQ />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
         </Suspense>
       </main>

@@ -3,18 +3,7 @@ import { motion } from 'framer-motion'
 import SEO from '../components/SEO'
 import { waLink } from '../config'
 import { trackWhatsAppClick } from '../lib/analytics'
-
-const fadeUp = {
-  initial: { opacity: 0, y: 20 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true, margin: '-60px' },
-  transition: { duration: 0.5 },
-}
-
-const stagger = {
-  whileInView: { transition: { staggerChildren: 0.06 } },
-  viewport: { once: true, margin: '-60px' },
-}
+import { fadeUp, stagger } from '../lib/animations'
 
 const PRICES = [
   { option: 'Clase individual', price: '$4' },
@@ -96,12 +85,13 @@ export default function IndoorCycling() {
           {/* Horario */}
           <h2 className="display text-3xl text-white mb-6">Horario</h2>
           <div className="overflow-x-auto border border-white/10 mb-8">
-            <table className="w-full min-w-[720px] border-collapse font-mono text-sm">
+            <table aria-label="Horario de clases de Indoor Cycling" className="w-full min-w-[720px] border-collapse font-mono text-sm">
+              <caption className="sr-only">Horario semanal de Indoor Cycling por hora y día de la semana</caption>
               <thead>
                 <tr className="bg-[var(--surface)]">
-                  <th className="text-left text-[var(--subtle)] font-medium px-4 py-3 border-b border-white/10">Hora</th>
+                  <th scope="col" className="text-left text-[var(--subtle)] font-medium px-4 py-3 border-b border-white/10">Hora</th>
                   {DAYS.map((d) => (
-                    <th key={d} className="text-left text-[var(--subtle)] font-medium px-4 py-3 border-b border-white/10">
+                    <th scope="col" key={d} className="text-left text-[var(--subtle)] font-medium px-4 py-3 border-b border-white/10">
                       {d}
                     </th>
                   ))}

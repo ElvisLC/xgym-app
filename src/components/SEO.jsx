@@ -1,12 +1,12 @@
 import { Helmet } from 'react-helmet-async'
 
 const SITE = 'https://xgym.ve'
-const DEFAULT_IMAGE = `${SITE}/og-cover.jpg`
+const DEFAULT_IMAGE = 'https://pub-2b1a99696a104faeb4013550cdc9046e.r2.dev/web/xgym-logo.jpg'
 
 export default function SEO({ title, description, path = '/', image, keywords }) {
   const fullTitle = `${title} | XGYM`
   const url = `${SITE}${path}`
-  const ogImage = image ? `${SITE}${image}` : DEFAULT_IMAGE
+  const ogImage = image || DEFAULT_IMAGE
 
   return (
     <Helmet>

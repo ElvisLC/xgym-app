@@ -45,10 +45,6 @@ body {
   clip-path: polygon(12px 0, 100% 0, calc(100% - 12px) 100%, 0 100%);
 }
 
-.x-cut-left {
-  clip-path: polygon(0 0, 100% 0, 100% 100%, 12px 100%);
-}
-
 .eyebrow {
   font-family: var(--font-mono);
   letter-spacing: 0.18em;

@@ -6,18 +6,7 @@ import SEO from '../components/SEO'
 import SectionHeading from '../components/SectionHeading'
 import { BRAND } from '../config'
 import { trackFormSubmit } from '../lib/analytics'
-
-const fadeUp = {
-  initial: { opacity: 0, y: 20 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true, margin: '-60px' },
-  transition: { duration: 0.5 },
-}
-
-const stagger = {
-  whileInView: { transition: { staggerChildren: 0.06 } },
-  viewport: { once: true, margin: '-60px' },
-}
+import { fadeUp, stagger } from '../lib/animations'
 
 export default function Contacto() {
   const [sent, setSent] = useState(false)

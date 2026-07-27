@@ -1,17 +1,6 @@
 import { motion } from 'framer-motion'
 import SEO from '../components/SEO'
-
-const fadeUp = {
-  initial: { opacity: 0, y: 20 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true, margin: '-60px' },
-  transition: { duration: 0.5 },
-}
-
-const stagger = {
-  whileInView: { transition: { staggerChildren: 0.06 } },
-  viewport: { once: true, margin: '-60px' },
-}
+import { fadeUp, stagger } from '../lib/animations'
 
 const PILLARS = [
   { num: '01', title: 'Disciplina antes que motivación', text: 'La motivación inspira; la disciplina transforma.' },

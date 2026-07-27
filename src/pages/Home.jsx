@@ -5,18 +5,7 @@ import { ArrowRight, Zap, Dumbbell, Users, TrendingUp, Play } from 'lucide-react
 import SEO from '../components/SEO'
 import { BRAND, waLink } from '../config'
 import { trackWhatsAppClick } from '../lib/analytics'
-
-const fadeUp = {
-  initial: { opacity: 0, y: 20 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true, margin: '-60px' },
-  transition: { duration: 0.5 },
-}
-
-const stagger = {
-  whileInView: { transition: { staggerChildren: 0.06 } },
-  viewport: { once: true, margin: '-60px' },
-}
+import { fadeUp, stagger } from '../lib/animations'
 
 const VALUE_PROPS = [
   {
@@ -55,10 +44,22 @@ const PLANS_PREVIEW = [
 ]
 
 const GALLERY = [
-  'https://images.pexels.com/photos/29224211/pexels-photo-29224211.jpeg?auto=compress&cs=tinysrgb&w=500',
-  'https://images.pexels.com/photos/17227607/pexels-photo-17227607.jpeg?auto=compress&cs=tinysrgb&w=500',
-  'https://images.pexels.com/videos/6388405/pexels-photo-6388405.jpeg?auto=compress&cs=tinysrgb&w=500',
-  'https://assets.mixkit.co/videos/14661/14661-thumb-480-0.jpg',
+  {
+    src: 'https://images.pexels.com/photos/29224211/pexels-photo-29224211.jpeg?auto=compress&cs=tinysrgb&w=500',
+    alt: 'Entrenamiento de fuerza con pesas en zona de musculación',
+  },
+  {
+    src: 'https://images.pexels.com/photos/17227607/pexels-photo-17227607.jpeg?auto=compress&cs=tinysrgb&w=500',
+    alt: 'Mujer practicando yoga en el gimnasio',
+  },
+  {
+    src: 'https://images.pexels.com/videos/6388405/pexels-photo-6388405.jpeg?auto=compress&cs=tinysrgb&w=500',
+    alt: 'Sesión de entrenamiento funcional en grupo',
+  },
+  {
+    src: 'https://assets.mixkit.co/videos/14661/14661-thumb-480-0.jpg',
+    alt: 'Cardio intensivo en cinta de correr',
+  },
 ]
 
 export default function Home() {
@@ -208,11 +209,11 @@ export default function Home() {
           <motion.p {...fadeUp} className="eyebrow mb-3">El espacio</motion.p>
           <motion.h2 {...fadeUp} className="display text-4xl md:text-6xl text-white mb-10">Así se entrena en XGYM</motion.h2>
           <motion.div {...stagger} className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {GALLERY.map((src, i) => (
+            {GALLERY.map((img, i) => (
               <motion.div key={i} {...fadeUp} className="aspect-[3/4] overflow-hidden border border-white/10">
                 <img
-                  src={src}
-                  alt="Instalaciones y entrenamiento en XGYM"
+                  src={img.src}
+                  alt={img.alt}
                   loading="lazy"
                   decoding="async"
                   width={400}

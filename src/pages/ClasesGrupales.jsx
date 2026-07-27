@@ -1,12 +1,6 @@
 import SEO from '../components/SEO'
 import { motion } from 'framer-motion'
-
-const fadeUp = {
-  initial: { opacity: 0, y: 20 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true, margin: '-60px' },
-  transition: { duration: 0.5 },
-}
+import { fadeUp } from '../lib/animations'
 
 const DAYS = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado']
 
@@ -51,12 +45,13 @@ export default function ClasesGrupales() {
           </p>
 
           <motion.div {...fadeUp} className="overflow-x-auto border border-white/10 mb-4">
-            <table className="w-full min-w-[760px] border-collapse font-mono text-sm">
+            <table aria-label="Horario de clases grupales" className="w-full min-w-[760px] border-collapse font-mono text-sm">
+              <caption className="sr-only">Horario semanal de clases grupales por hora y día de la semana</caption>
               <thead>
                 <tr className="bg-[var(--surface)]">
-                  <th className="text-left text-[var(--subtle)] font-medium px-4 py-3 border-b border-white/10">Hora</th>
+                  <th scope="col" className="text-left text-[var(--subtle)] font-medium px-4 py-3 border-b border-white/10">Hora</th>
                   {DAYS.map((d) => (
-                    <th key={d} className="text-left text-[var(--subtle)] font-medium px-4 py-3 border-b border-white/10">
+                    <th scope="col" key={d} className="text-left text-[var(--subtle)] font-medium px-4 py-3 border-b border-white/10">
                       {d}
                     </th>
                   ))}

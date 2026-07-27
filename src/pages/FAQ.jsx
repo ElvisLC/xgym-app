@@ -4,13 +4,7 @@ import { ChevronDown } from 'lucide-react'
 import SEO from '../components/SEO'
 import { waLink } from '../config'
 import { trackWhatsAppClick } from '../lib/analytics'
-
-const fadeUp = {
-  initial: { opacity: 0, y: 20 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true, margin: '-60px' },
-  transition: { duration: 0.5 },
-}
+import { fadeUp } from '../lib/animations'
 
 const FAQS = [
   { q: '¿Dónde queda XGYM?', a: 'En Catia, Recta de Los Magallanes, CC La Laguna, piso 1.' },

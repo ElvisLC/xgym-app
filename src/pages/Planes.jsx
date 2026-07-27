@@ -3,18 +3,7 @@ import { motion } from 'framer-motion'
 import SEO from '../components/SEO'
 import { waLink } from '../config'
 import { trackWhatsAppClick } from '../lib/analytics'
-
-const fadeUp = {
-  initial: { opacity: 0, y: 20 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true, margin: '-60px' },
-  transition: { duration: 0.5 },
-}
-
-const stagger = {
-  whileInView: { transition: { staggerChildren: 0.06 } },
-  viewport: { once: true, margin: '-60px' },
-}
+import { fadeUp, stagger } from '../lib/animations'
 
 const BASE = [
   { concept: 'Inscripción', price: '$5', detail: 'Pago único al inscribirse' },
