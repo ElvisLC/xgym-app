@@ -21,8 +21,8 @@ export default function NotFound() {
         <div className="mx-auto max-w-7xl px-5 md:px-8 text-center">
           <p
             ref={numberRef}
-            className={`transition-[opacity,scale] duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] ${
-              numberInView ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
+            className={`transition-[opacity,transform] duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] ${
+              numberInView ? 'opacity-100 scale-100' : 'opacity-0 scale-50'
             } display text-[10rem] md:text-[14rem] leading-none text-[var(--accent)] select-none`}
           >
             404
@@ -31,8 +31,8 @@ export default function NotFound() {
           <h1
             ref={titleRef}
             style={{ transitionDelay: titleInView ? '100ms' : '0ms' }}
-            className={`transition-[opacity,translate] duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] ${
-              titleInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'
+            className={`transition-[opacity,transform] duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] ${
+              titleInView ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-12'
             } display text-3xl md:text-5xl text-white mt-4 mb-6`}
           >
             Página no encontrada
@@ -41,8 +41,8 @@ export default function NotFound() {
           <p
             ref={textRef}
             style={{ transitionDelay: textInView ? '200ms' : '0ms' }}
-            className={`transition-opacity duration-500 ${
-              textInView ? 'opacity-100' : 'opacity-0'
+            className={`transition-[opacity,transform] duration-500 ${
+              textInView ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-8'
             } text-[var(--muted)] max-w-md mx-auto mb-12 text-sm md:text-base leading-relaxed`}
           >
             Lo sentimos, la página que buscas no existe o fue movida.
@@ -51,8 +51,8 @@ export default function NotFound() {
           <div
             ref={ctaRef}
             style={{ transitionDelay: ctaInView ? '300ms' : '0ms' }}
-            className={`transition-[opacity,translate] duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] ${
-              ctaInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-1'
+            className={`transition-[opacity,transform] duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] ${
+              ctaInView ? 'opacity-100 scale-100' : 'opacity-0 scale-90'
             } flex flex-col sm:flex-row items-center justify-center gap-4`}
           >
             <Link

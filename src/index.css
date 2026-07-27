@@ -2,12 +2,8 @@
 
 /* ============================================
    XGYM — Design tokens
-   Paleta tomada del branding real (negro + verde lima)
-   Sistema inspirado en NVIDIA: negro puro, un solo acento,
-   bordes rectos, sin gradientes atmosféricos.
    ============================================ */
 :root {
-  /* #D8F835 es el hex oficial de marca — no sustituir por aproximaciones */
   --canvas: #111111;
   --canvas-soft: #0c0c0c;
   --surface: #191919;
@@ -22,6 +18,12 @@
   --font-display: "Bebas Neue", "Arial Narrow", sans-serif;
   --font-body: "Inter", system-ui, sans-serif;
   --font-mono: "JetBrains Mono", monospace;
+
+  /* Spring-like easing curves (simulating Framer Motion springs) */
+  --spring: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  --spring-gentle: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --spring-bounce: cubic-bezier(0.68, -0.55, 0.27, 1.55);
+  --ease-out-expo: cubic-bezier(0.19, 1, 0.22, 1);
 }
 
 * {
@@ -40,7 +42,6 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* Signature: corte diagonal tipo "X" — usado en botones, tarjetas y separadores */
 .x-cut {
   clip-path: polygon(12px 0, 100% 0, calc(100% - 12px) 100%, 0 100%);
 }
@@ -60,72 +61,281 @@ body {
   text-transform: uppercase;
 }
 
-@keyframes fade-up-in {
-  from {
+/* ============================================
+   HERO keyframes — dramatic staggered entrance
+   ============================================ */
+@keyframes hero-eyebrow {
+  0% {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(30px);
+    filter: blur(8px);
   }
-  to {
+  100% {
     opacity: 1;
     transform: translateY(0);
+    filter: blur(0);
   }
 }
 
-.animate-fade-up {
-  animation: fade-up-in 0.7s cubic-bezier(0.4, 0, 0.2, 1) both;
-}
-
-@keyframes fade-left-in {
-  from {
+@keyframes hero-title {
+  0% {
     opacity: 0;
-    transform: translateX(-24px);
+    transform: translateY(50px) scaleY(1.1);
+    filter: blur(6px);
   }
-  to {
+  100% {
+    opacity: 1;
+    transform: translateY(0) scaleY(1);
+    filter: blur(0);
+  }
+}
+
+@keyframes hero-subtitle {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+    filter: blur(4px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+@keyframes hero-cta {
+  0% {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+  }
+  60% {
+    transform: translateY(-3px) scale(1.02);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes hero-border-draw {
+  0% {
+    opacity: 0;
+    clip-path: inset(0 100% 100% 0);
+  }
+  100% {
+    opacity: 1;
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+.animate-hero-eyebrow {
+  animation: hero-eyebrow 0.8s var(--ease-out-expo) both;
+}
+
+.animate-hero-title {
+  animation: hero-title 1s var(--ease-out-expo) both;
+}
+
+.animate-hero-subtitle {
+  animation: hero-subtitle 0.8s var(--ease-out-expo) both;
+}
+
+.animate-hero-cta {
+  animation: hero-cta 0.7s var(--spring) both;
+}
+
+.animate-hero-border {
+  animation: hero-border-draw 1.2s var(--ease-out-expo) both;
+}
+
+/* ============================================
+   SECTION REVEAL keyframes — scroll-triggered
+   ============================================ */
+@keyframes reveal-up {
+  0% {
+    opacity: 0;
+    transform: translateY(60px);
+    filter: blur(4px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+@keyframes reveal-down {
+  0% {
+    opacity: 0;
+    transform: translateY(-60px);
+    filter: blur(4px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+@keyframes reveal-left {
+  0% {
+    opacity: 0;
+    transform: translateX(-80px);
+    filter: blur(4px);
+  }
+  100% {
     opacity: 1;
     transform: translateX(0);
+    filter: blur(0);
   }
 }
 
-.animate-fade-left {
-  animation: fade-left-in 0.7s cubic-bezier(0.4, 0, 0.2, 1) both;
-}
-
-@keyframes fade-right-in {
-  from {
+@keyframes reveal-right {
+  0% {
     opacity: 0;
-    transform: translateX(24px);
+    transform: translateX(80px);
+    filter: blur(4px);
   }
-  to {
+  100% {
     opacity: 1;
     transform: translateX(0);
+    filter: blur(0);
   }
 }
 
-.animate-fade-right {
-  animation: fade-right-in 0.7s cubic-bezier(0.4, 0, 0.2, 1) both;
-}
-
-@keyframes pop-in {
-  from {
+@keyframes reveal-scale {
+  0% {
     opacity: 0;
-    transform: scale(0.95);
+    transform: scale(0.8);
+    filter: blur(4px);
   }
-  to {
+  100% {
+    opacity: 1;
+    transform: scale(1);
+    filter: blur(0);
+  }
+}
+
+@keyframes reveal-scale-bounce {
+  0% {
+    opacity: 0;
+    transform: scale(0.7);
+  }
+  70% {
+    transform: scale(1.03);
+  }
+  100% {
     opacity: 1;
     transform: scale(1);
   }
 }
 
-.animate-pop-in {
-  animation: pop-in 0.4s cubic-bezier(0.34, 1.2, 0.64, 1) both;
+@keyframes reveal-rotate {
+  0% {
+    opacity: 0;
+    transform: scale(0.85) rotate(-3deg);
+    filter: blur(3px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+    filter: blur(0);
+  }
 }
 
+@keyframes reveal-slide-up-stagger {
+  0% {
+    opacity: 0;
+    transform: translateY(80px) scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes reveal-blur-in {
+  0% {
+    opacity: 0;
+    filter: blur(12px);
+    transform: scale(1.05);
+  }
+  100% {
+    opacity: 1;
+    filter: blur(0);
+    transform: scale(1);
+  }
+}
+
+/* ============================================
+   UTILITY CLASSES — each one distinct
+   ============================================ */
+.anim-reveal-up {
+  animation: reveal-up 0.9s var(--ease-out-expo) both;
+}
+
+.anim-reveal-down {
+  animation: reveal-down 0.9s var(--ease-out-expo) both;
+}
+
+.anim-reveal-left {
+  animation: reveal-left 0.9s var(--ease-out-expo) both;
+}
+
+.anim-reveal-right {
+  animation: reveal-right 0.9s var(--ease-out-expo) both;
+}
+
+.anim-reveal-scale {
+  animation: reveal-scale 0.8s var(--spring) both;
+}
+
+.anim-reveal-scale-bounce {
+  animation: reveal-scale-bounce 0.8s var(--spring-bounce) both;
+}
+
+.anim-reveal-rotate {
+  animation: reveal-rotate 0.9s var(--spring) both;
+}
+
+.anim-reveal-slide-up {
+  animation: reveal-slide-up-stagger 0.7s var(--spring) both;
+}
+
+.anim-reveal-blur {
+  animation: reveal-blur-in 1s var(--ease-out-expo) both;
+}
+
+/* ============================================
+   CARD REVEAL — for grid items
+   ============================================ */
+@keyframes card-reveal {
+  0% {
+    opacity: 0;
+    transform: translateY(40px) scale(0.96);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.anim-card {
+  animation: card-reveal 0.7s var(--spring-gentle) both;
+}
+
+/* ============================================
+   REDUCED MOTION
+   ============================================ */
 @media (prefers-reduced-motion: reduce) {
-  * {
+  *,
+  *::before,
+  *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+    filter: none !important;
   }
 }
 
