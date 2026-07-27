@@ -1,9 +1,8 @@
 import { ArrowRight } from 'lucide-react'
-import { m } from 'framer-motion'
 import SEO from '../components/SEO'
+import FadeUp from '../components/FadeUp'
 import { waLink } from '../config'
 import { trackWhatsAppClick } from '../lib/analytics'
-import { fadeUp, stagger } from '../lib/animations'
 
 const PRICES = [
   { option: 'Clase individual', price: '$4' },
@@ -40,7 +39,7 @@ export default function IndoorCycling() {
       <section className="pt-36 pb-24 bg-[var(--canvas)]">
         <div className="mx-auto max-w-7xl px-5 md:px-8">
           <p className="eyebrow mb-3">Modalidad Xtreme Bike</p>
-          <m.h1 {...fadeUp} className="display text-4xl md:text-6xl text-white mb-4">Indoor Cycling</m.h1>
+          <FadeUp as="h1" className="display text-4xl md:text-6xl text-white mb-4">Indoor Cycling</FadeUp>
           <p className="text-[var(--muted)] text-base md:text-lg max-w-2xl mb-3">
             Cardio, resistencia y ritmo sobre una bicicleta, guiado por instructores que llevan la modalidad en la sangre.
           </p>
@@ -59,28 +58,28 @@ export default function IndoorCycling() {
 
           {/* Precios */}
           <h2 className="display text-3xl text-white mb-6">Precios</h2>
-          <m.div {...stagger} className="grid sm:grid-cols-3 gap-4 mb-16">
-            {PRICES.map((p) => (
-              <m.div {...fadeUp} key={p.option} className="border border-white/10 bg-[var(--surface)] p-6">
+          <div className="grid sm:grid-cols-3 gap-4 mb-16">
+            {PRICES.map((p, i) => (
+              <FadeUp index={i} key={p.option} className="border border-white/10 bg-[var(--surface)] p-6">
                 <p className="text-white font-semibold mb-1">{p.option}</p>
                 <p className="text-2xl font-bold text-[var(--accent)]">{p.price}</p>
-              </m.div>
+              </FadeUp>
             ))}
-          </m.div>
+          </div>
 
           {/* Niveles de instructores */}
           <h2 className="display text-3xl text-white mb-3">Instructores por nivel de experiencia</h2>
           <p className="text-[var(--subtle)] text-sm mb-6 max-w-2xl">
             1XB / PRO / Master identifican la experiencia del instructor en la modalidad — se muestran como credencial junto a su nombre.
           </p>
-          <m.div {...stagger} className="grid sm:grid-cols-3 gap-4 mb-16">
-            {LEVELS.map((l) => (
-              <m.div {...fadeUp} key={l.level} className="border border-white/10 bg-[var(--surface)] p-6">
+          <div className="grid sm:grid-cols-3 gap-4 mb-16">
+            {LEVELS.map((l, i) => (
+              <FadeUp index={i} key={l.level} className="border border-white/10 bg-[var(--surface)] p-6">
                 <p className="font-mono text-[var(--accent)] font-bold mb-2">{l.level}</p>
                 <p className="text-[var(--muted)] text-sm">{l.meaning}</p>
-              </m.div>
+              </FadeUp>
             ))}
-          </m.div>
+          </div>
 
           {/* Horario */}
           <h2 className="display text-3xl text-white mb-6">Horario</h2>

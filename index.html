@@ -29,8 +29,9 @@
     <meta name="twitter:description" content="El gimnasio de Catia para quienes eligen la disciplina cada día." />
     <meta name="twitter:image" content="https://pub-2b1a99696a104faeb4013550cdc9046e.r2.dev/web/xgym-logo.jpg" />
 
-    <link rel="preconnect" href="https://images.pexels.com" crossorigin />
-    <link rel="preconnect" href="https://assets.mixkit.co" crossorigin />
+    <!-- images.pexels.com / assets.mixkit.co: sin preconnect a propósito — la galería
+         que los usa está lazy-loaded bajo el pliegue; PageSpeed confirmó que esas
+         conexiones tempranas no se llegan a usar durante la carga inicial. -->
     <link rel="preconnect" href="https://videos.pexels.com" crossorigin />
 
     <!-- Fuente del H1 del hero (LCP): precargada para evitar reflow por swap -->

@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react'
 import { NavLink } from 'react-router-dom'
-import { AnimatePresence, m } from 'framer-motion'
 import { Menu, X, MessageCircle, ChevronDown } from 'lucide-react'
 import { BRAND, waLink } from '../config'
 import { trackWhatsAppClick } from '../lib/analytics'
@@ -66,33 +65,28 @@ export default function Navbar() {
             <button type="button" className="flex items-center gap-1 text-sm font-medium text-neutral-300 hover:text-white" aria-label="Más opciones de navegación" aria-expanded={moreOpen}>
               Más <ChevronDown size={14} />
             </button>
-            <AnimatePresence>
-              {moreOpen && (
-                <m.div
-                  initial={{ opacity: 0, y: -8 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -8 }}
-                  transition={{ duration: 0.15 }}
-                  className="absolute top-full right-0 pt-3"
-                >
-                  <div className="bg-[var(--canvas-soft)] border border-white/10 min-w-[200px] py-2">
-                    {SECONDARY_LINKS.map((link) => (
-                      <NavLink
-                        key={link.to}
-                        to={link.to}
-                        className={({ isActive }) =>
-                          `block px-4 py-2.5 text-sm ${
-                            isActive ? 'text-[var(--accent)]' : 'text-neutral-300 hover:text-white hover:bg-white/5'
-                          }`
-                        }
-                      >
-                        {link.label}
-                      </NavLink>
-                    ))}
-                  </div>
-                </m.div>
-              )}
-            </AnimatePresence>
+            <div
+              className={`absolute top-full right-0 pt-3 transition-all duration-150 ${
+                moreOpen ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-2 pointer-events-none'
+              }`}
+              inert={!moreOpen}
+            >
+              <div className="bg-[var(--canvas-soft)] border border-white/10 min-w-[200px] py-2">
+                {SECONDARY_LINKS.map((link) => (
+                  <NavLink
+                    key={link.to}
+                    to={link.to}
+                    className={({ isActive }) =>
+                      `block px-4 py-2.5 text-sm ${
+                        isActive ? 'text-[var(--accent)]' : 'text-neutral-300 hover:text-white hover:bg-white/5'
+                      }`
+                    }
+                  >
+                    {link.label}
+                  </NavLink>
+                ))}
+              </div>
+            </div>
           </div>
         </nav>
 
@@ -118,15 +112,14 @@ export default function Navbar() {
         </button>
       </div>
 
-      <AnimatePresence>
-        {open && (
-          <m.div
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.2 }}
-            className="lg:hidden bg-[var(--canvas-soft)] border-t border-white/10 px-5 pb-6 pt-2 max-h-[80vh] overflow-y-auto"
-          >
+      <div
+        className={`lg:hidden grid overflow-hidden transition-[grid-template-rows,opacity] duration-200 ease-out ${
+          open ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'
+        }`}
+        inert={!open}
+      >
+        <div className="overflow-hidden">
+          <div className="bg-[var(--canvas-soft)] border-t border-white/10 px-5 pb-6 pt-2 max-h-[80vh] overflow-y-auto">
             <nav className="flex flex-col gap-1">
               {[...PRIMARY_LINKS, ...SECONDARY_LINKS].map((link) => (
                 <NavLink
@@ -153,9 +146,9 @@ export default function Navbar() {
               <MessageCircle size={16} strokeWidth={2.5} />
               Únete a XGYM
             </a>
-          </m.div>
-        )}
-      </AnimatePresence>
+          </div>
+        </div>
+      </div>
     </header>
   )
 }

@@ -1,6 +1,5 @@
 import SEO from '../components/SEO'
-import { m } from 'framer-motion'
-import { fadeUp } from '../lib/animations'
+import FadeUp from '../components/FadeUp'
 
 const DAYS = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado']
 
@@ -35,7 +34,7 @@ export default function ClasesGrupales() {
       <section className="pt-36 pb-24 bg-[var(--canvas)]">
         <div className="mx-auto max-w-7xl px-5 md:px-8">
           <p className="eyebrow mb-3">Salón</p>
-          <m.h1 {...fadeUp} className="display text-4xl md:text-6xl text-white mb-6">Programación de la semana</m.h1>
+          <FadeUp as="h1" className="display text-4xl md:text-6xl text-white mb-6">Programación de la semana</FadeUp>
           <p className="text-[var(--muted)] text-base md:text-lg max-w-2xl mb-2">
             Héroe, aquí tienes tu ruta semanal. Cada clase es una oportunidad de entrenar tu cuerpo, tu mente y tu carácter.
             Elige tu hora, aparece, y haz que cuente.
@@ -44,7 +43,7 @@ export default function ClasesGrupales() {
             Incluidas en tu mensualidad · Clase individual $2
           </p>
 
-          <m.div {...fadeUp} className="overflow-x-auto border border-white/10 mb-4">
+          <FadeUp className="overflow-x-auto border border-white/10 mb-4">
             <table aria-label="Horario de clases grupales" className="w-full min-w-[760px] border-collapse font-mono text-sm">
               <caption className="sr-only">Horario semanal de clases grupales por hora y día de la semana</caption>
               <thead>
@@ -75,9 +74,9 @@ export default function ClasesGrupales() {
                 ))}
               </tbody>
             </table>
-          </m.div>
+          </FadeUp>
 
-          <m.p {...fadeUp} className="display text-3xl text-white">Elige tu hora. <span className="text-[var(--accent)]">Aparece.</span></m.p>
+          <FadeUp as="p" className="display text-3xl text-white">Elige tu hora. <span className="text-[var(--accent)]">Aparece.</span></FadeUp>
         </div>
       </section>
     </>

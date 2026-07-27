@@ -1,10 +1,9 @@
 import { Link } from 'react-router-dom'
 import { ArrowRight } from 'lucide-react'
-import { m } from 'framer-motion'
 import SEO from '../components/SEO'
+import FadeUp from '../components/FadeUp'
 import { BRAND, waLink } from '../config'
 import { trackWhatsAppClick } from '../lib/analytics'
-import { fadeUp, stagger } from '../lib/animations'
 
 export default function Horarios() {
   return (
@@ -18,25 +17,25 @@ export default function Horarios() {
       <section className="pt-36 pb-24 bg-[var(--canvas)]">
         <div className="mx-auto max-w-7xl px-5 md:px-8">
           <p className="eyebrow mb-3">Agenda</p>
-          <m.h1 {...fadeUp} className="display text-4xl md:text-6xl text-white mb-14">Horarios</m.h1>
+          <FadeUp as="h1" className="display text-4xl md:text-6xl text-white mb-14">Horarios</FadeUp>
 
           {/* Horario general del gimnasio */}
           <h2 className="display text-3xl text-white mb-6">Horario general del gimnasio</h2>
-          <m.div {...stagger} className="grid sm:grid-cols-2 gap-4 mb-20 max-w-2xl">
-            <m.div {...fadeUp} className="border border-white/10 bg-[var(--surface)] p-6">
+          <div className="grid sm:grid-cols-2 gap-4 mb-20 max-w-2xl">
+            <FadeUp index={0} className="border border-white/10 bg-[var(--surface)] p-6">
               <p className="eyebrow mb-2">Lunes a viernes</p>
               <p className="font-mono text-white text-lg">{BRAND.hours.weekdays}</p>
-            </m.div>
-            <m.div {...fadeUp} className="border border-white/10 bg-[var(--surface)] p-6">
+            </FadeUp>
+            <FadeUp index={1} className="border border-white/10 bg-[var(--surface)] p-6">
               <p className="eyebrow mb-2">Sábados y feriados</p>
               <p className="font-mono text-white text-lg">{BRAND.hours.weekend}</p>
-            </m.div>
-          </m.div>
+            </FadeUp>
+          </div>
 
           {/* Enlaces a horarios detallados */}
           <h2 className="display text-3xl text-white mb-6">Clases de salón e Indoor Cycling</h2>
-          <m.div {...stagger} className="grid sm:grid-cols-2 gap-4 mb-16">
-            <m.div {...fadeUp}>
+          <div className="grid sm:grid-cols-2 gap-4 mb-16">
+            <FadeUp index={0}>
               <Link
                 to="/clases-grupales"
                 className="border border-white/10 bg-[var(--surface)] p-6 flex items-center justify-between hover:border-[var(--accent)]/50 transition-colors"
@@ -47,8 +46,8 @@ export default function Horarios() {
                 </div>
                 <ArrowRight className="text-[var(--muted)] shrink-0" size={20} />
               </Link>
-            </m.div>
-            <m.div {...fadeUp}>
+            </FadeUp>
+            <FadeUp index={1}>
               <Link
                 to="/indoor-cycling"
                 className="border border-white/10 bg-[var(--surface)] p-6 flex items-center justify-between hover:border-[var(--accent)]/50 transition-colors"
@@ -59,8 +58,8 @@ export default function Horarios() {
                 </div>
                 <ArrowRight className="text-[var(--muted)] shrink-0" size={20} />
               </Link>
-            </m.div>
-          </m.div>
+            </FadeUp>
+          </div>
 
           <p className="text-[var(--muted)] text-sm">
             ¿Tienes dudas sobre el horario?{' '}

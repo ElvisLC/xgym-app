@@ -1,6 +1,5 @@
 import { Routes, Route, useLocation } from 'react-router-dom'
 import { useEffect, Suspense, lazy } from 'react'
-import { LazyMotion, domAnimation } from 'framer-motion'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import WhatsAppFloat from './components/WhatsAppFloat'
@@ -29,30 +28,28 @@ function ScrollToTop() {
 
 export default function App() {
   return (
-    <LazyMotion features={domAnimation}>
-      <div className="min-h-screen bg-[var(--canvas)]">
-        <ScrollToTop />
-        <Navbar />
-        <main>
-          <Suspense>
-            <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/planes" element={<Planes />} />
-            <Route path="/indoor-cycling" element={<IndoorCycling />} />
-            <Route path="/clases-grupales" element={<ClasesGrupales />} />
-            <Route path="/fit-bar" element={<FitBar />} />
-            <Route path="/horarios" element={<Horarios />} />
-            <Route path="/entrenadores" element={<Entrenadores />} />
-            <Route path="/nosotros" element={<Nosotros />} />
-            <Route path="/contacto" element={<Contacto />} />
-            <Route path="/preguntas-frecuentes" element={<FAQ />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-          </Suspense>
-        </main>
-        <Footer />
-        <WhatsAppFloat />
-      </div>
-    </LazyMotion>
+    <div className="min-h-screen bg-[var(--canvas)]">
+      <ScrollToTop />
+      <Navbar />
+      <main>
+        <Suspense>
+          <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/planes" element={<Planes />} />
+          <Route path="/indoor-cycling" element={<IndoorCycling />} />
+          <Route path="/clases-grupales" element={<ClasesGrupales />} />
+          <Route path="/fit-bar" element={<FitBar />} />
+          <Route path="/horarios" element={<Horarios />} />
+          <Route path="/entrenadores" element={<Entrenadores />} />
+          <Route path="/nosotros" element={<Nosotros />} />
+          <Route path="/contacto" element={<Contacto />} />
+          <Route path="/preguntas-frecuentes" element={<FAQ />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+        </Suspense>
+      </main>
+      <Footer />
+      <WhatsAppFloat />
+    </div>
   )
 }

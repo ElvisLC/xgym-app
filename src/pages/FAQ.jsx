@@ -1,10 +1,9 @@
 import { useState } from 'react'
-import { AnimatePresence, m } from 'framer-motion'
 import { ChevronDown } from 'lucide-react'
 import SEO from '../components/SEO'
+import FadeUp from '../components/FadeUp'
 import { waLink } from '../config'
 import { trackWhatsAppClick } from '../lib/analytics'
-import { fadeUp } from '../lib/animations'
 
 const FAQS = [
   { q: '¿Dónde queda XGYM?', a: 'En Catia, Recta de Los Magallanes, CC La Laguna, piso 1.' },
@@ -79,20 +78,18 @@ function FaqItem({ q, a }) {
           className={`text-[var(--accent)] shrink-0 transition-transform ${open ? 'rotate-180' : ''}`}
         />
       </button>
-      <AnimatePresence initial={false}>
-        {open && (
-          <m.div
-            initial={{ opacity: 0, y: -8 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -8 }}
-            transition={{ duration: 0.25, ease: [0.4, 0, 0.2, 1] }}
-          >
-            <p className="px-5 pb-5 text-[var(--muted)] text-sm leading-relaxed">
-              {a}
-            </p>
-          </m.div>
-        )}
-      </AnimatePresence>
+      <div
+        className={`grid overflow-hidden transition-[grid-template-rows] duration-[250ms] ease-[cubic-bezier(0.4,0,0.2,1)] ${
+          open ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'
+        }`}
+        inert={!open}
+      >
+        <div className="overflow-hidden">
+          <p className="px-5 pb-5 text-[var(--muted)] text-sm leading-relaxed">
+            {a}
+          </p>
+        </div>
+      </div>
     </div>
   )
 }
@@ -110,7 +107,7 @@ export default function FAQ() {
       <section className="pt-36 pb-24 bg-[var(--canvas)]">
         <div className="mx-auto max-w-4xl px-5 md:px-8">
           <p className="eyebrow mb-3">Dudas comunes</p>
-          <m.h1 {...fadeUp} className="display text-4xl md:text-6xl text-white mb-14">Preguntas frecuentes</m.h1>
+          <FadeUp as="h1" className="display text-4xl md:text-6xl text-white mb-14">Preguntas frecuentes</FadeUp>
 
           <div className="space-y-3 mb-16">
             {FAQS.map((f) => (

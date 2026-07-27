@@ -1,12 +1,11 @@
 import { useState } from 'react'
-import { m } from 'framer-motion'
 import { MapPin, Phone, Send } from 'lucide-react'
 import Instagram from '../components/icons/InstagramIcon'
 import SEO from '../components/SEO'
 import SectionHeading from '../components/SectionHeading'
+import FadeUp from '../components/FadeUp'
 import { BRAND } from '../config'
 import { trackFormSubmit } from '../lib/analytics'
-import { fadeUp, stagger } from '../lib/animations'
 
 export default function Contacto() {
   const [sent, setSent] = useState(false)
@@ -29,14 +28,14 @@ export default function Contacto() {
 
       <section className="pt-36 pb-24 bg-[var(--canvas)]">
         <div className="mx-auto max-w-7xl px-5 md:px-8">
-          <m.div {...fadeUp}>
+          <FadeUp>
             <SectionHeading
               as="h1"
               eyebrow="Hablemos"
               title="¿Listo para empezar?"
               description="Estamos a un mensaje de distancia."
             />
-          </m.div>
+          </FadeUp>
 
           <div className="grid lg:grid-cols-2 gap-10">
             {/* Info + mapa */}
@@ -111,8 +110,8 @@ export default function Contacto() {
                   </p>
                 </div>
               ) : (
-                <m.form {...stagger} onSubmit={handleSubmit} className="space-y-5">
-                  <m.div {...fadeUp}>
+                <form onSubmit={handleSubmit} className="space-y-5">
+                  <FadeUp index={0}>
                     <label htmlFor="name" className="block text-sm text-neutral-300 mb-2">
                       Nombre
                     </label>
@@ -124,8 +123,8 @@ export default function Contacto() {
                       className="w-full bg-[var(--canvas)] border border-white/15 px-4 py-3 text-white focus:border-[var(--accent)] outline-none"
                       placeholder="Tu nombre"
                     />
-                  </m.div>
-                  <m.div {...fadeUp}>
+                  </FadeUp>
+                  <FadeUp index={1}>
                     <label htmlFor="phone" className="block text-sm text-neutral-300 mb-2">
                       Teléfono
                     </label>
@@ -137,8 +136,8 @@ export default function Contacto() {
                       className="w-full bg-[var(--canvas)] border border-white/15 px-4 py-3 text-white focus:border-[var(--accent)] outline-none"
                       placeholder="0414 000 0000"
                     />
-                  </m.div>
-                  <m.div {...fadeUp}>
+                  </FadeUp>
+                  <FadeUp index={2}>
                     <label htmlFor="reason" className="block text-sm text-neutral-300 mb-2">
                       Motivo
                     </label>
@@ -155,8 +154,8 @@ export default function Contacto() {
                       <option value="indoor-cycling">Indoor Cycling</option>
                       <option value="otro">Otro</option>
                     </select>
-                  </m.div>
-                  <m.div {...fadeUp}>
+                  </FadeUp>
+                  <FadeUp index={3}>
                     <label htmlFor="message" className="block text-sm text-neutral-300 mb-2">
                       Mensaje
                     </label>
@@ -168,8 +167,8 @@ export default function Contacto() {
                       className="w-full bg-[var(--canvas)] border border-white/15 px-4 py-3 text-white focus:border-[var(--accent)] outline-none resize-none"
                       placeholder="Cuéntanos qué necesitas"
                     />
-                  </m.div>
-                  <m.div {...fadeUp}>
+                  </FadeUp>
+                  <FadeUp index={4}>
                     <button
                       type="submit"
                       className="w-full inline-flex items-center justify-center gap-2 bg-[var(--accent)] text-black font-semibold px-6 py-3.5 x-cut hover:bg-[var(--accent-dim)] transition-colors"
@@ -177,8 +176,8 @@ export default function Contacto() {
                       Enviar mensaje
                       <Send size={16} />
                     </button>
-                  </m.div>
-                </m.form>
+                  </FadeUp>
+                </form>
               )}
             </div>
           </div>

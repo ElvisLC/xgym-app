@@ -1,6 +1,5 @@
-import { m } from 'framer-motion'
 import SEO from '../components/SEO'
-import { fadeUp, stagger } from '../lib/animations'
+import FadeUp from '../components/FadeUp'
 
 const JUICES = [
   { name: 'Loki', ingredients: 'Apio, piña, perejil, espinaca, pepino', tagline: 'Detox que despierta.' },
@@ -28,7 +27,7 @@ export default function FitBar() {
       <section className="pt-36 pb-24 bg-[var(--canvas)]">
         <div className="mx-auto max-w-7xl px-5 md:px-8">
           <p className="eyebrow mb-3">Fit Bar</p>
-          <m.h1 {...fadeUp} className="display text-4xl md:text-6xl text-white mb-4">Menú</m.h1>
+          <FadeUp as="h1" className="display text-4xl md:text-6xl text-white mb-4">Menú</FadeUp>
           <p className="display text-2xl text-[var(--accent)] mb-6">Fuerza. Energía. Resultados.</p>
           <p className="text-[var(--muted)] text-base md:text-lg max-w-2xl mb-16">
             Mezclas frescas y nutritivas. Combina lo que te hace bien. Impulsa lo que te hace grande.
@@ -40,29 +39,29 @@ export default function FitBar() {
             <h2 className="display text-3xl text-white">Jugos naturales</h2>
             <span className="font-mono text-[var(--accent)] text-lg">$1.80</span>
           </div>
-          <m.div {...stagger} className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-16">
-            {JUICES.map((j) => (
-              <m.div {...fadeUp} key={j.name} className="border border-white/10 bg-[var(--surface)] p-6">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-16">
+            {JUICES.map((j, i) => (
+              <FadeUp index={i} key={j.name} className="border border-white/10 bg-[var(--surface)] p-6">
                 <h3 className="text-white font-semibold text-lg mb-1">{j.name}</h3>
                 <p className="text-[var(--subtle)] text-xs mb-3">{j.ingredients}</p>
                 <p className="text-[var(--muted)] text-sm italic">{j.tagline}</p>
-              </m.div>
+              </FadeUp>
             ))}
-          </m.div>
+          </div>
 
           {/* Batidos */}
           <div className="flex items-baseline justify-between mb-6">
             <h2 className="display text-3xl text-white">Batidos con proteína</h2>
             <span className="font-mono text-[var(--accent)] text-lg">$2.80</span>
           </div>
-          <m.div {...stagger} className="grid sm:grid-cols-3 gap-4 mb-16">
-            {SHAKES.map((s) => (
-              <m.div {...fadeUp} key={s.name} className="border border-white/10 bg-[var(--surface)] p-6">
+          <div className="grid sm:grid-cols-3 gap-4 mb-16">
+            {SHAKES.map((s, i) => (
+              <FadeUp index={i} key={s.name} className="border border-white/10 bg-[var(--surface)] p-6">
                 <h3 className="text-white font-semibold text-lg mb-1">{s.name}</h3>
                 <p className="text-[var(--subtle)] text-xs">{s.ingredients}</p>
-              </m.div>
+              </FadeUp>
             ))}
-          </m.div>
+          </div>
 
           {/* Nivel Héroe */}
           <div className="border-2 border-[var(--accent)] bg-[var(--surface)] p-8 mb-8">
