@@ -1,31 +1,15 @@
 import SEO from '../components/SEO'
 import { useInView } from '../lib/useInView'
-
-const DAYS = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado']
-
-const SCHEDULE = [
-  {
-    time: '8:00am',
-    slots: ['Alex — Cardiodance', 'Reimer — Fitcombat', 'Brayan — Baile', 'Elvis — Aeróbicos', 'Johan — Funcionales', '—'],
-  },
-  {
-    time: '9:00am',
-    slots: ['—', '—', '—', '—', '—', 'Elvis — Aeróbicos'],
-  },
-  {
-    time: '5:30pm',
-    slots: ['Elvis — Aeróbicos', 'Miguel Ángel — Funcionales', 'Reimer — Fitcombat', 'Miguel Ángel — Funcionales', 'Alex — Cardiodance', '—'],
-  },
-  {
-    time: '6:30pm',
-    slots: ['—', 'Johan — Baile', '—', '—', '—', '—'],
-  },
-]
+import { DAYS, clasesGrupales } from '../data/schedules'
 
 export default function ClasesGrupales() {
   const [titleRef, titleInView] = useInView()
   const [tableRef, tableInView] = useInView()
   const [closingRef, closingInView] = useInView()
+
+  const rows = clasesGrupales.hideEmptyRows
+    ? clasesGrupales.rows.filter((row) => row.slots.some((s) => s !== null))
+    : clasesGrupales.rows
 
   return (
     <>
@@ -47,12 +31,14 @@ export default function ClasesGrupales() {
             Programación de la semana
           </h1>
           <p className="text-[var(--muted)] text-base md:text-lg max-w-2xl mb-2">
-            Héroe, aquí tienes tu ruta semanal. Cada clase es una oportunidad de entrenar tu cuerpo, tu mente y tu carácter.
-            Elige tu hora, aparece, y haz que cuente.
+            Héroe, aquí tienes tu ruta semanal. Cada clase es una oportunidad para entrenar tu cuerpo, tu mente y tu
+            carácter. Elige tu hora, aparece y haz que cuente.
           </p>
-          <p className="text-[var(--subtle)] text-sm mb-14">
+          <p className="display text-2xl text-[var(--accent)] mb-6">Disciplina hoy, transformación siempre.</p>
+
+          <span className="inline-block border border-[var(--accent)]/30 text-[var(--accent)] text-xs font-mono rounded-full px-3 py-1 mb-14">
             Incluidas en tu mensualidad · Clase individual $2
-          </p>
+          </span>
 
           <div
             ref={tableRef}
@@ -73,24 +59,31 @@ export default function ClasesGrupales() {
                 </tr>
               </thead>
               <tbody>
-                {SCHEDULE.map((row) => (
+                {rows.map((row) => (
                   <tr key={row.time} className="odd:bg-[var(--canvas-soft)]">
                     <td className="px-4 py-3 text-white border-b border-white/5">{row.time}</td>
-                    {row.slots.map((s, i) => (
-                      <td
-                        key={`${row.time}-${DAYS[i]}`}
-                        className={`px-4 py-3 border-b border-white/5 ${
-                          s === '—' ? 'text-[var(--subtle)]' : 'text-[var(--accent)]'
-                        }`}
-                      >
-                        {s}
-                      </td>
-                    ))}
+                    {row.slots.map((slot, i) =>
+                      slot ? (
+                        <td key={`${row.time}-${DAYS[i]}`} className="px-4 py-3 border-b border-white/5">
+                          <p className="text-[var(--accent)]">{slot.instructor}</p>
+                          <p className="text-xs text-[var(--subtle)]">{slot.clase}</p>
+                        </td>
+                      ) : (
+                        <td key={`${row.time}-${DAYS[i]}`} className="px-4 py-3 border-b border-white/5 text-[var(--subtle)]">
+                          —
+                        </td>
+                      )
+                    )}
                   </tr>
                 ))}
               </tbody>
             </table>
           </div>
+
+          <p className="text-sm text-neutral-300 mb-14 max-w-2xl">
+            Los horarios pueden actualizarse según la programación semanal. Consulta nuestras historias para
+            mantenerte informado.
+          </p>
 
           <p
             ref={closingRef}
@@ -98,7 +91,7 @@ export default function ClasesGrupales() {
               closingInView ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-12'
             } display text-3xl text-white`}
           >
-            Elige tu hora. <span className="text-[var(--accent)]">Aparece.</span>
+            Elige tu hora. <span className="text-[var(--accent)]">Aparece.</span> Sé el héroe de tu historia.
           </p>
         </div>
       </section>

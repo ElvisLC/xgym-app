@@ -3,22 +3,12 @@ import SEO from '../components/SEO'
 import { useInView } from '../lib/useInView'
 import { waLink } from '../config'
 import { trackWhatsAppClick } from '../lib/analytics'
+import { DAYS, indoorCycling } from '../data/schedules'
 
 const PRICES = [
   { option: 'Clase individual', price: '$4' },
   { option: '5 clases', price: '$15' },
   { option: '10 clases', price: '$30' },
-]
-
-const DAYS = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado']
-
-const SCHEDULE = [
-  { time: '7:00am', slots: ['Andrés (1XB)', 'Larry (Master)', 'Andrés (1XB)', 'Larry (Master)', 'Andrés (1XB)', '—'] },
-  { time: '8:00am', slots: ['Andrés (1XB)', 'Estty (1XB)', 'Estty (1XB)', 'Estty (1XB)', 'Andrés (1XB)', '—'] },
-  { time: '9:00am', slots: ['—', '—', '—', '—', '—', 'Estty (1XB)'] },
-  { time: '10:00am', slots: ['—', '—', '—', '—', '—', 'Rotativos'] },
-  { time: '5:30pm', slots: ['Simón (1XB)', 'Estty (1XB)', 'Estty (1XB)', 'Estty (1XB)', 'Estty (1XB)', '—'] },
-  { time: '6:30pm', slots: ['Estty (1XB)', 'Simón (1XB)', 'Lisset (PRO)', 'Lisset (PRO)', 'Estty (1XB)', '—'] },
 ]
 
 const LEVELS = [
@@ -45,6 +35,11 @@ function InfoCard({ index, children }) {
 
 export default function IndoorCycling() {
   const [titleRef, titleInView] = useInView()
+  const [closingRef, closingInView] = useInView()
+
+  const rows = indoorCycling.hideEmptyRows
+    ? indoorCycling.rows.filter((row) => row.slots.some((s) => s !== null))
+    : indoorCycling.rows
 
   return (
     <>
@@ -122,19 +117,21 @@ export default function IndoorCycling() {
                 </tr>
               </thead>
               <tbody>
-                {SCHEDULE.map((row) => (
+                {rows.map((row) => (
                   <tr key={row.time} className="odd:bg-[var(--canvas-soft)]">
                     <td className="px-4 py-3 text-white border-b border-white/5">{row.time}</td>
-                    {row.slots.map((s, i) => (
-                      <td
-                        key={`${row.time}-${DAYS[i]}`}
-                        className={`px-4 py-3 border-b border-white/5 ${
-                          s === '—' ? 'text-[var(--subtle)]' : 'text-[var(--accent)]'
-                        }`}
-                      >
-                        {s}
-                      </td>
-                    ))}
+                    {row.slots.map((slot, i) =>
+                      slot ? (
+                        <td key={`${row.time}-${DAYS[i]}`} className="px-4 py-3 border-b border-white/5">
+                          <p className="text-[var(--accent)]">{slot.instructor}</p>
+                          <p className="text-xs text-[var(--subtle)]">Inst. {slot.level}</p>
+                        </td>
+                      ) : (
+                        <td key={`${row.time}-${DAYS[i]}`} className="px-4 py-3 border-b border-white/5 text-[var(--subtle)]">
+                          —
+                        </td>
+                      )
+                    )}
                   </tr>
                 ))}
               </tbody>
@@ -155,6 +152,15 @@ export default function IndoorCycling() {
               </a>.
             </p>
           </div>
+
+          <p
+            ref={closingRef}
+            className={`transition-[opacity,transform] duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] ${
+              closingInView ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-12'
+            } display text-3xl text-white mb-10`}
+          >
+            Elige tu resistencia. <span className="text-[var(--accent)]">Pedalea tu historia.</span>
+          </p>
 
           <a
             href={waLink('Hola, quiero reservar mi cupo de Indoor Cycling en XGYM')}

@@ -1,16 +1,8 @@
+import { useState } from 'react'
 import SEO from '../components/SEO'
 import { useInView } from '../lib/useInView'
-
-const TRAINERS = [
-  { name: 'Alejandro ("Ale")', photo: '/entrenadores/alejandro.jpg', power: 'Levantar el ánimo antes que levantar el peso' },
-  { name: 'Nelly', photo: '/entrenadores/nelly.jpg', power: 'Guardiana de la disciplina. En su zona no existen las medias repeticiones ni las excusas' },
-  { name: 'Larling', photo: '/entrenadores/larling.jpg', power: 'Saber cuándo exigirte y cuándo protegerte' },
-  { name: 'Johan', photo: '/entrenadores/johan-pt.jpg', power: 'Llevarte al límite... porque sabe que ahí empieza tu evolución' },
-  { name: 'Henrry', photo: '/entrenadores/henrry.jpg', power: 'Hacer que entrenes tan bien... que todos quieran tus resultados' },
-  { name: 'Kay', photo: '/entrenadores/kay.jpg', power: 'Hacer que cada persona se sienta bienvenida y capaz de dar un poco más' },
-  { name: 'Will', photo: '/entrenadores/will.jpg', power: 'La disciplina de un guerrero, con la paciencia de un gran coach' },
-  { name: 'Karin', photo: '/entrenadores/karin.jpg', power: 'Demostrar que la fuerza no se mide por el tamaño' },
-]
+import { useHoverCapable } from '../lib/useHoverCapable'
+import { TRAINERS } from '../data/trainers'
 
 // Instructores de Indoor Cycling y clases de salón — solo nombre y horario por ahora
 const OTHER_INSTRUCTORS = {
@@ -19,8 +11,23 @@ const OTHER_INSTRUCTORS = {
 }
 
 // Tarjeta de entrenador: slide desde abajo con bounce, con cascada por posición en la grilla.
+// La foto hace crossfade a su versión cómic al pasar el cursor (o al tocar, en móvil).
 function TrainerCard({ index, trainer }) {
   const [ref, inView] = useInView()
+  const hoverCapable = useHoverCapable()
+  const [showComic, setShowComic] = useState(false)
+  const [comicFailed, setComicFailed] = useState(false)
+
+  const effectActive = !comicFailed
+  const hoverHandlers = hoverCapable
+    ? {
+        onMouseEnter: () => effectActive && setShowComic(true),
+        onMouseLeave: () => effectActive && setShowComic(false),
+      }
+    : {
+        onClick: () => effectActive && setShowComic((v) => !v),
+      }
+
   return (
     <div
       ref={ref}
@@ -29,7 +36,7 @@ function TrainerCard({ index, trainer }) {
         inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
       } border border-white/10 bg-[var(--surface)] overflow-hidden group`}
     >
-      <div className="aspect-[2/3] overflow-hidden">
+      <div className="relative aspect-[2/3] overflow-hidden" {...hoverHandlers}>
         <img
           src={trainer.photo}
           alt={trainer.name}
@@ -37,7 +44,19 @@ function TrainerCard({ index, trainer }) {
           decoding="async"
           width={400}
           height={600}
-          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+          className="absolute inset-0 w-full h-full object-cover transition-opacity duration-[350ms]"
+          style={{ opacity: effectActive && showComic ? 0 : 1 }}
+        />
+        <img
+          src={trainer.comicPhoto}
+          alt=""
+          loading="lazy"
+          decoding="async"
+          width={400}
+          height={600}
+          onError={() => setComicFailed(true)}
+          className="absolute inset-0 w-full h-full object-cover pointer-events-none transition-opacity duration-[350ms]"
+          style={{ opacity: effectActive && showComic ? 1 : 0 }}
         />
       </div>
       <div className="p-5">
