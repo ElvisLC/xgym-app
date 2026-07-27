@@ -10,8 +10,6 @@ const fadeUp = {
 
 const DAYS = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado']
 
-// Nota: "Johan — Baile/Funcionales" aquí es una persona distinta del Johan
-// personal trainer que aparece en /entrenadores. Mismo nombre, perfiles independientes.
 const SCHEDULE = [
   {
     time: '8:00am',
@@ -83,11 +81,6 @@ export default function ClasesGrupales() {
               </tbody>
             </table>
           </motion.div>
-
-          <p className="text-[var(--subtle)] text-xs mb-14">
-            * Hay dos instructores llamados "Johan" en XGYM (este de clases de salón, y uno distinto entre los personal
-            trainers) — son personas diferentes.
-          </p>
 
           <motion.p {...fadeUp} className="display text-3xl text-white">Elige tu hora. <span className="text-[var(--accent)]">Aparece.</span></motion.p>
         </div>

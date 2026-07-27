@@ -71,11 +71,6 @@ export default function Entrenadores() {
             ))}
           </motion.div>
 
-          <p className="text-[var(--subtle)] text-xs mb-20 max-w-2xl">
-            * El Johan de este equipo es una persona distinta del Johan instructor de clases de salón. Mismo nombre, dos
-            personas diferentes.
-          </p>
-
           <h2 className="display text-3xl text-white mb-3">Indoor Cycling y clases de salón</h2>
           {/* <p className="text-[var(--subtle)] text-sm mb-8 max-w-2xl">
             Por ahora, solo con nombre y horario — sus fotos y "Poder" se agregan en una fase posterior.
