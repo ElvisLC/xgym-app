@@ -78,7 +78,7 @@ export default function Planes() {
   return (
     <>
       <SEO
-        title="Planes y Precios | XGYM Catia"
+        title="Planes y Precios en Catia"
         description="Conoce los planes de membresía de XGYM en Catia: precios, beneficios e inscripción directa."
         path="/planes"
       />

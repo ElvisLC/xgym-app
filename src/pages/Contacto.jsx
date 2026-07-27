@@ -22,7 +22,7 @@ export default function Contacto() {
   return (
     <>
       <SEO
-        title="Hablemos | Contacto XGYM"
+        title="Hablemos | Contacto"
         description="Contáctanos: Catia, Recta de Los Magallanes, CC La Laguna, piso 1. WhatsApp 0424 128 7775. ¿Listo para empezar? Estamos a un mensaje de distancia."
         path="/contacto"
       />
@@ -31,6 +31,7 @@ export default function Contacto() {
         <div className="mx-auto max-w-7xl px-5 md:px-8">
           <m.div {...fadeUp}>
             <SectionHeading
+              as="h1"
               eyebrow="Hablemos"
               title="¿Listo para empezar?"
               description="Estamos a un mensaje de distancia."

@@ -32,7 +32,7 @@ export default function IndoorCycling() {
   return (
     <>
       <SEO
-        title="Indoor Cycling (Xtreme Bike) | XGYM"
+        title="Indoor Cycling (Xtreme Bike)"
         description="Clases de Indoor Cycling en Catia. Horarios, niveles y reserva en línea en XGYM."
         path="/indoor-cycling"
       />

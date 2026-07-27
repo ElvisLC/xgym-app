@@ -10,7 +10,7 @@ export default function Horarios() {
   return (
     <>
       <SEO
-        title="Horarios | XGYM"
+        title="Horarios"
         description="Horario del gimnasio, clases de salón e Indoor Cycling en XGYM, Catia."
         path="/horarios"
       />

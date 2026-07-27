@@ -11,9 +11,8 @@
 @import "@fontsource/inter/latin-600.css";
 @import "@fontsource/inter/latin-700.css";
 
-/* JetBrains Mono — latin only */
+/* JetBrains Mono — latin only (400/600: los únicos pesos usados con font-mono) */
 @import "@fontsource/jetbrains-mono/latin-400.css";
-@import "@fontsource/jetbrains-mono/latin-500.css";
 @import "@fontsource/jetbrains-mono/latin-600.css";
 
 /* Bebas Neue — latin only */

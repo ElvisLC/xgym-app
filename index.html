@@ -31,6 +31,16 @@
 
     <link rel="preconnect" href="https://images.pexels.com" crossorigin />
     <link rel="preconnect" href="https://assets.mixkit.co" crossorigin />
+    <link rel="preconnect" href="https://videos.pexels.com" crossorigin />
+
+    <!-- Fuente del H1 del hero (LCP): precargada para evitar reflow por swap -->
+    <link
+      rel="preload"
+      as="font"
+      type="font/woff2"
+      crossorigin
+      href="/node_modules/@fontsource/bebas-neue/files/bebas-neue-latin-400-normal.woff2"
+    />
 
     <!-- Google Analytics 4 — diferido para no bloquear render -->
     <script>
@@ -49,8 +59,9 @@
       });
     </script>
 
-    <!-- Meta Pixel — diferido para no bloquear render -->
-    <script>
+    <!-- Meta Pixel: pendiente de un Pixel ID real. Reinstalar este snippet
+         (diferido con requestIdleCallback, igual que GA4 arriba) cuando se
+         tenga el ID, reemplazando 'YOUR_META_PIXEL_ID' por el real:
       window.addEventListener('load',function(){
         function loadFb(){
           !function(f,b,e,v,n,t,s)
@@ -67,7 +78,7 @@
         if('requestIdleCallback' in window){requestIdleCallback(loadFb,{timeout:2000})}
         else{setTimeout(loadFb,0)}
       });
-    </script>
+    -->
 
     <script type="application/ld+json">
     {
@@ -147,11 +158,6 @@
     </script>
   </head>
   <body>
-    <!-- Meta Pixel noscript fallback — mismo YOUR_META_PIXEL_ID que arriba -->
-    <noscript>
-      <img height="1" width="1" style="display:none" alt=""
-        src="https://www.facebook.com/tr?id=YOUR_META_PIXEL_ID&ev=PageView&noscript=1" />
-    </noscript>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>

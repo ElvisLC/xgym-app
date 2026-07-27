@@ -43,6 +43,26 @@ const FAQS = [
 // Pendiente por definir con XGYM (no se publica hasta tener respuesta oficial):
 // estacionamiento, duchas/vestidores, métodos de pago, proceso de inscripción, edades mínimas.
 
+const FAQ_JSON_LD = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    ...FAQS.filter((f) => typeof f.a === 'string').map((f) => ({
+      '@type': 'Question',
+      name: f.q,
+      acceptedAnswer: { '@type': 'Answer', text: f.a },
+    })),
+    {
+      '@type': 'Question',
+      name: '¿Qué pasa si no se completa el quórum de una clase?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Se necesita un mínimo de 5 personas para que la clase se dicte. Si no se alcanza, la clase puede cancelarse o reprogramarse — te avisamos por nuestro canal oficial de WhatsApp.',
+      },
+    },
+  ],
+}
+
 function FaqItem({ q, a }) {
   const [open, setOpen] = useState(false)
   return (
@@ -81,15 +101,16 @@ export default function FAQ() {
   return (
     <>
       <SEO
-        title="Preguntas Frecuentes | XGYM"
+        title="Preguntas Frecuentes"
         description="Resolvemos las dudas más comunes sobre XGYM: ubicación, horarios, precios, planes e Indoor Cycling."
         path="/preguntas-frecuentes"
+        jsonLd={FAQ_JSON_LD}
       />
 
       <section className="pt-36 pb-24 bg-[var(--canvas)]">
         <div className="mx-auto max-w-4xl px-5 md:px-8">
           <p className="eyebrow mb-3">Dudas comunes</p>
-          <motion.h1 {...fadeUp} className="display text-4xl md:text-6xl text-white mb-14">Preguntas frecuentes</motion.h1>
+          <m.h1 {...fadeUp} className="display text-4xl md:text-6xl text-white mb-14">Preguntas frecuentes</m.h1>
 
           <div className="space-y-3 mb-16">
             {FAQS.map((f) => (

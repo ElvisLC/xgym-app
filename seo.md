@@ -1,87 +1,98 @@
-# Checklist de SEO Técnico, Rendimiento y Optimizaciones Web
+# Checklist de SEO Técnico, Rendimiento y Optimizaciones Web — Estado real (XGYM)
 
-Esta guía recopila el flujo de trabajo completo y las mejores prácticas aplicadas en el proyecto para asegurar **SEO técnico superior**, **máxima velocidad en móviles/desktop (PageSpeed 90+)** y **posicionamiento en motores de búsqueda**.
+Actualizado el 2026-07-26 para reflejar lo que ya está implementado en el sitio vs. lo
+que sigue pendiente. Antes era un checklist genérico sin marcar; ahora es el estado real.
 
 ---
 
 ## 📌 1. Arquitectura SEO On-Page e Indexación
 
-### 📄 Sitemap XML Extendido (`public/sitemap.xml`)
-- [ ] Incluir namespace de imágenes (`xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"`).
-- [ ] Declarar la URL principal con `priority="1.0"` y `changefreq="weekly"`.
-- [ ] Incluir etiquetas `<image:image>` con `<image:loc>` y `<image:title>` para todas las imágenes principales del sitio (mejora la indexación en Google Imágenes).
-- [ ] Agregar anclas de secciones clave (`/#servicios`, `/#ubicacion`, `/#nosotros`) con sus respectivas prioridades (`0.8`).
+### 📄 Sitemap XML (`public/sitemap.xml`)
+- [x] Namespace de imágenes (`xmlns:image`).
+- [x] URL principal con `priority="1.0"` y `changefreq="weekly"`.
+- [x] `<image:image>` en la home (logo).
+- [x] `lastmod` en todas las entradas (home y subpáginas).
+- [ ] Anclas de secciones (`/#servicios`, `/#ubicacion`) — no aplica hoy: las secciones
+      de `Home.jsx` no tienen `id` propios, así que esas anclas no resolverían a nada.
+      Solo agregar si se le ponen `id` a esas secciones y se quiere indexarlas aparte.
 
 ### 🤖 Robots (`public/robots.txt`)
-- [ ] Permitir el rastreo general:
-  ```text
-  User-agent: *
-  Allow: /
+- [x] `Allow: /` + referencia al sitemap real (`https://xgym.ve/sitemap.xml`).
 
-  Sitemap: https://tudominio.com/sitemap.xml
-  ```
-
-### 🏷️ Meta Etiquetas y Head de HTML (`index.html`)
-- [ ] `<title>` claro y con palabras clave locales (ej: `NombreMarca — Servicios en Ciudad`).
-- [ ] `<meta name="description">` persuasiva de entre 140 y 160 caracteres.
-- [ ] `<meta name="keywords">` estratégicas con términos de búsqueda locales.
-- [ ] Meta etiquetas geográficas (`geo.region`, `geo.placename`, `geo.position`, `ICBM`).
-- [ ] Enlace Canonical: `<link rel="canonical" href="https://tudominio.com/" />`.
-- [ ] Open Graph completas (`og:title`, `og:description`, `og:image`, `og:url`, `og:type`) para vista previa perfecta en WhatsApp y Facebook.
-- [ ] Twitter Cards (`twitter:card`, `twitter:title`, `twitter:description`, `twitter:image`).
+### 🏷️ Meta etiquetas (`index.html`)
+- [x] `title`, `description`, `keywords` con términos locales (Catia, Caracas).
+- [x] Meta geográficas (`geo.region`, `geo.placename`, `geo.position`, `ICBM`).
+- [x] Canonical, Open Graph completas, Twitter Cards.
+- [x] Por página: `src/components/SEO.jsx` inyecta title/description/canonical/OG/Twitter
+      únicos vía `react-helmet-async` — cada página en `src/pages/*.jsx` pasa su propio
+      `title`/`description`/`path`.
 
 ---
 
 ## 📊 2. Datos Estructurados (Schema.org JSON-LD)
 
-- [ ] Incluir bloque de script `type="application/ld+json"` en el `<head>`.
-- [ ] Definir el tipo de negocio local (ej: `PetStore`, `LocalBusiness`, `MedicalClinic`, etc.).
-- [ ] Declarar `name`, `image`, `url`, `telephone`, `priceRange`, y coordenadas `geo`.
-- [ ] Incluir catálogo de servicios con `hasOfferCatalog` y `OfferCatalog` con la lista de servicios clave para capturar **Rich Snippets** en Google.
-- [ ] Definir `openingHoursSpecification` con los días y horas exactos de atención.
+- [x] `Gym` schema en `index.html` (home): dirección, geo, horarios, catálogo de
+      servicios, `sameAs` de Instagram.
+- [x] `FAQPage` schema en `/preguntas-frecuentes` (`src/pages/FAQ.jsx`), inyectado vía el
+      prop `jsonLd` de `SEO.jsx` — habilita Rich Results de preguntas frecuentes.
+- [ ] `BreadcrumbList` en subpáginas — pendiente, evaluar si suma dado que la navegación
+      es plana (sin rutas anidadas tipo `/planes/gen-x`).
 
 ---
 
-## ⚡ 3. Optimización Extrema de Rendimiento (PageSpeed / Core Web Vitals)
+## ⚡ 3. Rendimiento (PageSpeed / Core Web Vitals)
 
-### 🖼️ Optimización de Imágenes
-- [ ] Convertir todas las imágenes a formatos de nueva generación (**WebP** o **AVIF**).
-- [ ] Ajustar la resolución física de las imágenes a las dimensiones reales mostradas en pantalla (evitar cargar imágenes de 2000px para contenedores de 450px).
-- [ ] Recomprimir WebP a calidad balanceada (entre **45% y 65%** según necesidad visual) para lograr archivos por debajo de **50 KiB**.
-- [ ] **Imagen LCP (Hero/Portada)**:
-  - [ ] Precargar en el `<head>`: `<link rel="preload" as="image" href="/imagen-hero.webp" type="image/webp" fetchpriority="high" />`.
-  - [ ] Usar `fetchPriority="high"` y `decoding="async"`.
-  - [ ] Evitar atributos `loading="lazy"` en la imagen del Hero.
-- [ ] **Imágenes por debajo del pliegue (Below the fold)**:
-  - [ ] Aplicar `loading="lazy"` y `decoding="async"`.
-  - [ ] Declarar siempre `width` y `height` explícitos en la etiqueta `<img>` para evitar cambios bruscos de diseño (**CLS = 0**).
+### 🖼️ Imágenes
+- [x] Fotos de entrenadores (`public/entrenadores/*.jpg`) ya livianas (30-52 KB).
+- [x] `width`/`height` explícitos + `loading="lazy"` + `decoding="async"` en imágenes
+      bajo el pliegue (galería de Home, entrenadores).
+- [ ] Imagen `poster` en el `<video>` del hero (`Home.jsx`) — pendiente: falta un frame
+      real exportado del clip de Pexels; no se debe usar el logo como poster porque no
+      es representativo del contenido del hero.
 
-### 🚀 Optimización del Renderizado y CSS/JS (FCP & TBT)
-- [ ] **Fuentes no bloqueantes**: Cargar Google Fonts de manera asíncrona mediante la estrategia:
-  ```html
-  <link href="https://fonts.googleapis.com/..." rel="stylesheet" media="print" onload="this.media='all'">
-  ```
-- [ ] **Framer Motion / Animaciones en Móvil**:
-  - [ ] Eliminar opacidad 0 (`opacity: 0`) o transformaciones complejas en la primera vista (Hero) durante la carga inicial para garantizar que el **FCP** ocurra de inmediato.
-- [ ] **Diferir Scripts Pesados (Google Maps / Iframes)**:
-  - [ ] Evitar embeber `iframe` directos de Google Maps al inicio (cargan ~400 KiB de JS no utilizado).
-  - [ ] Implementar un patrón de **Lazy Load interactivo** con vista previa estática y botón *"Cargar mapa interactivo"* o activar al hacer scroll/intersección.
-- [ ] **Code Splitting en Bundler (`vite.config.ts`)**:
-  - [ ] Configurar `manualChunks` para separar librerías pesadas en trozos independientes (`vendor-react`, `vendor-framer`, etc.).
+### 🚀 Renderizado y CSS/JS
+- [x] Fuentes self-hosted vía `@fontsource` (no Google Fonts), `font-display: swap` ya
+      viene por defecto en esos paquetes — no bloquean el render.
+- [x] Preload del woff2 de Bebas Neue (fuente del `<h1>` del hero) en `index.html`.
+- [x] Pesos de fuente podados a los realmente usados: JetBrains Mono quedó en 400/600
+      (el 500 no se usaba en ninguna combinación de clases `font-mono`).
+- [x] `preconnect` a `images.pexels.com`, `assets.mixkit.co` y `videos.pexels.com`
+      (el hero video se sirve desde este último y antes no tenía preconnect).
+- [x] `LazyMotion` + `domAnimation` en `App.jsx` en vez de importar `framer-motion`
+      completo — reduce el JS de animaciones.
+- [x] Mapa de Google como `iframe` con `loading="lazy"` (no carga hasta que el usuario
+      se acerca a esa sección) — ya evita el bloqueo inicial de ~400 KiB de JS.
+- [x] `manualChunks` en `vite.config.js` separa `vendor-react` y `vendor-framer` del
+      resto del bundle.
+- [x] Code-splitting por ruta (`React.lazy` en `App.jsx`) — cada página subcarga su
+      propio chunk.
 
 ---
 
 ## ♿ 4. Accesibilidad (WCAG AA) y UX
 
-- [ ] Asegurar contraste adecuado entre textos y fondos (usar opacidades de texto superiores al **85-90%** sobre fondos claros u oscuros).
-- [ ] Atributos `alt` descriptivos en absolutamente todas las imágenes.
-- [ ] Jerarquía estricta de encabezados HTML (`<h1>` único por página, seguido de `<h2>` y `<h3>`).
-- [ ] Atributos `aria-label` en botones sin texto directo (ej: botón del menú hamburguesa).
+- [x] Un único `<h1>` por página, con jerarquía `<h2>`/`<h3>` debajo (corregido: FAQ y
+      Contacto no tenían encabezado real — ver nota abajo).
+- [x] `alt` descriptivo en las imágenes de galería/entrenadores.
+- [x] `aria-label`/`aria-expanded` en el menú hamburguesa y el desplegable "Más".
+- [x] Tablas de horarios con `scope="col"` en encabezados.
+
+**Nota de la corrección de encabezados:** `FAQ.jsx` referenciaba `motion.h1` sin importar
+`motion` (solo se importaba `m` de `framer-motion`) — esto rompía la página entera en
+producción con `ReferenceError: motion is not defined`, no solo un problema de SEO.
+`Contacto.jsx` no tenía ningún `<h1>`, solo un `<h2>` vía `SectionHeading`. Ambos se
+corrigieron.
 
 ---
 
-## 🛠️ 5. Pasos de Comprobación Final
+## 🛠️ 5. Pendientes reales (en orden de impacto)
 
-- [ ] Correr `npm run build` para asegurar cero errores de compilación o sintaxis en producción.
-- [ ] Ejecutar prueba en **Google PageSpeed Insights** (Modo Mobile) apuntando al dominio en producción.
-- [ ] Validar datos estructurados en la herramienta oficial [Rich Results Test de Google](https://search.google.com/test/rich-results).
+- [ ] Reemplazar `YOUR_META_PIXEL_ID` en `index.html` por el Pixel ID real de Meta
+      cuando XGYM lo entregue (snippet dejado comentado en el mismo archivo, listo para
+      descomentar y completar).
+- [ ] Conseguir/exportar un frame del video del hero para usar como `poster`.
+- [ ] Conectar el formulario de `Contacto.jsx` a un backend real (hoy solo hace
+      `trackFormSubmit` y muestra "¡Enviado!" sin enviar nada — hay un `TODO` de
+      Formspree en el propio archivo).
+- [ ] Volver a correr PageSpeed Insights (móvil y desktop) sobre el deploy con estos
+      cambios para confirmar el impacto real y decidir si hace falta seguir optimizando.

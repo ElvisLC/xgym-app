@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet-async'
 const SITE = 'https://xgym.ve'
 const DEFAULT_IMAGE = 'https://pub-2b1a99696a104faeb4013550cdc9046e.r2.dev/web/xgym-logo.jpg'
 
-export default function SEO({ title, description, path = '/', image, keywords }) {
+export default function SEO({ title, description, path = '/', image, keywords, jsonLd }) {
   const fullTitle = `${title} | XGYM`
   const url = `${SITE}${path}`
   const ogImage = image || DEFAULT_IMAGE
@@ -25,6 +25,9 @@ export default function SEO({ title, description, path = '/', image, keywords })
       <meta name="twitter:title" content={fullTitle} />
       <meta name="twitter:description" content={description} />
       <meta name="twitter:image" content={ogImage} />
+      {jsonLd && (
+        <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
+      )}
     </Helmet>
   )
 }

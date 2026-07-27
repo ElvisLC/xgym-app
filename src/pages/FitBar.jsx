@@ -20,7 +20,7 @@ export default function FitBar() {
   return (
     <>
       <SEO
-        title="Fit Bar — Menú | XGYM"
+        title="Fit Bar — Menú"
         description="Menú del Fit Bar de XGYM: jugos naturales, batidos con proteína y el Nivel Héroe con Whey Protein Gold Standard."
         path="/fit-bar"
       />

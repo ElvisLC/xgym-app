@@ -14,7 +14,7 @@ export default function Nosotros() {
   return (
     <>
       <SEO
-        title="Nosotros | XGYM"
+        title="Nosotros"
         description="Misión, visión y filosofía de XGYM: disciplina, comunidad y el hábito que forja héroes, en Catia, Caracas."
         path="/nosotros"
       />

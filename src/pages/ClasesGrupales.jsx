@@ -27,7 +27,7 @@ export default function ClasesGrupales() {
   return (
     <>
       <SEO
-        title="Clases Grupales | XGYM"
+        title="Clases Grupales"
         description="Programación semanal de clases grupales en XGYM: cardiodance, fitcombat, baile, aeróbicos y funcionales."
         path="/clases-grupales"
       />

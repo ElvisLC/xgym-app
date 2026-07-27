@@ -8,7 +8,7 @@ export default function NotFound() {
   return (
     <>
       <SEO
-        title="404 — Página no encontrada | XGYM"
+        title="404 — Página no encontrada"
         description="La página que buscas no existe o fue movida. Vuelve al inicio o escríbenos por WhatsApp."
         path="/404"
       />

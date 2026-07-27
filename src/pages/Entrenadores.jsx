@@ -23,7 +23,7 @@ export default function Entrenadores() {
   return (
     <>
       <SEO
-        title="El Equipo XGYM | Entrenadores"
+        title="El Equipo | Entrenadores"
         description="Conoce a los entrenadores de XGYM en Catia: personal trainers, instructores de Indoor Cycling y clases grupales."
         path="/entrenadores"
       />
