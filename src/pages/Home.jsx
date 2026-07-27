@@ -126,7 +126,7 @@ export default function Home() {
           </p>
 
           <h1
-            style={{ animationDelay: '0.1s' }}
+            style={{ animationDelay: '0.15s' }}
             className="animate-fade-up display text-white text-6xl sm:text-7xl md:text-8xl lg:text-[7.5rem] mb-6"
           >
             Todos llevamos
@@ -135,14 +135,14 @@ export default function Home() {
           </h1>
 
           <p
-            style={{ animationDelay: '0.2s' }}
+            style={{ animationDelay: '0.3s' }}
             className="animate-fade-up text-neutral-300 text-base md:text-lg max-w-lg mb-9"
           >
             El gimnasio de Catia para quienes eligen la disciplina cada día.
           </p>
 
           <div
-            style={{ animationDelay: '0.3s' }}
+            style={{ animationDelay: '0.45s' }}
             className="animate-fade-up flex flex-col sm:flex-row gap-4"
           >
             <a
