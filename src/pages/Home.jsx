@@ -1,6 +1,6 @@
 import { useRef, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { ArrowRight, Zap, Dumbbell, Users, TrendingUp, Play, Leaf, ShieldCheck, Flame, Star } from 'lucide-react'
+import { ArrowRight, Dumbbell, Users, Play, Leaf, ShieldCheck, Flame, Star } from 'lucide-react'
 import SEO from '../components/SEO'
 import { useInView } from '../lib/useInView'
 import { BRAND, waLink } from '../config'
@@ -33,14 +33,6 @@ const VALUE_PROPS = [
   },
 ]
 
-const BENEFITS = [
-  { icon: Dumbbell, category: 'Físico', text: 'Más fuerte cada semana' },
-  { icon: TrendingUp, category: 'Mental', text: 'Disciplina que se nota fuera del gym' },
-  { icon: Users, category: 'Comunidad', text: 'Nunca entrenas solo' },
-  { icon: Zap, category: 'Resultados', text: 'Constancia real, resultados reales' },
-]
-
-// Mismos 3 planes (nombre/precio/texto) que Planes.jsx: GYM_PLANS[0], SPINNING_PLANS[0], DISCIPLINE_PLANS[1].
 const HOME_PLANS = [
   { name: 'Gen X', price: '$30', period: '/mes', text: 'Sala de musculación + clases de salón. Para quien quiere entrenar a su ritmo, todos los días.' },
   { name: 'Gen X + Spinning 5', price: '$40', period: '/mes', featured: true, text: 'Sala + salón + 5 clases de spinning.' },
@@ -119,24 +111,6 @@ function GalleryImage({ index, img }) {
   )
 }
 
-// Tarjeta de beneficio: pop-in con bounce sutil, con cascada.
-function BenefitCard({ index, benefit }) {
-  const [ref, inView] = useInView()
-  return (
-    <div
-      ref={ref}
-      style={{ transitionDelay: inView ? `${index * 100}ms` : '0ms' }}
-      className={`transition-[opacity,transform] duration-500 ease-[cubic-bezier(0.34,1.2,0.64,1)] ${
-        inView ? 'opacity-100 scale-100' : 'opacity-0 scale-90'
-      } border border-white/10 bg-[var(--surface)] p-6`}
-    >
-      <benefit.icon className="text-[var(--accent)] mb-4" size={26} strokeWidth={1.5} />
-      <p className="eyebrow mb-1">{benefit.category}</p>
-      <p className="text-white font-medium">{benefit.text}</p>
-    </div>
-  )
-}
-
 // Envoltorio de reveal genérico: slide desde abajo con bounce, con cascada por posición.
 function Reveal({ index, className = '', children }) {
   const [ref, inView] = useInView()
@@ -154,11 +128,12 @@ function Reveal({ index, className = '', children }) {
 }
 
 // Título de sección animado: eyebrow con fade + h2 con slide, patrón reutilizado en varias secciones.
-function SectionTitle({ eyebrow, title, fromRight = false }) {
+function SectionTitle({ eyebrow, title, fromRight = false, accentBar = false }) {
   const [ref, inView] = useInView()
   return (
     <div ref={ref}>
-      <p className={`transition-opacity duration-500 ${inView ? 'opacity-100' : 'opacity-0'} eyebrow mb-3`}>{eyebrow}</p>
+      {accentBar && <div className="w-12 h-1 bg-[var(--accent)] mb-4" />}
+      {eyebrow && <p className={`transition-opacity duration-500 ${inView ? 'opacity-100' : 'opacity-0'} eyebrow mb-3`}>{eyebrow}</p>}
       <h2
         style={{ transitionDelay: inView ? '100ms' : '0ms' }}
         className={`transition-[opacity,transform] duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] ${
@@ -290,36 +265,26 @@ export default function Home() {
       <section className="bg-[var(--canvas)] py-24 md:py-32">
         <div className="mx-auto max-w-7xl px-5 md:px-8">
           <h2 className="sr-only">Propuesta de valor</h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 divide-y sm:divide-y-0 sm:divide-x divide-white/15">
             {VALUE_PROPS.map((v, i) => (
-              <ValueCard key={v.title} index={i} className="p-6 md:p-8">
-                <v.icon className="text-[var(--accent)] mb-4" size={32} strokeWidth={1.5} />
-                <h3 className="text-white font-bold text-sm md:text-base mb-2">{v.title}</h3>
-                <p className="text-[var(--muted)] text-xs md:text-sm leading-relaxed">{v.text}</p>
+              <ValueCard key={v.title} index={i} className="p-6 md:p-8 flex gap-4 items-start">
+                <v.icon className="text-[var(--accent)] shrink-0 mt-0.5" size={28} strokeWidth={1.5} />
+                <div>
+                  <h3 className="text-white font-bold text-sm md:text-base uppercase tracking-wide mb-1">{v.title}</h3>
+                  <p className="text-[var(--muted)] text-xs md:text-sm leading-relaxed">{v.text}</p>
+                </div>
               </ValueCard>
             ))}
           </div>
         </div>
       </section>
 
-      {/* 3. BENEFICIOS */}
-      <section className="bg-[var(--canvas-soft)] py-24 border-y border-white/5">
-        <div className="mx-auto max-w-7xl px-5 md:px-8">
-          <h2 className="sr-only">Beneficios</h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
-            {BENEFITS.map((b, i) => (
-              <BenefitCard key={b.category} index={i} benefit={b} />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* 4. PLANES */}
+      {/* 3. PLANES */}
       <section className="bg-[var(--canvas)] py-24 md:py-32">
         <div className="mx-auto max-w-7xl px-5 md:px-8">
           <div className="grid lg:grid-cols-[300px_1fr] gap-10 lg:gap-14 items-start">
             <div>
-              <SectionTitle eyebrow="Membresías" title="Planes" />
+              <SectionTitle title="Planes" accentBar />
               <p className="text-[var(--muted)] text-base mt-5 mb-8 max-w-xs">
                 Encuentra el plan que se adapta a tu estilo de vida.
               </p>

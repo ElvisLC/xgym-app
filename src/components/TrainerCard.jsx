@@ -1,26 +1,12 @@
 import { useState } from 'react'
 import { useInView } from '../lib/useInView'
-import { useHoverCapable } from '../lib/useHoverCapable'
 
 // Tarjeta de entrenador: la foto hace crossfade a su versión cómic al pasar el cursor
 // (o al tocar, en móvil). variant='full' (Entrenadores) muestra el "poder"; variant='compact'
 // (carrusel de Home) solo muestra nombre + etiqueta "COACH".
 export default function TrainerCard({ index = 0, trainer, variant = 'full', className = '' }) {
   const [ref, inView] = useInView()
-  const hoverCapable = useHoverCapable()
-  const [showComic, setShowComic] = useState(false)
   const [comicFailed, setComicFailed] = useState(false)
-
-  const effectActive = !comicFailed
-  const hoverHandlers = hoverCapable
-    ? {
-        onMouseEnter: () => effectActive && setShowComic(true),
-        onMouseLeave: () => effectActive && setShowComic(false),
-      }
-    : {
-        onClick: () => effectActive && setShowComic((v) => !v),
-      }
-
   const compact = variant === 'compact'
 
   return (
@@ -31,7 +17,7 @@ export default function TrainerCard({ index = 0, trainer, variant = 'full', clas
         inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
       } border border-white/10 bg-[var(--surface)] overflow-hidden group ${compact ? 'w-[240px] sm:w-[260px] shrink-0' : ''} ${className}`}
     >
-      <div className="relative aspect-[2/3] overflow-hidden" {...hoverHandlers}>
+      <div className="relative aspect-[2/3] overflow-hidden">
         <img
           src={trainer.photo}
           alt={trainer.name}
@@ -39,20 +25,20 @@ export default function TrainerCard({ index = 0, trainer, variant = 'full', clas
           decoding="async"
           width={400}
           height={600}
-          className="absolute inset-0 w-full h-full object-cover transition-opacity duration-[350ms]"
-          style={{ opacity: effectActive && showComic ? 0 : 1 }}
+          className="absolute inset-0 w-full h-full object-cover transition-opacity duration-[350ms] group-hover:opacity-0"
         />
-        <img
-          src={trainer.comicPhoto}
-          alt=""
-          loading="lazy"
-          decoding="async"
-          width={400}
-          height={600}
-          onError={() => setComicFailed(true)}
-          className="absolute inset-0 w-full h-full object-cover pointer-events-none transition-opacity duration-[350ms]"
-          style={{ opacity: effectActive && showComic ? 1 : 0 }}
-        />
+        {!comicFailed && (
+          <img
+            src={trainer.comicPhoto}
+            alt=""
+            loading="lazy"
+            decoding="async"
+            width={400}
+            height={600}
+            onError={() => setComicFailed(true)}
+            className="absolute inset-0 w-full h-full object-cover pointer-events-none transition-opacity duration-[350ms] opacity-0 group-hover:opacity-100"
+          />
+        )}
       </div>
       {compact ? (
         <div className="p-4">

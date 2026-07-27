@@ -82,12 +82,12 @@ export default function CoachesCarousel({ trainers }) {
       return
     }
 
-    const DURATION = 480
+    const DURATION = 900
     const start = performance.now()
 
     const tick = (now) => {
       const t = Math.min(1, (now - start) / DURATION)
-      const eased = 1 - Math.pow(1 - t, 3) // easeOutCubic
+      const eased = 1 - Math.pow(1 - t, 5) // easeOutQuint - muy suave
       track.scrollTo({ left: from + (to - from) * eased, behavior: 'instant' })
       if (t < 1) rafRef.current = requestAnimationFrame(tick)
     }
