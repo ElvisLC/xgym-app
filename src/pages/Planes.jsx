@@ -1,5 +1,5 @@
 import { Check, ArrowRight } from 'lucide-react'
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import SEO from '../components/SEO'
 import { waLink } from '../config'
 import { trackWhatsAppClick } from '../lib/analytics'
@@ -86,7 +86,7 @@ export default function Planes() {
       <section className="pt-36 pb-24 bg-[var(--canvas)]">
         <div className="mx-auto max-w-7xl px-5 md:px-8">
           <p className="eyebrow mb-3">Membresías</p>
-          <motion.h1 {...fadeUp} className="display text-4xl md:text-6xl text-white mb-4">Elige cómo entrenas.</motion.h1>
+          <m.h1 {...fadeUp} className="display text-4xl md:text-6xl text-white mb-4">Elige cómo entrenas.</m.h1>
           <p className="text-[var(--muted)] text-base md:text-lg max-w-2xl mb-2">
             Nosotros ponemos la disciplina contigo. Precios en USD, cobrados a tasa BCV del día de pago.
           </p>
@@ -95,46 +95,46 @@ export default function Planes() {
           </p>
 
           {/* Precios base */}
-          <motion.div {...stagger} className="grid sm:grid-cols-3 gap-4 mb-20">
+          <m.div {...stagger} className="grid sm:grid-cols-3 gap-4 mb-20">
             {BASE.map((b) => (
-              <motion.div {...fadeUp} key={b.concept} className="border border-white/10 bg-[var(--surface)] p-6">
+              <m.div {...fadeUp} key={b.concept} className="border border-white/10 bg-[var(--surface)] p-6">
                 <p className="text-white font-semibold mb-1">{b.concept}</p>
                 <p className="text-2xl font-bold text-[var(--accent)] mb-1">{b.price}</p>
                 <p className="text-[var(--subtle)] text-sm">{b.detail}</p>
-              </motion.div>
+              </m.div>
             ))}
-          </motion.div>
+          </m.div>
 
           {/* Planes Gym */}
           <h2 className="display text-3xl text-white mb-6">Planes Gym</h2>
-          <motion.div {...stagger} className="grid md:grid-cols-3 gap-6 mb-20">
+          <m.div {...stagger} className="grid md:grid-cols-3 gap-6 mb-20">
             {GYM_PLANS.map((p) => (
-              <motion.div {...fadeUp} key={p.name}>
+              <m.div {...fadeUp} key={p.name}>
                 <PlanCard {...p} />
-              </motion.div>
+              </m.div>
             ))}
-          </motion.div>
+          </m.div>
 
           {/* Gen X + Spinning */}
           <h2 className="display text-3xl text-white mb-6">Gen X + Spinning</h2>
-          <motion.div {...stagger} className="grid md:grid-cols-2 gap-6 mb-20">
+          <m.div {...stagger} className="grid md:grid-cols-2 gap-6 mb-20">
             {SPINNING_PLANS.map((p) => (
-              <motion.div {...fadeUp} key={p.name}>
+              <m.div {...fadeUp} key={p.name}>
                 <PlanCard {...p} />
-              </motion.div>
+              </m.div>
             ))}
-          </motion.div>
+          </m.div>
 
           {/* Planes de Disciplina */}
           <h2 className="display text-3xl text-white mb-6">Planes de Disciplina</h2>
           <p className="text-[var(--subtle)] text-sm mb-6">Planes de permanencia — el compromiso más largo, el mejor precio por mes.</p>
-          <motion.div {...stagger} className="grid md:grid-cols-3 gap-6 mb-20">
+          <m.div {...stagger} className="grid md:grid-cols-3 gap-6 mb-20">
             {DISCIPLINE_PLANS.map((p) => (
-              <motion.div {...fadeUp} key={p.name}>
+              <m.div {...fadeUp} key={p.name}>
                 <PlanCard {...p} />
-              </motion.div>
+              </m.div>
             ))}
-          </motion.div>
+          </m.div>
 
           {/* Solo Spinning / Solo Salón / Combos */}
           <h2 className="display text-3xl text-white mb-6">Solo Spinning · Solo Salón · Combos</h2>
@@ -149,7 +149,7 @@ export default function Planes() {
               </thead>
               <tbody>
                 {LOOSE_OPTIONS.map((row, i) => (
-                  <tr key={i} className="odd:bg-[var(--canvas-soft)]">
+                  <tr key={`${row.category}-${row.option}`} className="odd:bg-[var(--canvas-soft)]">
                     <td className="px-4 py-3 text-neutral-300 border-b border-white/5">{row.category}</td>
                     <td className="px-4 py-3 text-white border-b border-white/5">{row.option}</td>
                     <td className="px-4 py-3 text-[var(--accent)] font-mono border-b border-white/5">{row.price}</td>

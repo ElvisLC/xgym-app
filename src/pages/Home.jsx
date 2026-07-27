@@ -1,5 +1,5 @@
 import { useRef, useEffect, useState } from 'react'
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import { ArrowRight, Zap, Dumbbell, Users, TrendingUp, Play } from 'lucide-react'
 import SEO from '../components/SEO'
@@ -119,16 +119,16 @@ export default function Home() {
         </div>
 
         <div className="relative z-10 mx-auto max-w-7xl w-full px-5 md:px-8 pb-16 md:pb-24 pt-32">
-          <motion.p
+          <m.p
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             className="eyebrow mb-5"
           >
             {BRAND.addressShort}
-          </motion.p>
+          </m.p>
 
-          <motion.h1
+          <m.h1
             initial={{ y: 20 }}
             animate={{ y: 0 }}
             transition={{ duration: 0.7, delay: 0.1 }}
@@ -137,18 +137,18 @@ export default function Home() {
             Todos llevamos
             <br />
             un <span className="text-[var(--accent)]">héroe</span> dentro.
-          </motion.h1>
+          </m.h1>
 
-          <motion.p
+          <m.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.2 }}
             className="text-neutral-300 text-base md:text-lg max-w-lg mb-9"
           >
             El gimnasio de Catia para quienes eligen la disciplina cada día.
-          </motion.p>
+          </m.p>
 
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.3 }}
@@ -171,21 +171,21 @@ export default function Home() {
               <Play size={16} />
               Conoce XGYM
             </Link>
-          </motion.div>
+          </m.div>
         </div>
       </section>
 
       {/* 1.2 PROPUESTA DE VALOR */}
       <section className="bg-[var(--canvas)] py-24 md:py-32">
         <div className="mx-auto max-w-7xl px-5 md:px-8">
-          <motion.div {...stagger} className="grid md:grid-cols-2 gap-px bg-white/10">
+          <m.div {...stagger} className="grid md:grid-cols-2 gap-px bg-white/10">
             {VALUE_PROPS.map((v) => (
-              <motion.div key={v.title} {...fadeUp} className="bg-[var(--canvas)] p-8 md:p-10">
+              <m.div key={v.title} {...fadeUp} className="bg-[var(--canvas)] p-8 md:p-10">
                 <h2 className="text-white text-xl font-semibold mb-2">{v.title}</h2>
                 <p className="text-[var(--muted)] text-sm leading-relaxed">{v.text}</p>
-              </motion.div>
+              </m.div>
             ))}
-            <motion.div {...fadeUp} className="bg-[var(--surface)] p-8 md:p-10 flex flex-col justify-center">
+            <m.div {...fadeUp} className="bg-[var(--surface)] p-8 md:p-10 flex flex-col justify-center">
               <p className="display text-2xl md:text-3xl text-white leading-tight mb-4">
                 No vendemos cuerpos perfectos. Construimos <span className="text-[var(--accent)]">héroes reales</span>.
               </p>
@@ -198,19 +198,19 @@ export default function Home() {
               >
                 Únete a XGYM <ArrowRight size={14} />
               </a>
-            </motion.div>
-          </motion.div>
+            </m.div>
+          </m.div>
         </div>
       </section>
 
       {/* 1.3 GALERÍA */}
       <section className="bg-[var(--canvas-soft)] py-24 border-y border-white/5">
         <div className="mx-auto max-w-7xl px-5 md:px-8">
-          <motion.p {...fadeUp} className="eyebrow mb-3">El espacio</motion.p>
-          <motion.h2 {...fadeUp} className="display text-4xl md:text-6xl text-white mb-10">Así se entrena en XGYM</motion.h2>
-          <motion.div {...stagger} className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <m.p {...fadeUp} className="eyebrow mb-3">El espacio</m.p>
+          <m.h2 {...fadeUp} className="display text-4xl md:text-6xl text-white mb-10">Así se entrena en XGYM</m.h2>
+          <m.div {...stagger} className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {GALLERY.map((img, i) => (
-              <motion.div key={i} {...fadeUp} className="aspect-[3/4] overflow-hidden border border-white/10">
+              <m.div key={img.src} {...fadeUp} className="aspect-[3/4] overflow-hidden border border-white/10">
                 <img
                   src={img.src}
                   alt={img.alt}
@@ -220,36 +220,36 @@ export default function Home() {
                   height={533}
                   className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
                 />
-              </motion.div>
+              </m.div>
             ))}
-          </motion.div>
+          </m.div>
         </div>
       </section>
 
       {/* 1.4 BENEFICIOS */}
       <section className="bg-[var(--canvas)] py-24 md:py-32">
         <div className="mx-auto max-w-7xl px-5 md:px-8">
-          <motion.div {...stagger} className="grid sm:grid-cols-2 md:grid-cols-4 gap-6">
+          <m.div {...stagger} className="grid sm:grid-cols-2 md:grid-cols-4 gap-6">
             {BENEFITS.map((b) => (
-              <motion.div key={b.category} {...fadeUp} className="border border-white/10 bg-[var(--surface)] p-6">
+              <m.div key={b.category} {...fadeUp} className="border border-white/10 bg-[var(--surface)] p-6">
                 <b.icon className="text-[var(--accent)] mb-4" size={26} strokeWidth={1.5} />
                 <p className="eyebrow mb-1">{b.category}</p>
                 <p className="text-white font-medium">{b.text}</p>
-              </motion.div>
+              </m.div>
             ))}
-          </motion.div>
+          </m.div>
         </div>
       </section>
 
       {/* 1.5 VISTA RÁPIDA DE PLANES */}
       <section className="bg-[var(--canvas-soft)] py-24 md:py-32 border-y border-white/5">
         <div className="mx-auto max-w-7xl px-5 md:px-8">
-          <motion.p {...fadeUp} className="eyebrow mb-3">Membresías</motion.p>
-          <motion.h2 {...fadeUp} className="display text-4xl md:text-6xl text-white mb-10">Elige cómo entrenas</motion.h2>
+          <m.p {...fadeUp} className="eyebrow mb-3">Membresías</m.p>
+          <m.h2 {...fadeUp} className="display text-4xl md:text-6xl text-white mb-10">Elige cómo entrenas</m.h2>
 
-          <motion.div {...stagger} className="grid md:grid-cols-3 gap-6 mb-10">
+          <m.div {...stagger} className="grid md:grid-cols-3 gap-6 mb-10">
             {PLANS_PREVIEW.map((p) => (
-              <motion.div
+              <m.div
                 key={p.name}
                 {...fadeUp}
                 className={`p-8 relative ${
@@ -269,9 +269,9 @@ export default function Home() {
                   <span className="text-[var(--subtle)] text-sm">{p.period}</span>
                 </div>
                 <p className="text-[var(--muted)] text-sm">{p.text}</p>
-              </motion.div>
+              </m.div>
             ))}
-          </motion.div>
+          </m.div>
 
           <Link
             to="/planes"
@@ -286,7 +286,7 @@ export default function Home() {
       {/* 1.6 ACCESO RÁPIDO A HORARIOS */}
       <section className="bg-[var(--canvas)] py-16">
         <div className="mx-auto max-w-7xl px-5 md:px-8">
-          <motion.div {...fadeUp} className="flex flex-col sm:flex-row items-center justify-between gap-6 border border-white/10 bg-[var(--surface)] p-8">
+          <m.div {...fadeUp} className="flex flex-col sm:flex-row items-center justify-between gap-6 border border-white/10 bg-[var(--surface)] p-8">
           <p className="font-mono text-white text-sm md:text-base text-center sm:text-left">
             Abrimos L-V {BRAND.hours.weekdays} · Sáb y feriados {BRAND.hours.weekend}
           </p>
@@ -297,44 +297,45 @@ export default function Home() {
             Ver horario completo
             <ArrowRight size={16} />
           </Link>
-        </motion.div>
+        </m.div>
         </div>
       </section>
 
       {/* 1.7 TESTIMONIOS */}
       <section className="bg-[var(--canvas)] py-24 md:py-32">
-        <motion.div {...fadeUp} className="mx-auto max-w-3xl px-5 md:px-8 text-center">
+        <m.div {...fadeUp} className="mx-auto max-w-3xl px-5 md:px-8 text-center">
           <p className="eyebrow mb-3">Comunidad</p>
           <h2 className="display text-3xl md:text-5xl text-white mb-4">
             Los primeros Héroes Fundadores ya están escribiendo su historia.
           </h2>
           <p className="text-[var(--muted)]">Muy pronto la contamos aquí.</p>
-        </motion.div>
+        </m.div>
       </section>
 
       {/* 1.8 MAPA */}
       <section className="bg-[var(--canvas-soft)] py-24 border-y border-white/5">
         <div className="mx-auto max-w-7xl px-5 md:px-8">
-          <motion.p {...fadeUp} className="eyebrow mb-3">Ubicación</motion.p>
-          <motion.h2 {...fadeUp} className="display text-3xl md:text-5xl text-white mb-8">Encuéntranos en Catia</motion.h2>
-          <motion.div {...fadeUp} className="border border-white/10 aspect-video overflow-hidden">
+          <m.p {...fadeUp} className="eyebrow mb-3">Ubicación</m.p>
+          <m.h2 {...fadeUp} className="display text-3xl md:text-5xl text-white mb-8">Encuéntranos en Catia</m.h2>
+          <m.div {...fadeUp} className="border border-white/10 aspect-video overflow-hidden">
             <iframe
               title="Ubicación de XGYM — CC La Laguna, Recta de Los Magallanes, Catia"
               src="https://www.google.com/maps?q=XGYM+Catia+Caracas&z=17&output=embed"
               className="w-full h-full grayscale invert-[92%] contrast-[1.1]"
               loading="lazy"
+              sandbox="allow-scripts allow-same-origin"
               referrerPolicy="no-referrer-when-downgrade"
             />
-          </motion.div>
+          </m.div>
         </div>
       </section>
 
       {/* 1.10 CIERRE FINAL */}
       <section className="bg-[var(--canvas)] py-24">
         <div className="mx-auto max-w-4xl px-5 md:px-8 text-center">
-          <motion.h2 {...fadeUp} className="display text-4xl md:text-6xl text-white mb-9">
+          <m.h2 {...fadeUp} className="display text-4xl md:text-6xl text-white mb-9">
             Tu historia de <span className="text-[var(--accent)]">héroe</span> empieza aquí.
-          </motion.h2>
+          </m.h2>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a
               href={waLink('Hola, quiero empezar en XGYM')}

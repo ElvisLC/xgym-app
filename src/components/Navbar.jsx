@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { NavLink } from 'react-router-dom'
-import { motion, AnimatePresence } from 'framer-motion'
+import { AnimatePresence, m } from 'framer-motion'
 import { Menu, X, MessageCircle, ChevronDown } from 'lucide-react'
 import { BRAND, waLink } from '../config'
 import { trackWhatsAppClick } from '../lib/analytics'
@@ -63,12 +63,12 @@ export default function Navbar() {
             onMouseEnter={() => setMoreOpen(true)}
             onMouseLeave={() => setMoreOpen(false)}
           >
-            <button className="flex items-center gap-1 text-sm font-medium text-neutral-300 hover:text-white" aria-label="Más opciones de navegación" aria-expanded={moreOpen}>
+            <button type="button" className="flex items-center gap-1 text-sm font-medium text-neutral-300 hover:text-white" aria-label="Más opciones de navegación" aria-expanded={moreOpen}>
               Más <ChevronDown size={14} />
             </button>
             <AnimatePresence>
               {moreOpen && (
-                <motion.div
+                <m.div
                   initial={{ opacity: 0, y: -8 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -8 }}
@@ -90,7 +90,7 @@ export default function Navbar() {
                       </NavLink>
                     ))}
                   </div>
-                </motion.div>
+                </m.div>
               )}
             </AnimatePresence>
           </div>
@@ -108,6 +108,7 @@ export default function Navbar() {
         </a>
 
         <button
+          type="button"
           className="lg:hidden text-white"
           onClick={() => setOpen((v) => !v)}
           aria-label={open ? 'Cerrar menú' : 'Abrir menú'}
@@ -119,10 +120,10 @@ export default function Navbar() {
 
       <AnimatePresence>
         {open && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
+          <m.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.2 }}
             className="lg:hidden bg-[var(--canvas-soft)] border-t border-white/10 px-5 pb-6 pt-2 max-h-[80vh] overflow-y-auto"
           >
@@ -152,7 +153,7 @@ export default function Navbar() {
               <MessageCircle size={16} strokeWidth={2.5} />
               Únete a XGYM
             </a>
-          </motion.div>
+          </m.div>
         )}
       </AnimatePresence>
     </header>

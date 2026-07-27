@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import { MapPin, Phone, Send } from 'lucide-react'
 import Instagram from '../components/icons/InstagramIcon'
 import SEO from '../components/SEO'
@@ -29,13 +29,13 @@ export default function Contacto() {
 
       <section className="pt-36 pb-24 bg-[var(--canvas)]">
         <div className="mx-auto max-w-7xl px-5 md:px-8">
-          <motion.div {...fadeUp}>
+          <m.div {...fadeUp}>
             <SectionHeading
               eyebrow="Hablemos"
               title="¿Listo para empezar?"
               description="Estamos a un mensaje de distancia."
             />
-          </motion.div>
+          </m.div>
 
           <div className="grid lg:grid-cols-2 gap-10">
             {/* Info + mapa */}
@@ -94,6 +94,7 @@ export default function Contacto() {
                   src="https://www.google.com/maps?q=XGYM+Catia+Caracas&z=17&output=embed"
                   className="w-full h-full grayscale invert-[92%] contrast-[1.1]"
                   loading="lazy"
+                  sandbox="allow-scripts allow-same-origin"
                   referrerPolicy="no-referrer-when-downgrade"
                 />
               </div>
@@ -109,8 +110,8 @@ export default function Contacto() {
                   </p>
                 </div>
               ) : (
-                <motion.form {...stagger} onSubmit={handleSubmit} className="space-y-5">
-                  <motion.div {...fadeUp}>
+                <m.form {...stagger} onSubmit={handleSubmit} className="space-y-5">
+                  <m.div {...fadeUp}>
                     <label htmlFor="name" className="block text-sm text-neutral-300 mb-2">
                       Nombre
                     </label>
@@ -122,8 +123,8 @@ export default function Contacto() {
                       className="w-full bg-[var(--canvas)] border border-white/15 px-4 py-3 text-white focus:border-[var(--accent)] outline-none"
                       placeholder="Tu nombre"
                     />
-                  </motion.div>
-                  <motion.div {...fadeUp}>
+                  </m.div>
+                  <m.div {...fadeUp}>
                     <label htmlFor="phone" className="block text-sm text-neutral-300 mb-2">
                       Teléfono
                     </label>
@@ -135,8 +136,8 @@ export default function Contacto() {
                       className="w-full bg-[var(--canvas)] border border-white/15 px-4 py-3 text-white focus:border-[var(--accent)] outline-none"
                       placeholder="0414 000 0000"
                     />
-                  </motion.div>
-                  <motion.div {...fadeUp}>
+                  </m.div>
+                  <m.div {...fadeUp}>
                     <label htmlFor="reason" className="block text-sm text-neutral-300 mb-2">
                       Motivo
                     </label>
@@ -153,8 +154,8 @@ export default function Contacto() {
                       <option value="indoor-cycling">Indoor Cycling</option>
                       <option value="otro">Otro</option>
                     </select>
-                  </motion.div>
-                  <motion.div {...fadeUp}>
+                  </m.div>
+                  <m.div {...fadeUp}>
                     <label htmlFor="message" className="block text-sm text-neutral-300 mb-2">
                       Mensaje
                     </label>
@@ -166,8 +167,8 @@ export default function Contacto() {
                       className="w-full bg-[var(--canvas)] border border-white/15 px-4 py-3 text-white focus:border-[var(--accent)] outline-none resize-none"
                       placeholder="Cuéntanos qué necesitas"
                     />
-                  </motion.div>
-                  <motion.div {...fadeUp}>
+                  </m.div>
+                  <m.div {...fadeUp}>
                     <button
                       type="submit"
                       className="w-full inline-flex items-center justify-center gap-2 bg-[var(--accent)] text-black font-semibold px-6 py-3.5 x-cut hover:bg-[var(--accent-dim)] transition-colors"
@@ -175,8 +176,8 @@ export default function Contacto() {
                       Enviar mensaje
                       <Send size={16} />
                     </button>
-                  </motion.div>
-                </motion.form>
+                  </m.div>
+                </m.form>
               )}
             </div>
           </div>

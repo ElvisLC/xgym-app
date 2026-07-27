@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { AnimatePresence, m } from 'framer-motion'
 import { ChevronDown } from 'lucide-react'
 import SEO from '../components/SEO'
 import { waLink } from '../config'
@@ -48,6 +48,7 @@ function FaqItem({ q, a }) {
   return (
     <div className="border border-white/10 bg-[var(--surface)]">
       <button
+        type="button"
         onClick={() => setOpen((v) => !v)}
         className="w-full flex items-center justify-between gap-4 p-5 text-left"
         aria-expanded={open}
@@ -60,17 +61,16 @@ function FaqItem({ q, a }) {
       </button>
       <AnimatePresence initial={false}>
         {open && (
-          <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: 'auto', opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
+          <m.div
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
             transition={{ duration: 0.25, ease: [0.4, 0, 0.2, 1] }}
-            className="overflow-hidden"
           >
             <p className="px-5 pb-5 text-[var(--muted)] text-sm leading-relaxed">
               {a}
             </p>
-          </motion.div>
+          </m.div>
         )}
       </AnimatePresence>
     </div>

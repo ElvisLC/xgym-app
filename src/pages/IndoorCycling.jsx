@@ -1,5 +1,5 @@
 import { ArrowRight } from 'lucide-react'
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import SEO from '../components/SEO'
 import { waLink } from '../config'
 import { trackWhatsAppClick } from '../lib/analytics'
@@ -40,7 +40,7 @@ export default function IndoorCycling() {
       <section className="pt-36 pb-24 bg-[var(--canvas)]">
         <div className="mx-auto max-w-7xl px-5 md:px-8">
           <p className="eyebrow mb-3">Modalidad Xtreme Bike</p>
-          <motion.h1 {...fadeUp} className="display text-4xl md:text-6xl text-white mb-4">Indoor Cycling</motion.h1>
+          <m.h1 {...fadeUp} className="display text-4xl md:text-6xl text-white mb-4">Indoor Cycling</m.h1>
           <p className="text-[var(--muted)] text-base md:text-lg max-w-2xl mb-3">
             Cardio, resistencia y ritmo sobre una bicicleta, guiado por instructores que llevan la modalidad en la sangre.
           </p>
@@ -59,28 +59,28 @@ export default function IndoorCycling() {
 
           {/* Precios */}
           <h2 className="display text-3xl text-white mb-6">Precios</h2>
-          <motion.div {...stagger} className="grid sm:grid-cols-3 gap-4 mb-16">
+          <m.div {...stagger} className="grid sm:grid-cols-3 gap-4 mb-16">
             {PRICES.map((p) => (
-              <motion.div {...fadeUp} key={p.option} className="border border-white/10 bg-[var(--surface)] p-6">
+              <m.div {...fadeUp} key={p.option} className="border border-white/10 bg-[var(--surface)] p-6">
                 <p className="text-white font-semibold mb-1">{p.option}</p>
                 <p className="text-2xl font-bold text-[var(--accent)]">{p.price}</p>
-              </motion.div>
+              </m.div>
             ))}
-          </motion.div>
+          </m.div>
 
           {/* Niveles de instructores */}
           <h2 className="display text-3xl text-white mb-3">Instructores por nivel de experiencia</h2>
           <p className="text-[var(--subtle)] text-sm mb-6 max-w-2xl">
             1XB / PRO / Master identifican la experiencia del instructor en la modalidad — se muestran como credencial junto a su nombre.
           </p>
-          <motion.div {...stagger} className="grid sm:grid-cols-3 gap-4 mb-16">
+          <m.div {...stagger} className="grid sm:grid-cols-3 gap-4 mb-16">
             {LEVELS.map((l) => (
-              <motion.div {...fadeUp} key={l.level} className="border border-white/10 bg-[var(--surface)] p-6">
+              <m.div {...fadeUp} key={l.level} className="border border-white/10 bg-[var(--surface)] p-6">
                 <p className="font-mono text-[var(--accent)] font-bold mb-2">{l.level}</p>
                 <p className="text-[var(--muted)] text-sm">{l.meaning}</p>
-              </motion.div>
+              </m.div>
             ))}
-          </motion.div>
+          </m.div>
 
           {/* Horario */}
           <h2 className="display text-3xl text-white mb-6">Horario</h2>
@@ -103,7 +103,7 @@ export default function IndoorCycling() {
                     <td className="px-4 py-3 text-white border-b border-white/5">{row.time}</td>
                     {row.slots.map((s, i) => (
                       <td
-                        key={i}
+                        key={`${row.time}-${DAYS[i]}`}
                         className={`px-4 py-3 border-b border-white/5 ${
                           s === '—' ? 'text-[var(--subtle)]' : 'text-[var(--accent)]'
                         }`}

@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import SEO from '../components/SEO'
 import { fadeUp, stagger } from '../lib/animations'
 
@@ -22,13 +22,13 @@ export default function Nosotros() {
       <section className="pt-36 pb-24 bg-[var(--canvas)]">
         <div className="mx-auto max-w-7xl px-5 md:px-8">
           <p className="eyebrow mb-3">Nuestra filosofía</p>
-          <motion.h1 {...fadeUp} className="display text-4xl md:text-6xl text-white mb-16">
+          <m.h1 {...fadeUp} className="display text-4xl md:text-6xl text-white mb-16">
             En un mundo que admira lo extraordinario, nosotros admiramos lo constante.
-          </motion.h1>
+          </m.h1>
 
           {/* Misión / Visión / Propósito */}
-          <motion.div {...stagger} className="grid md:grid-cols-3 gap-px bg-white/10 mb-20">
-            <motion.div {...fadeUp} className="bg-[var(--canvas)] p-8">
+          <m.div {...stagger} className="grid md:grid-cols-3 gap-px bg-white/10 mb-20">
+            <m.div {...fadeUp} className="bg-[var(--canvas)] p-8">
               <p className="eyebrow mb-3">Misión</p>
               <p className="text-neutral-300 text-sm leading-relaxed">
                 Despertar el héroe que existe en cada persona a través de la disciplina, el entrenamiento y una comunidad
@@ -36,28 +36,28 @@ export default function Nosotros() {
                 espacio donde cada entrenamiento fortalece el carácter, donde cada pequeño progreso importa y donde las
                 personas descubren que el verdadero poder nace de la constancia.
               </p>
-            </motion.div>
-            <motion.div {...fadeUp} className="bg-[var(--canvas)] p-8">
+            </m.div>
+            <m.div {...fadeUp} className="bg-[var(--canvas)] p-8">
               <p className="eyebrow mb-3">Visión</p>
               <p className="text-neutral-300 text-sm leading-relaxed">
                 Convertirnos en la comunidad fitness más inspiradora de Venezuela y un referente latinoamericano de cómo
                 una marca puede transformar vidas a través de la disciplina. Queremos demostrar que un gimnasio puede ser
                 mucho más que un lugar para hacer ejercicio.
               </p>
-            </motion.div>
-            <motion.div {...fadeUp} className="bg-[var(--canvas)] p-8">
+            </m.div>
+            <m.div {...fadeUp} className="bg-[var(--canvas)] p-8">
               <p className="eyebrow mb-3">Propósito</p>
               <p className="text-neutral-300 text-sm leading-relaxed">
                 Recordarle a las personas que los héroes sí existen. No aparecen en películas. No llevan capa. Llevan
                 uniforme de trabajo, llegan cansados después de una jornada difícil, cuidan a su familia, superan
                 pérdidas, empiezan de nuevo — y aun así deciden entrenar.
               </p>
-            </motion.div>
-          </motion.div>
+            </m.div>
+          </m.div>
 
           {/* Filosofía */}
-          <motion.div {...stagger} className="grid md:grid-cols-2 gap-12 mb-20">
-            <motion.div {...fadeUp} className="space-y-5 text-neutral-300 leading-relaxed">
+          <m.div {...stagger} className="grid md:grid-cols-2 gap-12 mb-20">
+            <m.div {...fadeUp} className="space-y-5 text-neutral-300 leading-relaxed">
               <p>
                 En un mundo que admira lo extraordinario, nosotros admiramos lo constante: a quien se levanta temprano, a
                 quien cumple su palabra, a quien sigue adelante cuando nadie está mirando, a quien vuelve después de haber
@@ -68,8 +68,8 @@ export default function Nosotros() {
                 Por eso cada repetición importa, cada gota de sudor importa, cada pequeño avance importa. Porque el héroe
                 no aparece el día que alcanza su meta: empieza a existir el día que decide no rendirse.
               </p>
-            </motion.div>
-            <motion.div {...fadeUp} className="border border-white/10 bg-[var(--surface)] p-10 flex flex-col justify-center">
+            </m.div>
+            <m.div {...fadeUp} className="border border-white/10 bg-[var(--surface)] p-10 flex flex-col justify-center">
               <p className="display text-3xl md:text-4xl text-white leading-tight mb-6">
                 "XGYM. El <span className="text-[var(--accent)]">hábito</span> forja héroes."
               </p>
@@ -77,11 +77,11 @@ export default function Nosotros() {
                 "XGYM no existe para fabricar atletas. Existe para formar{' '}
                 <span className="text-[var(--accent)]">personas más fuertes para la vida</span>."
               </p>
-            </motion.div>
-          </motion.div>
+            </m.div>
+          </m.div>
 
           {/* Pilares */}
-          <motion.div {...fadeUp}>
+          <m.div {...fadeUp}>
             <h2 className="display text-3xl text-white mb-8">Los cinco pilares de XGYM</h2>
             <div className="grid md:grid-cols-5 gap-px bg-white/10 mb-20">
               {PILLARS.map((p) => (
@@ -94,7 +94,7 @@ export default function Nosotros() {
                 </div>
               ))}
             </div>
-          </motion.div>
+          </m.div>
 
           {/* PENDIENTE (no visible en el sitio): insertar aquí, tal cual, el texto oficial de
               "El Origen de XGYM" y el juramento de marca cuando XGYM lo entregue. No reescribir ni resumir. */}

@@ -1,5 +1,5 @@
 import SEO from '../components/SEO'
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import { fadeUp } from '../lib/animations'
 
 const DAYS = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado']
@@ -35,7 +35,7 @@ export default function ClasesGrupales() {
       <section className="pt-36 pb-24 bg-[var(--canvas)]">
         <div className="mx-auto max-w-7xl px-5 md:px-8">
           <p className="eyebrow mb-3">Salón</p>
-          <motion.h1 {...fadeUp} className="display text-4xl md:text-6xl text-white mb-6">Programación de la semana</motion.h1>
+          <m.h1 {...fadeUp} className="display text-4xl md:text-6xl text-white mb-6">Programación de la semana</m.h1>
           <p className="text-[var(--muted)] text-base md:text-lg max-w-2xl mb-2">
             Héroe, aquí tienes tu ruta semanal. Cada clase es una oportunidad de entrenar tu cuerpo, tu mente y tu carácter.
             Elige tu hora, aparece, y haz que cuente.
@@ -44,7 +44,7 @@ export default function ClasesGrupales() {
             Incluidas en tu mensualidad · Clase individual $2
           </p>
 
-          <motion.div {...fadeUp} className="overflow-x-auto border border-white/10 mb-4">
+          <m.div {...fadeUp} className="overflow-x-auto border border-white/10 mb-4">
             <table aria-label="Horario de clases grupales" className="w-full min-w-[760px] border-collapse font-mono text-sm">
               <caption className="sr-only">Horario semanal de clases grupales por hora y día de la semana</caption>
               <thead>
@@ -63,7 +63,7 @@ export default function ClasesGrupales() {
                     <td className="px-4 py-3 text-white border-b border-white/5">{row.time}</td>
                     {row.slots.map((s, i) => (
                       <td
-                        key={i}
+                        key={`${row.time}-${DAYS[i]}`}
                         className={`px-4 py-3 border-b border-white/5 ${
                           s === '—' ? 'text-[var(--subtle)]' : 'text-[var(--accent)]'
                         }`}
@@ -75,9 +75,9 @@ export default function ClasesGrupales() {
                 ))}
               </tbody>
             </table>
-          </motion.div>
+          </m.div>
 
-          <motion.p {...fadeUp} className="display text-3xl text-white">Elige tu hora. <span className="text-[var(--accent)]">Aparece.</span></motion.p>
+          <m.p {...fadeUp} className="display text-3xl text-white">Elige tu hora. <span className="text-[var(--accent)]">Aparece.</span></m.p>
         </div>
       </section>
     </>

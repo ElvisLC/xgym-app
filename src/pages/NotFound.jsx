@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import SEO from '../components/SEO'
 import { fadeUp } from '../lib/animations'
@@ -15,28 +15,28 @@ export default function NotFound() {
 
       <section className="pt-36 pb-24 bg-[#111111] min-h-[70vh] flex items-center">
         <div className="mx-auto max-w-7xl px-5 md:px-8 text-center">
-          <motion.p
+          <m.p
             {...fadeUp}
             className="display text-[10rem] md:text-[14rem] leading-none text-[var(--accent)] select-none"
           >
             404
-          </motion.p>
+          </m.p>
 
-          <motion.h1
+          <m.h1
             {...fadeUp}
             className="display text-3xl md:text-5xl text-white mt-4 mb-6"
           >
             Página no encontrada
-          </motion.h1>
+          </m.h1>
 
-          <motion.p
+          <m.p
             {...fadeUp}
             className="text-[var(--muted)] max-w-md mx-auto mb-12 text-sm md:text-base leading-relaxed"
           >
             Lo sentimos, la página que buscas no existe o fue movida.
-          </motion.p>
+          </m.p>
 
-          <motion.div {...fadeUp} className="flex flex-col sm:flex-row items-center justify-center gap-4">
+          <m.div {...fadeUp} className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link
               to="/"
               className="inline-flex items-center justify-center bg-[var(--accent)] text-black font-semibold px-8 py-3.5 x-cut hover:bg-[var(--accent-dim)] transition-colors"
@@ -51,7 +51,7 @@ export default function NotFound() {
             >
               Escríbenos por WhatsApp
             </a>
-          </motion.div>
+          </m.div>
         </div>
       </section>
     </>
