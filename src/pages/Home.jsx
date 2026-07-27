@@ -94,7 +94,7 @@ export default function Home() {
              - Duración 8-10s en loop, sin audio
              - Peso menor a 3-4MB, preferiblemente comprimido a 720p */
           <video
-            className="absolute inset-0 w-full h-full object-cover opacity-55"
+            className="absolute inset-0 w-full h-full object-cover object-[center_30%] opacity-55"
             autoPlay
             muted
             loop
