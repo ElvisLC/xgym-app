@@ -1,0 +1,24 @@
+# XGYM — Gimnasio en Catia, Caracas
+
+XGYM es un gimnasio ubicado en Catia, Caracas, enfocado en disciplina, comunidad y formación de hábitos a largo plazo. Ofrece sala de musculación, Indoor Cycling (Xtreme Bike), clases grupales y un Fit Bar con jugos y batidos naturales.
+
+## Sitio web
+
+- [Inicio](https://xgym.ve/)
+- [Planes y Precios](https://xgym.ve/planes)
+- [Indoor Cycling](https://xgym.ve/indoor-cycling)
+- [Clases Grupales](https://xgym.ve/clases-grupales)
+- [Fit Bar — Menú](https://xgym.ve/fit-bar)
+- [Horarios](https://xgym.ve/horarios)
+- [Entrenadores](https://xgym.ve/entrenadores)
+- [Nosotros — Filosofía](https://xgym.ve/nosotros)
+- [Contacto](https://xgym.ve/contacto)
+- [Preguntas Frecuentes](https://xgym.ve/preguntas-frecuentes)
+
+## Datos de contacto
+
+- Dirección: Catia, Recta de Los Magallanes, CC La Laguna, piso 1, Caracas
+- WhatsApp: 0424 128 7775
+- Instagram: [@xgym.ve](https://www.instagram.com/xgym.ve/)
+- Horario L-V: 6:00am – 10:00pm
+- Horario Sáb/feriados: 9:00am – 4:00pm
