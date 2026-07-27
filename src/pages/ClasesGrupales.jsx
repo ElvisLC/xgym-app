@@ -1,5 +1,5 @@
 import SEO from '../components/SEO'
-import FadeUp from '../components/FadeUp'
+import { useInView } from '../lib/useInView'
 
 const DAYS = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado']
 
@@ -23,6 +23,10 @@ const SCHEDULE = [
 ]
 
 export default function ClasesGrupales() {
+  const [titleRef, titleInView] = useInView()
+  const [tableRef, tableInView] = useInView()
+  const [closingRef, closingInView] = useInView()
+
   return (
     <>
       <SEO
@@ -34,7 +38,14 @@ export default function ClasesGrupales() {
       <section className="pt-36 pb-24 bg-[var(--canvas)]">
         <div className="mx-auto max-w-7xl px-5 md:px-8">
           <p className="eyebrow mb-3">Salón</p>
-          <FadeUp as="h1" className="display text-4xl md:text-6xl text-white mb-6">Programación de la semana</FadeUp>
+          <h1
+            ref={titleRef}
+            className={`transition-[opacity,translate] duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] ${
+              titleInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'
+            } display text-4xl md:text-6xl text-white mb-6`}
+          >
+            Programación de la semana
+          </h1>
           <p className="text-[var(--muted)] text-base md:text-lg max-w-2xl mb-2">
             Héroe, aquí tienes tu ruta semanal. Cada clase es una oportunidad de entrenar tu cuerpo, tu mente y tu carácter.
             Elige tu hora, aparece, y haz que cuente.
@@ -43,7 +54,12 @@ export default function ClasesGrupales() {
             Incluidas en tu mensualidad · Clase individual $2
           </p>
 
-          <FadeUp variant="fade-only" className="overflow-x-auto border border-white/10 mb-4">
+          <div
+            ref={tableRef}
+            className={`transition-opacity duration-500 ${
+              tableInView ? 'opacity-100' : 'opacity-0'
+            } overflow-x-auto border border-white/10 mb-4`}
+          >
             <table aria-label="Horario de clases grupales" className="w-full min-w-[760px] border-collapse font-mono text-sm">
               <caption className="sr-only">Horario semanal de clases grupales por hora y día de la semana</caption>
               <thead>
@@ -74,9 +90,16 @@ export default function ClasesGrupales() {
                 ))}
               </tbody>
             </table>
-          </FadeUp>
+          </div>
 
-          <FadeUp as="p" className="display text-3xl text-white">Elige tu hora. <span className="text-[var(--accent)]">Aparece.</span></FadeUp>
+          <p
+            ref={closingRef}
+            className={`transition-[opacity,translate] duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] ${
+              closingInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'
+            } display text-3xl text-white`}
+          >
+            Elige tu hora. <span className="text-[var(--accent)]">Aparece.</span>
+          </p>
         </div>
       </section>
     </>

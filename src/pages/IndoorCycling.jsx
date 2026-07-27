@@ -1,6 +1,6 @@
 import { ArrowRight } from 'lucide-react'
 import SEO from '../components/SEO'
-import FadeUp from '../components/FadeUp'
+import { useInView } from '../lib/useInView'
 import { waLink } from '../config'
 import { trackWhatsAppClick } from '../lib/analytics'
 
@@ -27,7 +27,25 @@ const LEVELS = [
   { level: 'Master', meaning: 'Mayor tiempo/experiencia dando la modalidad' },
 ]
 
+// Tarjeta de precio/nivel: fade + escala sutil, con cascada por posición.
+function InfoCard({ index, children }) {
+  const [ref, inView] = useInView()
+  return (
+    <div
+      ref={ref}
+      style={{ transitionDelay: inView ? `${index * 100}ms` : '0ms' }}
+      className={`transition-[opacity,scale] duration-600 ease-[cubic-bezier(0.4,0,0.2,1)] ${
+        inView ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
+      } border border-white/10 bg-[var(--surface)] p-6`}
+    >
+      {children}
+    </div>
+  )
+}
+
 export default function IndoorCycling() {
+  const [titleRef, titleInView] = useInView()
+
   return (
     <>
       <SEO
@@ -39,7 +57,14 @@ export default function IndoorCycling() {
       <section className="pt-36 pb-24 bg-[var(--canvas)]">
         <div className="mx-auto max-w-7xl px-5 md:px-8">
           <p className="eyebrow mb-3">Modalidad Xtreme Bike</p>
-          <FadeUp as="h1" className="display text-4xl md:text-6xl text-white mb-4">Indoor Cycling</FadeUp>
+          <h1
+            ref={titleRef}
+            className={`transition-[opacity,translate] duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] ${
+              titleInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'
+            } display text-4xl md:text-6xl text-white mb-4`}
+          >
+            Indoor Cycling
+          </h1>
           <p className="text-[var(--muted)] text-base md:text-lg max-w-2xl mb-3">
             Cardio, resistencia y ritmo sobre una bicicleta, guiado por instructores que llevan la modalidad en la sangre.
           </p>
@@ -60,10 +85,10 @@ export default function IndoorCycling() {
           <h2 className="display text-3xl text-white mb-6">Precios</h2>
           <div className="grid sm:grid-cols-3 gap-4 mb-16">
             {PRICES.map((p, i) => (
-              <FadeUp index={i} key={p.option} variant="scale-fade" className="border border-white/10 bg-[var(--surface)] p-6">
+              <InfoCard key={p.option} index={i}>
                 <p className="text-white font-semibold mb-1">{p.option}</p>
                 <p className="text-2xl font-bold text-[var(--accent)]">{p.price}</p>
-              </FadeUp>
+              </InfoCard>
             ))}
           </div>
 
@@ -74,10 +99,10 @@ export default function IndoorCycling() {
           </p>
           <div className="grid sm:grid-cols-3 gap-4 mb-16">
             {LEVELS.map((l, i) => (
-              <FadeUp index={i} key={l.level} variant="scale-fade" className="border border-white/10 bg-[var(--surface)] p-6">
+              <InfoCard key={l.level} index={i}>
                 <p className="font-mono text-[var(--accent)] font-bold mb-2">{l.level}</p>
                 <p className="text-[var(--muted)] text-sm">{l.meaning}</p>
-              </FadeUp>
+              </InfoCard>
             ))}
           </div>
 

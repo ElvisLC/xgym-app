@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { ChevronDown } from 'lucide-react'
 import SEO from '../components/SEO'
-import FadeUp from '../components/FadeUp'
+import { useInView } from '../lib/useInView'
 import { waLink } from '../config'
 import { trackWhatsAppClick } from '../lib/analytics'
 
@@ -95,6 +95,8 @@ function FaqItem({ q, a }) {
 }
 
 export default function FAQ() {
+  const [titleRef, titleInView] = useInView()
+
   return (
     <>
       <SEO
@@ -107,7 +109,14 @@ export default function FAQ() {
       <section className="pt-36 pb-24 bg-[var(--canvas)]">
         <div className="mx-auto max-w-4xl px-5 md:px-8">
           <p className="eyebrow mb-3">Dudas comunes</p>
-          <FadeUp as="h1" className="display text-4xl md:text-6xl text-white mb-14">Preguntas frecuentes</FadeUp>
+          <h1
+            ref={titleRef}
+            className={`transition-[opacity,translate] duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] ${
+              titleInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'
+            } display text-4xl md:text-6xl text-white mb-14`}
+          >
+            Preguntas frecuentes
+          </h1>
 
           <div className="space-y-3 mb-16">
             {FAQS.map((f) => (

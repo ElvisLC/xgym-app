@@ -2,7 +2,7 @@ import { useRef, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { ArrowRight, Zap, Dumbbell, Users, TrendingUp, Play } from 'lucide-react'
 import SEO from '../components/SEO'
-import FadeUp from '../components/FadeUp'
+import { useInView } from '../lib/useInView'
 import { BRAND, waLink } from '../config'
 import { trackWhatsAppClick } from '../lib/analytics'
 
@@ -61,9 +61,105 @@ const GALLERY = [
   },
 ]
 
+// Tarjeta de propuesta de valor: fade + escala sutil, con cascada por posición.
+function ValueCard({ index, className = '', children }) {
+  const [ref, inView] = useInView()
+  return (
+    <div
+      ref={ref}
+      style={{ transitionDelay: inView ? `${index * 100}ms` : '0ms' }}
+      className={`transition-[opacity,scale] duration-600 ease-[cubic-bezier(0.4,0,0.2,1)] ${
+        inView ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
+      } ${className}`}
+    >
+      {children}
+    </div>
+  )
+}
+
+// Foto de galería: fade + zoom-out suave, con cascada por posición.
+function GalleryImage({ index, img }) {
+  const [ref, inView] = useInView()
+  return (
+    <div
+      ref={ref}
+      style={{ transitionDelay: inView ? `${index * 100}ms` : '0ms' }}
+      className={`transition-[opacity,scale] duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] ${
+        inView ? 'opacity-100 scale-100' : 'opacity-0 scale-105'
+      } aspect-[3/4] overflow-hidden border border-white/10`}
+    >
+      <img
+        src={img.src}
+        alt={img.alt}
+        loading="lazy"
+        decoding="async"
+        width={400}
+        height={533}
+        className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+      />
+    </div>
+  )
+}
+
+// Tarjeta de beneficio: fade + escala sutil, con cascada por posición.
+function BenefitCard({ index, benefit }) {
+  const [ref, inView] = useInView()
+  return (
+    <div
+      ref={ref}
+      style={{ transitionDelay: inView ? `${index * 100}ms` : '0ms' }}
+      className={`transition-[opacity,scale] duration-600 ease-[cubic-bezier(0.4,0,0.2,1)] ${
+        inView ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
+      } border border-white/10 bg-[var(--surface)] p-6`}
+    >
+      <benefit.icon className="text-[var(--accent)] mb-4" size={26} strokeWidth={1.5} />
+      <p className="eyebrow mb-1">{benefit.category}</p>
+      <p className="text-white font-medium">{benefit.text}</p>
+    </div>
+  )
+}
+
+// Tarjeta de vista rápida de plan: fade + escala sutil, con cascada por posición.
+function PlanPreviewCard({ index, plan }) {
+  const [ref, inView] = useInView()
+  return (
+    <div
+      ref={ref}
+      style={{ transitionDelay: inView ? `${index * 100}ms` : '0ms' }}
+      className={`transition-[opacity,scale] duration-600 ease-[cubic-bezier(0.4,0,0.2,1)] ${
+        inView ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
+      } p-8 relative ${
+        plan.featured
+          ? 'bg-[var(--surface)] border-2 border-[var(--accent)]'
+          : 'bg-[var(--surface)] border border-white/10'
+      }`}
+    >
+      {plan.featured && (
+        <span className="absolute -top-3 left-8 bg-[var(--accent)] text-black text-xs font-mono font-semibold px-3 py-1">
+          RECOMENDADO
+        </span>
+      )}
+      <h3 className="display text-2xl text-white mb-1">{plan.name}</h3>
+      <div className="flex items-baseline gap-1 mb-4">
+        <span className="text-3xl font-bold text-white">{plan.price}</span>
+        <span className="text-[var(--subtle)] text-sm">{plan.period}</span>
+      </div>
+      <p className="text-[var(--muted)] text-sm">{plan.text}</p>
+    </div>
+  )
+}
+
 export default function Home() {
   const videoRef = useRef(null)
   const [videoLoaded, setVideoLoaded] = useState(false)
+
+  const [galleryTitleRef, galleryTitleInView] = useInView()
+  const [plansTitleRef, plansTitleInView] = useInView()
+  const [schedulesRef, schedulesInView] = useInView()
+  const [testimonialsRef, testimonialsInView] = useInView()
+  const [mapTitleRef, mapTitleInView] = useInView()
+  const [mapRef, mapInView] = useInView()
+  const [closingRef, closingInView] = useInView()
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -171,12 +267,12 @@ export default function Home() {
         <div className="mx-auto max-w-7xl px-5 md:px-8">
           <div className="grid md:grid-cols-2 gap-px bg-white/10">
             {VALUE_PROPS.map((v, i) => (
-              <FadeUp key={v.title} index={i} variant="scale-fade" className="bg-[var(--canvas)] p-8 md:p-10">
+              <ValueCard key={v.title} index={i} className="bg-[var(--canvas)] p-8 md:p-10">
                 <h2 className="text-white text-xl font-semibold mb-2">{v.title}</h2>
                 <p className="text-[var(--muted)] text-sm leading-relaxed">{v.text}</p>
-              </FadeUp>
+              </ValueCard>
             ))}
-            <FadeUp index={VALUE_PROPS.length} variant="scale-fade" className="bg-[var(--surface)] p-8 md:p-10 flex flex-col justify-center">
+            <ValueCard index={VALUE_PROPS.length} className="bg-[var(--surface)] p-8 md:p-10 flex flex-col justify-center">
               <p className="display text-2xl md:text-3xl text-white leading-tight mb-4">
                 No vendemos cuerpos perfectos. Construimos <span className="text-[var(--accent)]">héroes reales</span>.
               </p>
@@ -189,7 +285,7 @@ export default function Home() {
               >
                 Únete a XGYM <ArrowRight size={14} />
               </a>
-            </FadeUp>
+            </ValueCard>
           </div>
         </div>
       </section>
@@ -197,21 +293,25 @@ export default function Home() {
       {/* 1.3 GALERÍA */}
       <section className="bg-[var(--canvas-soft)] py-24 border-y border-white/5">
         <div className="mx-auto max-w-7xl px-5 md:px-8">
-          <FadeUp as="p" className="eyebrow mb-3">El espacio</FadeUp>
-          <FadeUp as="h2" className="display text-4xl md:text-6xl text-white mb-10">Así se entrena en XGYM</FadeUp>
+          <p
+            ref={galleryTitleRef}
+            className={`transition-opacity duration-500 ${
+              galleryTitleInView ? 'opacity-100' : 'opacity-0'
+            } eyebrow mb-3`}
+          >
+            El espacio
+          </p>
+          <h2
+            style={{ transitionDelay: galleryTitleInView ? '100ms' : '0ms' }}
+            className={`transition-[opacity,translate] duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] ${
+              galleryTitleInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'
+            } display text-4xl md:text-6xl text-white mb-10`}
+          >
+            Así se entrena en XGYM
+          </h2>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {GALLERY.map((img, i) => (
-              <FadeUp key={img.src} index={i} variant="zoom-fade" className="aspect-[3/4] overflow-hidden border border-white/10">
-                <img
-                  src={img.src}
-                  alt={img.alt}
-                  loading="lazy"
-                  decoding="async"
-                  width={400}
-                  height={533}
-                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
-                />
-              </FadeUp>
+              <GalleryImage key={img.src} index={i} img={img} />
             ))}
           </div>
         </div>
@@ -222,11 +322,7 @@ export default function Home() {
         <div className="mx-auto max-w-7xl px-5 md:px-8">
           <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-6">
             {BENEFITS.map((b, i) => (
-              <FadeUp key={b.category} index={i} variant="scale-fade" className="border border-white/10 bg-[var(--surface)] p-6">
-                <b.icon className="text-[var(--accent)] mb-4" size={26} strokeWidth={1.5} />
-                <p className="eyebrow mb-1">{b.category}</p>
-                <p className="text-white font-medium">{b.text}</p>
-              </FadeUp>
+              <BenefitCard key={b.category} index={i} benefit={b} />
             ))}
           </div>
         </div>
@@ -235,33 +331,26 @@ export default function Home() {
       {/* 1.5 VISTA RÁPIDA DE PLANES */}
       <section className="bg-[var(--canvas-soft)] py-24 md:py-32 border-y border-white/5">
         <div className="mx-auto max-w-7xl px-5 md:px-8">
-          <FadeUp as="p" className="eyebrow mb-3">Membresías</FadeUp>
-          <FadeUp as="h2" className="display text-4xl md:text-6xl text-white mb-10">Elige cómo entrenas</FadeUp>
+          <p
+            ref={plansTitleRef}
+            className={`transition-opacity duration-500 ${
+              plansTitleInView ? 'opacity-100' : 'opacity-0'
+            } eyebrow mb-3`}
+          >
+            Membresías
+          </p>
+          <h2
+            style={{ transitionDelay: plansTitleInView ? '100ms' : '0ms' }}
+            className={`transition-[opacity,translate] duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] ${
+              plansTitleInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'
+            } display text-4xl md:text-6xl text-white mb-10`}
+          >
+            Elige cómo entrenas
+          </h2>
 
           <div className="grid md:grid-cols-3 gap-6 mb-10">
             {PLANS_PREVIEW.map((p, i) => (
-              <FadeUp
-                key={p.name}
-                index={i}
-                variant="scale-fade"
-                className={`p-8 relative ${
-                  p.featured
-                    ? 'bg-[var(--surface)] border-2 border-[var(--accent)]'
-                    : 'bg-[var(--surface)] border border-white/10'
-                }`}
-              >
-                {p.featured && (
-                  <span className="absolute -top-3 left-8 bg-[var(--accent)] text-black text-xs font-mono font-semibold px-3 py-1">
-                    RECOMENDADO
-                  </span>
-                )}
-                <h3 className="display text-2xl text-white mb-1">{p.name}</h3>
-                <div className="flex items-baseline gap-1 mb-4">
-                  <span className="text-3xl font-bold text-white">{p.price}</span>
-                  <span className="text-[var(--subtle)] text-sm">{p.period}</span>
-                </div>
-                <p className="text-[var(--muted)] text-sm">{p.text}</p>
-              </FadeUp>
+              <PlanPreviewCard key={p.name} index={i} plan={p} />
             ))}
           </div>
 
@@ -278,7 +367,12 @@ export default function Home() {
       {/* 1.6 ACCESO RÁPIDO A HORARIOS */}
       <section className="bg-[var(--canvas)] py-16">
         <div className="mx-auto max-w-7xl px-5 md:px-8">
-          <FadeUp variant="fade-only" className="flex flex-col sm:flex-row items-center justify-between gap-6 border border-white/10 bg-[var(--surface)] p-8">
+          <div
+            ref={schedulesRef}
+            className={`transition-opacity duration-500 ${
+              schedulesInView ? 'opacity-100' : 'opacity-0'
+            } flex flex-col sm:flex-row items-center justify-between gap-6 border border-white/10 bg-[var(--surface)] p-8`}
+          >
           <p className="font-mono text-white text-sm md:text-base text-center sm:text-left">
             Abrimos L-V {BRAND.hours.weekdays} · Sáb y feriados {BRAND.hours.weekend}
           </p>
@@ -289,27 +383,51 @@ export default function Home() {
             Ver horario completo
             <ArrowRight size={16} />
           </Link>
-        </FadeUp>
+        </div>
         </div>
       </section>
 
       {/* 1.7 TESTIMONIOS */}
       <section className="bg-[var(--canvas)] py-24 md:py-32">
-        <FadeUp className="mx-auto max-w-3xl px-5 md:px-8 text-center">
+        <div
+          ref={testimonialsRef}
+          className={`transition-[opacity,translate] duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] ${
+            testimonialsInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'
+          } mx-auto max-w-3xl px-5 md:px-8 text-center`}
+        >
           <p className="eyebrow mb-3">Comunidad</p>
           <h2 className="display text-3xl md:text-5xl text-white mb-4">
             Los primeros Héroes Fundadores ya están escribiendo su historia.
           </h2>
           <p className="text-[var(--muted)]">Muy pronto la contamos aquí.</p>
-        </FadeUp>
+        </div>
       </section>
 
       {/* 1.8 MAPA */}
       <section className="bg-[var(--canvas-soft)] py-24 border-y border-white/5">
         <div className="mx-auto max-w-7xl px-5 md:px-8">
-          <FadeUp as="p" className="eyebrow mb-3">Ubicación</FadeUp>
-          <FadeUp as="h2" className="display text-3xl md:text-5xl text-white mb-8">Encuéntranos en Catia</FadeUp>
-          <FadeUp variant="fade-only" className="border border-white/10 aspect-video overflow-hidden">
+          <p
+            ref={mapTitleRef}
+            className={`transition-opacity duration-500 ${
+              mapTitleInView ? 'opacity-100' : 'opacity-0'
+            } eyebrow mb-3`}
+          >
+            Ubicación
+          </p>
+          <h2
+            style={{ transitionDelay: mapTitleInView ? '100ms' : '0ms' }}
+            className={`transition-[opacity,translate] duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] ${
+              mapTitleInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'
+            } display text-3xl md:text-5xl text-white mb-8`}
+          >
+            Encuéntranos en Catia
+          </h2>
+          <div
+            ref={mapRef}
+            className={`transition-opacity duration-500 ${
+              mapInView ? 'opacity-100' : 'opacity-0'
+            } border border-white/10 aspect-video overflow-hidden`}
+          >
             <iframe
               title="Ubicación de XGYM — CC La Laguna, Recta de Los Magallanes, Catia"
               src="https://www.google.com/maps?q=XGYM+Catia+Caracas&z=17&output=embed"
@@ -318,16 +436,21 @@ export default function Home() {
               sandbox="allow-scripts allow-same-origin"
               referrerPolicy="no-referrer-when-downgrade"
             />
-          </FadeUp>
+          </div>
         </div>
       </section>
 
       {/* 1.10 CIERRE FINAL */}
       <section className="bg-[var(--canvas)] py-24">
         <div className="mx-auto max-w-4xl px-5 md:px-8 text-center">
-          <FadeUp as="h2" className="display text-4xl md:text-6xl text-white mb-9">
+          <h2
+            ref={closingRef}
+            className={`transition-[opacity,translate] duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] ${
+              closingInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'
+            } display text-4xl md:text-6xl text-white mb-9`}
+          >
             Tu historia de <span className="text-[var(--accent)]">héroe</span> empieza aquí.
-          </FadeUp>
+          </h2>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a
               href={waLink('Hola, quiero empezar en XGYM')}

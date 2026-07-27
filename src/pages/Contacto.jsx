@@ -3,12 +3,30 @@ import { MapPin, Phone, Send } from 'lucide-react'
 import Instagram from '../components/icons/InstagramIcon'
 import SEO from '../components/SEO'
 import SectionHeading from '../components/SectionHeading'
-import FadeUp from '../components/FadeUp'
+import { useInView } from '../lib/useInView'
 import { BRAND } from '../config'
 import { trackFormSubmit } from '../lib/analytics'
 
+// Campo de formulario: fade + elevación mínima, con cascada por posición.
+function FormField({ index, children }) {
+  const [ref, inView] = useInView()
+  return (
+    <div
+      ref={ref}
+      style={{ transitionDelay: inView ? `${index * 100}ms` : '0ms' }}
+      className={`transition-[opacity,translate] duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] ${
+        inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-1'
+      }`}
+    >
+      {children}
+    </div>
+  )
+}
+
 export default function Contacto() {
   const [sent, setSent] = useState(false)
+  const [headingRef, headingInView] = useInView()
+  const [submitRef, submitInView] = useInView()
 
   function handleSubmit(e) {
     e.preventDefault()
@@ -28,14 +46,19 @@ export default function Contacto() {
 
       <section className="pt-36 pb-24 bg-[var(--canvas)]">
         <div className="mx-auto max-w-7xl px-5 md:px-8">
-          <FadeUp>
+          <div
+            ref={headingRef}
+            className={`transition-[opacity,translate] duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] ${
+              headingInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'
+            }`}
+          >
             <SectionHeading
               as="h1"
               eyebrow="Hablemos"
               title="¿Listo para empezar?"
               description="Estamos a un mensaje de distancia."
             />
-          </FadeUp>
+          </div>
 
           <div className="grid lg:grid-cols-2 gap-10">
             {/* Info + mapa */}
@@ -111,7 +134,7 @@ export default function Contacto() {
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-5">
-                  <FadeUp index={0}>
+                  <FormField index={0}>
                     <label htmlFor="name" className="block text-sm text-neutral-300 mb-2">
                       Nombre
                     </label>
@@ -123,8 +146,8 @@ export default function Contacto() {
                       className="w-full bg-[var(--canvas)] border border-white/15 px-4 py-3 text-white focus:border-[var(--accent)] outline-none"
                       placeholder="Tu nombre"
                     />
-                  </FadeUp>
-                  <FadeUp index={1}>
+                  </FormField>
+                  <FormField index={1}>
                     <label htmlFor="phone" className="block text-sm text-neutral-300 mb-2">
                       Teléfono
                     </label>
@@ -136,8 +159,8 @@ export default function Contacto() {
                       className="w-full bg-[var(--canvas)] border border-white/15 px-4 py-3 text-white focus:border-[var(--accent)] outline-none"
                       placeholder="0414 000 0000"
                     />
-                  </FadeUp>
-                  <FadeUp index={2}>
+                  </FormField>
+                  <FormField index={2}>
                     <label htmlFor="reason" className="block text-sm text-neutral-300 mb-2">
                       Motivo
                     </label>
@@ -154,8 +177,8 @@ export default function Contacto() {
                       <option value="indoor-cycling">Indoor Cycling</option>
                       <option value="otro">Otro</option>
                     </select>
-                  </FadeUp>
-                  <FadeUp index={3}>
+                  </FormField>
+                  <FormField index={3}>
                     <label htmlFor="message" className="block text-sm text-neutral-300 mb-2">
                       Mensaje
                     </label>
@@ -167,8 +190,14 @@ export default function Contacto() {
                       className="w-full bg-[var(--canvas)] border border-white/15 px-4 py-3 text-white focus:border-[var(--accent)] outline-none resize-none"
                       placeholder="Cuéntanos qué necesitas"
                     />
-                  </FadeUp>
-                  <FadeUp index={4} variant="pop-in">
+                  </FormField>
+                  <div
+                    ref={submitRef}
+                    style={{ transitionDelay: submitInView ? '400ms' : '0ms' }}
+                    className={`transition-[opacity,scale] duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] ${
+                      submitInView ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
+                    }`}
+                  >
                     <button
                       type="submit"
                       className="w-full inline-flex items-center justify-center gap-2 bg-[var(--accent)] text-black font-semibold px-6 py-3.5 x-cut hover:bg-[var(--accent-dim)] transition-colors"
@@ -176,7 +205,7 @@ export default function Contacto() {
                       Enviar mensaje
                       <Send size={16} />
                     </button>
-                  </FadeUp>
+                  </div>
                 </form>
               )}
             </div>

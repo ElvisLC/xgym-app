@@ -1,6 +1,6 @@
 import { ArrowRight } from 'lucide-react'
 import SEO from '../components/SEO'
-import FadeUp from '../components/FadeUp'
+import { useInView } from '../lib/useInView'
 import { waLink } from '../config'
 import { trackWhatsAppClick } from '../lib/analytics'
 
@@ -36,6 +36,22 @@ const LOOSE_OPTIONS = [
   { category: 'Combos de clases', option: 'Spinning + salón 5/10', price: '$25' },
   { category: 'Combos de clases', option: 'Spinning + salón 10/10', price: '$35' },
 ]
+
+// Tarjeta de plan/precio: fade + escala sutil, con cascada por posición en su grilla.
+function RevealCard({ index, className = '', children }) {
+  const [ref, inView] = useInView()
+  return (
+    <div
+      ref={ref}
+      style={{ transitionDelay: inView ? `${index * 100}ms` : '0ms' }}
+      className={`transition-[opacity,scale] duration-600 ease-[cubic-bezier(0.4,0,0.2,1)] ${
+        inView ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
+      } ${className}`}
+    >
+      {children}
+    </div>
+  )
+}
 
 function PlanCard({ name, price, period, text, featured }) {
   return (
@@ -74,6 +90,8 @@ function PlanCard({ name, price, period, text, featured }) {
 }
 
 export default function Planes() {
+  const [titleRef, titleInView] = useInView()
+
   return (
     <>
       <SEO
@@ -85,7 +103,14 @@ export default function Planes() {
       <section className="pt-36 pb-24 bg-[var(--canvas)]">
         <div className="mx-auto max-w-7xl px-5 md:px-8">
           <p className="eyebrow mb-3">Membresías</p>
-          <FadeUp as="h1" duration={800} distance={3} className="display text-4xl md:text-6xl text-white mb-4">Elige cómo entrenas.</FadeUp>
+          <h1
+            ref={titleRef}
+            className={`transition-[opacity,translate] duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] ${
+              titleInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'
+            } display text-4xl md:text-6xl text-white mb-4`}
+          >
+            Elige cómo entrenas.
+          </h1>
           <p className="text-[var(--muted)] text-base md:text-lg max-w-2xl mb-2">
             Nosotros ponemos la disciplina contigo. Precios en USD, cobrados a tasa BCV del día de pago.
           </p>
@@ -96,11 +121,11 @@ export default function Planes() {
           {/* Precios base */}
           <div className="grid sm:grid-cols-3 gap-4 mb-20">
             {BASE.map((b, i) => (
-              <FadeUp index={i} duration={800} variant="scale-fade" key={b.concept} className="border border-white/10 bg-[var(--surface)] p-6">
+              <RevealCard index={i} key={b.concept} className="border border-white/10 bg-[var(--surface)] p-6">
                 <p className="text-white font-semibold mb-1">{b.concept}</p>
                 <p className="text-2xl font-bold text-[var(--accent)] mb-1">{b.price}</p>
                 <p className="text-[var(--subtle)] text-sm">{b.detail}</p>
-              </FadeUp>
+              </RevealCard>
             ))}
           </div>
 
@@ -108,9 +133,9 @@ export default function Planes() {
           <h2 className="display text-3xl text-white mb-6">Planes Gym</h2>
           <div className="grid md:grid-cols-3 gap-6 mb-20">
             {GYM_PLANS.map((p, i) => (
-              <FadeUp index={i} duration={800} variant="scale-fade" key={p.name}>
+              <RevealCard index={i} key={p.name}>
                 <PlanCard {...p} />
-              </FadeUp>
+              </RevealCard>
             ))}
           </div>
 
@@ -118,9 +143,9 @@ export default function Planes() {
           <h2 className="display text-3xl text-white mb-6">Gen X + Spinning</h2>
           <div className="grid md:grid-cols-2 gap-6 mb-20">
             {SPINNING_PLANS.map((p, i) => (
-              <FadeUp index={i} duration={800} variant="scale-fade" key={p.name}>
+              <RevealCard index={i} key={p.name}>
                 <PlanCard {...p} />
-              </FadeUp>
+              </RevealCard>
             ))}
           </div>
 
@@ -129,9 +154,9 @@ export default function Planes() {
           <p className="text-[var(--subtle)] text-sm mb-6">Planes de permanencia — el compromiso más largo, el mejor precio por mes.</p>
           <div className="grid md:grid-cols-3 gap-6 mb-20">
             {DISCIPLINE_PLANS.map((p, i) => (
-              <FadeUp index={i} duration={800} variant="scale-fade" key={p.name}>
+              <RevealCard index={i} key={p.name}>
                 <PlanCard {...p} />
-              </FadeUp>
+              </RevealCard>
             ))}
           </div>
 
