@@ -52,7 +52,7 @@ export default function Nosotros() {
           </h1>
 
           {/* Misión / Visión / Propósito */}
-          <div className="grid md:grid-cols-3 gap-px bg-white/10 mb-20">
+          <div id="mision-vision" className="grid md:grid-cols-3 gap-px bg-white/10 mb-20 scroll-mt-32">
             <PillarGroupCard index={0}>
               <p className="eyebrow mb-3">Misión</p>
               <p className="text-neutral-300 text-sm leading-relaxed">

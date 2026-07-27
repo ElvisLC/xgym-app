@@ -1,31 +1,35 @@
 import { useRef, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { ArrowRight, Zap, Dumbbell, Users, TrendingUp, Play } from 'lucide-react'
+import { ArrowRight, Zap, Dumbbell, Users, TrendingUp, Play, Leaf, ShieldCheck, Flame, Star } from 'lucide-react'
 import SEO from '../components/SEO'
 import { useInView } from '../lib/useInView'
 import { BRAND, waLink } from '../config'
 import { trackWhatsAppClick } from '../lib/analytics'
+import CoachesCarousel from '../components/CoachesCarousel'
+import PlanCard from '../components/PlanCard'
+import { TRAINERS } from '../data/trainers'
+import { getClassesForDay } from '../data/schedules'
 
 const VALUE_PROPS = [
   {
-    title: 'Más energía es un superpoder.',
-    text: 'El ejercicio constante te devuelve la energía para tu día a día — y esa energía es el superpoder más real que existe.',
+    icon: Dumbbell,
+    title: 'ENTRENAMIENTO DE VERDAD',
+    text: 'Equipos de calidad y entrenadores que te empujan a dar más.',
   },
   {
-    title: 'No entrenamos cuerpos. Entrenamos disciplina.',
-    text: 'El resultado físico es la consecuencia, no el objetivo. Aquí se construye hábito, constancia y carácter.',
+    icon: Users,
+    title: 'COMUNIDAD QUE INSPIRA',
+    text: 'Aquí no vienes solo, aquí creces con otros.',
   },
   {
-    title: 'Todo en un mismo lugar.',
-    text: 'Sala de musculación, Indoor Cycling y clases grupales — sin combinar membresías en distintos sitios.',
+    icon: ShieldCheck,
+    title: 'DISCIPLINA QUE TRANSFORMA',
+    text: 'No es motivación, es compromiso.',
   },
   {
-    title: 'Una comunidad, no una membresía.',
-    text: 'No vienes a hacer una rutina solo. Vienes a formar parte de algo.',
-  },
-  {
-    title: 'En el corazón de Catia.',
-    text: `${BRAND.address} — cerca de donde vives, trabajas y entrenas.`,
+    icon: Star,
+    title: 'HÉROES REALES',
+    text: 'Personas reales, luchas reales, resultados reales.',
   },
 ]
 
@@ -36,10 +40,11 @@ const BENEFITS = [
   { icon: Zap, category: 'Resultados', text: 'Constancia real, resultados reales' },
 ]
 
-const PLANS_PREVIEW = [
-  { name: 'Gen X', price: '$30', period: '/mes', featured: false, text: 'Sala + clases de salón, a tu ritmo.' },
+// Mismos 3 planes (nombre/precio/texto) que Planes.jsx: GYM_PLANS[0], SPINNING_PLANS[0], DISCIPLINE_PLANS[1].
+const HOME_PLANS = [
+  { name: 'Gen X', price: '$30', period: '/mes', text: 'Sala de musculación + clases de salón. Para quien quiere entrenar a su ritmo, todos los días.' },
   { name: 'Gen X + Spinning 5', price: '$40', period: '/mes', featured: true, text: 'Sala + salón + 5 clases de spinning.' },
-  { name: 'Transformación', price: '$165', period: '/ 6 meses', featured: false, text: '6 meses para ver el cambio que buscabas.' },
+  { name: 'Transformación', price: '$165', period: '6 meses', text: '6 meses para ver el cambio que buscabas.' },
 ]
 
 const GALLERY = [
@@ -59,6 +64,18 @@ const GALLERY = [
     src: 'https://images.pexels.com/photos/416778/pexels-photo-416778.jpeg?auto=compress&cs=tinysrgb&w=500',
     alt: 'Cardio intensivo en cinta de correr',
   },
+]
+
+const FIT_BAR_PRICES = [
+  { name: 'Jugos naturales', price: 'desde $1.80' },
+  { name: 'Batidos con proteína natural', price: 'desde $2.80' },
+  { name: 'Nivel Héroe (+ Whey Gold Standard)', price: 'desde $4.80' },
+]
+
+const FIT_BAR_BADGES = [
+  { icon: Leaf, title: 'Ingredientes reales', text: 'Sin azúcar añadida' },
+  { icon: ShieldCheck, title: 'Proteína de calidad', text: 'Rinde más, recupérate mejor' },
+  { icon: Flame, title: 'Energía natural', text: 'Siente la diferencia' },
 ]
 
 // Tarjeta de propuesta de valor: slide desde la izquierda/derecha alternado, con cascada.
@@ -120,32 +137,36 @@ function BenefitCard({ index, benefit }) {
   )
 }
 
-// Tarjeta de vista rápida de plan: slide desde abajo con fade, con cascada.
-function PlanPreviewCard({ index, plan }) {
+// Envoltorio de reveal genérico: slide desde abajo con bounce, con cascada por posición.
+function Reveal({ index, className = '', children }) {
   const [ref, inView] = useInView()
   return (
     <div
       ref={ref}
-      style={{ transitionDelay: inView ? `${index * 120}ms` : '0ms' }}
-      className={`transition-[opacity,transform] duration-600 ease-[cubic-bezier(0.4,0,0.2,1)] ${
-        inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-      } p-8 relative ${
-        plan.featured
-          ? 'bg-[var(--surface)] border-2 border-[var(--accent)]'
-          : 'bg-[var(--surface)] border border-white/10'
-      }`}
+      style={{ transitionDelay: inView ? `${index * 100}ms` : '0ms' }}
+      className={`transition-[opacity,transform] duration-500 ease-[cubic-bezier(0.34,1.2,0.64,1)] ${
+        inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+      } ${className}`}
     >
-      {plan.featured && (
-        <span className="absolute -top-3 left-8 bg-[var(--accent)] text-black text-xs font-mono font-semibold px-3 py-1">
-          RECOMENDADO
-        </span>
-      )}
-      <h3 className="display text-2xl text-white mb-1">{plan.name}</h3>
-      <div className="flex items-baseline gap-1 mb-4">
-        <span className="text-3xl font-bold text-white">{plan.price}</span>
-        <span className="text-[var(--subtle)] text-sm">{plan.period}</span>
-      </div>
-      <p className="text-[var(--muted)] text-sm">{plan.text}</p>
+      {children}
+    </div>
+  )
+}
+
+// Título de sección animado: eyebrow con fade + h2 con slide, patrón reutilizado en varias secciones.
+function SectionTitle({ eyebrow, title, fromRight = false }) {
+  const [ref, inView] = useInView()
+  return (
+    <div ref={ref}>
+      <p className={`transition-opacity duration-500 ${inView ? 'opacity-100' : 'opacity-0'} eyebrow mb-3`}>{eyebrow}</p>
+      <h2
+        style={{ transitionDelay: inView ? '100ms' : '0ms' }}
+        className={`transition-[opacity,transform] duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] ${
+          inView ? 'opacity-100 translate-x-0' : `opacity-0 ${fromRight ? 'translate-x-12' : '-translate-x-12'}`
+        } display text-4xl md:text-6xl text-white`}
+      >
+        {title}
+      </h2>
     </div>
   )
 }
@@ -154,9 +175,6 @@ export default function Home() {
   const videoRef = useRef(null)
   const [videoLoaded, setVideoLoaded] = useState(false)
 
-  const [galleryTitleRef, galleryTitleInView] = useInView()
-  const [plansTitleRef, plansTitleInView] = useInView()
-  const [schedulesRef, schedulesInView] = useInView()
   const [testimonialsRef, testimonialsInView] = useInView()
   const [mapTitleRef, mapTitleInView] = useInView()
   const [mapRef, mapInView] = useInView()
@@ -175,6 +193,11 @@ export default function Home() {
     return () => observer.disconnect()
   }, [videoLoaded])
 
+  // 0=Domingo...6=Sábado (JS) → 0=Lunes...5=Sábado (getClassesForDay). Domingo cae fuera de rango.
+  const jsDay = new Date().getDay()
+  const isSunday = jsDay === 0
+  const todaysClasses = isSunday ? [] : getClassesForDay((jsDay + 6) % 7)
+
   return (
     <>
       <SEO
@@ -183,7 +206,7 @@ export default function Home() {
         path="/"
       />
 
-      {/* 1.1 HERO */}
+      {/* 1. HERO */}
       <section ref={videoRef} className="relative min-h-[100svh] flex items-end overflow-hidden bg-black">
         {videoLoaded && (
           /* Video placeholder: cuando se ponga el video real, debe ser:
@@ -263,65 +286,27 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 1.2 PROPUESTA DE VALOR */}
+      {/* 2. PROPUESTA DE VALOR */}
       <section className="bg-[var(--canvas)] py-24 md:py-32">
         <div className="mx-auto max-w-7xl px-5 md:px-8">
-          <div className="grid md:grid-cols-2 gap-px bg-white/10">
+          <h2 className="sr-only">Propuesta de valor</h2>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
             {VALUE_PROPS.map((v, i) => (
-              <ValueCard key={v.title} index={i} className="bg-[var(--canvas)] p-8 md:p-10">
-                <h2 className="text-white text-xl font-semibold mb-2">{v.title}</h2>
-                <p className="text-[var(--muted)] text-sm leading-relaxed">{v.text}</p>
+              <ValueCard key={v.title} index={i} className="p-6 md:p-8">
+                <v.icon className="text-[var(--accent)] mb-4" size={32} strokeWidth={1.5} />
+                <h3 className="text-white font-bold text-sm md:text-base mb-2">{v.title}</h3>
+                <p className="text-[var(--muted)] text-xs md:text-sm leading-relaxed">{v.text}</p>
               </ValueCard>
             ))}
-            <ValueCard index={VALUE_PROPS.length} className="bg-[var(--surface)] p-8 md:p-10 flex flex-col justify-center">
-              <p className="display text-2xl md:text-3xl text-white leading-tight mb-4">
-                No vendemos cuerpos perfectos. Construimos <span className="text-[var(--accent)]">héroes reales</span>.
-              </p>
-              <a
-                href={waLink('Hola, quiero hacer mi preinscripción en XGYM')}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => trackWhatsAppClick('home_value_props')}
-                className="inline-flex items-center gap-2 text-[var(--accent)] text-sm font-semibold w-fit"
-              >
-                Únete a XGYM <ArrowRight size={14} />
-              </a>
-            </ValueCard>
           </div>
         </div>
       </section>
 
-      {/* 1.3 GALERÍA */}
+      {/* 3. BENEFICIOS */}
       <section className="bg-[var(--canvas-soft)] py-24 border-y border-white/5">
         <div className="mx-auto max-w-7xl px-5 md:px-8">
-          <p
-            ref={galleryTitleRef}
-            className={`transition-opacity duration-500 ${
-              galleryTitleInView ? 'opacity-100' : 'opacity-0'
-            } eyebrow mb-3`}
-          >
-            El espacio
-          </p>
-          <h2
-            style={{ transitionDelay: galleryTitleInView ? '100ms' : '0ms' }}
-            className={`transition-[opacity,transform] duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] ${
-              galleryTitleInView ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-12'
-            } display text-4xl md:text-6xl text-white mb-10`}
-          >
-            Así se entrena en XGYM
-          </h2>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {GALLERY.map((img, i) => (
-              <GalleryImage key={img.src} index={i} img={img} />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* 1.4 BENEFICIOS */}
-      <section className="bg-[var(--canvas)] py-24 md:py-32">
-        <div className="mx-auto max-w-7xl px-5 md:px-8">
-          <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-6">
+          <h2 className="sr-only">Beneficios</h2>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
             {BENEFITS.map((b, i) => (
               <BenefitCard key={b.category} index={i} benefit={b} />
             ))}
@@ -329,67 +314,161 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 1.5 VISTA RÁPIDA DE PLANES */}
+      {/* 4. PLANES */}
+      <section className="bg-[var(--canvas)] py-24 md:py-32">
+        <div className="mx-auto max-w-7xl px-5 md:px-8">
+          <div className="grid lg:grid-cols-[300px_1fr] gap-10 lg:gap-14 items-start">
+            <div>
+              <SectionTitle eyebrow="Membresías" title="Planes" />
+              <p className="text-[var(--muted)] text-base mt-5 mb-8 max-w-xs">
+                Encuentra el plan que se adapta a tu estilo de vida.
+              </p>
+              <Link
+                to="/planes"
+                className="inline-flex items-center gap-2 border border-white/25 text-white font-semibold px-6 py-3 x-cut hover:border-[var(--accent)] hover:text-[var(--accent)] transition-colors"
+              >
+                Ver todos los planes
+                <ArrowRight size={16} />
+              </Link>
+            </div>
+
+            <div className="grid sm:grid-cols-3 gap-6 items-stretch">
+              {HOME_PLANS.map((p, i) => (
+                <Reveal key={p.name} index={i} className="h-full">
+                  <PlanCard {...p} />
+                </Reveal>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 5. CONOCE A TUS COACHES */}
       <section className="bg-[var(--canvas-soft)] py-24 md:py-32 border-y border-white/5">
         <div className="mx-auto max-w-7xl px-5 md:px-8">
-          <p
-            ref={plansTitleRef}
-            className={`transition-opacity duration-500 ${
-              plansTitleInView ? 'opacity-100' : 'opacity-0'
-            } eyebrow mb-3`}
-          >
-            Membresías
-          </p>
-          <h2
-            style={{ transitionDelay: plansTitleInView ? '100ms' : '0ms' }}
-            className={`transition-[opacity,transform] duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] ${
-              plansTitleInView ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-12'
-            } display text-4xl md:text-6xl text-white mb-10`}
-          >
-            Elige cómo entrenas
-          </h2>
+          <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6 mb-10">
+            <div>
+              <SectionTitle eyebrow="El equipo" title="Conoce a tus coaches" />
+              <p className="text-[var(--muted)] text-base mt-5 max-w-md">
+                Entrenadores. Mentores. Héroes reales.
+              </p>
+            </div>
+            <Link
+              to="/entrenadores"
+              className="inline-flex items-center gap-2 border border-white/25 text-white font-semibold px-6 py-3 x-cut hover:border-[var(--accent)] hover:text-[var(--accent)] transition-colors shrink-0 w-fit"
+            >
+              Ver todos
+              <ArrowRight size={16} />
+            </Link>
+          </div>
 
-          <div className="grid md:grid-cols-3 gap-6 mb-10">
-            {PLANS_PREVIEW.map((p, i) => (
-              <PlanPreviewCard key={p.name} index={i} plan={p} />
+          <CoachesCarousel trainers={TRAINERS} />
+        </div>
+      </section>
+
+      {/* 6. CLASES DE HOY */}
+      <section className="bg-[var(--canvas)] py-24 md:py-32">
+        <div className="mx-auto max-w-7xl px-5 md:px-8">
+          <SectionTitle eyebrow="Programación" title="Clases de hoy" />
+          <p className="text-[var(--muted)] text-base mt-5 mb-10 max-w-xl">
+            Consulta la programación completa y reserva tu cupo.
+          </p>
+
+          {todaysClasses.length > 0 ? (
+            <div className="border border-white/10 bg-[var(--surface)] mb-8 max-w-2xl">
+              {todaysClasses.map((c, i) => (
+                <div
+                  key={`${c.time}-${c.instructor}-${i}`}
+                  className="flex items-center gap-4 px-5 py-3.5 border-b border-white/5 last:border-b-0 font-mono text-sm"
+                >
+                  <span className="text-[var(--accent)] w-20 shrink-0">{c.time}</span>
+                  <span className="text-white flex-1">{c.instructor}</span>
+                  <span className="text-[var(--subtle)] text-xs">{c.tipo}</span>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="border border-white/10 bg-[var(--surface)] p-8 mb-8 max-w-2xl">
+              <p className="text-white font-medium">
+                {isSunday ? 'Hoy descansamos, nos vemos mañana.' : 'Hoy no hay clases programadas.'}
+              </p>
+            </div>
+          )}
+
+          <div className="flex flex-col sm:flex-row sm:items-center gap-5 mb-10">
+            <p className="text-[var(--subtle)] text-sm max-w-md">
+              Todas las clases están sujetas a quorum. Reserva tu cupo por WhatsApp.
+            </p>
+            <Link
+              to="/horarios"
+              className="inline-flex items-center gap-2 border border-white/25 text-white font-semibold px-6 py-3 x-cut hover:border-[var(--accent)] hover:text-[var(--accent)] transition-colors shrink-0 w-fit"
+            >
+              Ver horarios
+              <ArrowRight size={16} />
+            </Link>
+          </div>
+
+          <p className="font-mono text-white text-sm md:text-base">
+            Abrimos L-V {BRAND.hours.weekdays} · Sáb y feriados {BRAND.hours.weekend}
+          </p>
+        </div>
+      </section>
+
+      {/* 7. GALERÍA DEL GIMNASIO */}
+      <section className="bg-[var(--canvas-soft)] py-24 border-y border-white/5">
+        <div className="mx-auto max-w-7xl px-5 md:px-8">
+          <SectionTitle eyebrow="El espacio" title="Así se entrena en XGYM" />
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-10">
+            {GALLERY.map((img, i) => (
+              <GalleryImage key={img.src} index={i} img={img} />
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 8. FIT BAR */}
+      <section className="bg-[var(--canvas)] py-24 md:py-32">
+        <div className="mx-auto max-w-7xl px-5 md:px-8">
+          <SectionTitle eyebrow="XMOTHIES" title="Fit Bar" />
+          <p className="text-[var(--muted)] text-base md:text-lg mt-5 mb-10 max-w-2xl">
+            Alimenta tu transformación. Batidos naturales, deliciosos y hechos para tu rendimiento.
+          </p>
+
+          <div className="grid md:grid-cols-2 gap-10 md:gap-16 mb-12">
+            <div className="border border-white/10 bg-[var(--surface)] p-7 divide-y divide-white/5">
+              {FIT_BAR_PRICES.map((item) => (
+                <div key={item.name} className="flex items-baseline justify-between py-3 first:pt-0 last:pb-0">
+                  <span className="text-white text-sm">{item.name}</span>
+                  <span className="font-mono text-[var(--accent)] text-sm shrink-0 ml-4">{item.price}</span>
+                </div>
+              ))}
+            </div>
+
+            <div className="grid gap-4">
+              {FIT_BAR_BADGES.map((b, i) => (
+                <Reveal key={b.title} index={i} className="border border-white/10 bg-[var(--surface)] p-5 flex items-start gap-4">
+                  <b.icon className="text-[var(--accent)] shrink-0" size={22} strokeWidth={1.5} />
+                  <p className="text-white text-sm">
+                    <span className="font-semibold">{b.title}</span>
+                    <span className="text-[var(--muted)]"> · {b.text}</span>
+                  </p>
+                </Reveal>
+              ))}
+            </div>
           </div>
 
           <Link
-            to="/planes"
-            className="inline-flex items-center gap-2 bg-[var(--accent)] text-black font-semibold px-7 py-3.5 x-cut hover:bg-[var(--accent-dim)] transition-colors"
+            to="/fit-bar"
+            className="inline-flex items-center gap-2 border border-white/25 text-white font-semibold px-6 py-3 x-cut hover:border-[var(--accent)] hover:text-[var(--accent)] transition-colors"
           >
-            Ver todos los planes
+            Ver menú
             <ArrowRight size={16} />
           </Link>
         </div>
       </section>
 
-      {/* 1.6 ACCESO RÁPIDO A HORARIOS */}
-      <section className="bg-[var(--canvas)] py-16">
-        <div className="mx-auto max-w-7xl px-5 md:px-8">
-          <div
-            ref={schedulesRef}
-            className={`transition-[opacity,transform] duration-600 ease-[cubic-bezier(0.4,0,0.2,1)] ${
-              schedulesInView ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-12'
-            } flex flex-col sm:flex-row items-center justify-between gap-6 border border-white/10 bg-[var(--surface)] p-8`}
-          >
-          <p className="font-mono text-white text-sm md:text-base text-center sm:text-left">
-            Abrimos L-V {BRAND.hours.weekdays} · Sáb y feriados {BRAND.hours.weekend}
-          </p>
-          <Link
-            to="/horarios"
-            className="inline-flex items-center gap-2 border border-white/25 text-white font-semibold px-6 py-3 x-cut hover:border-[var(--accent)] hover:text-[var(--accent)] transition-colors shrink-0"
-          >
-            Ver horario completo
-            <ArrowRight size={16} />
-          </Link>
-        </div>
-        </div>
-      </section>
-
-      {/* 1.7 TESTIMONIOS */}
-      <section className="bg-[var(--canvas)] py-24 md:py-32">
+      {/* 9. TESTIMONIOS */}
+      <section className="bg-[var(--canvas-soft)] py-24 md:py-32 border-y border-white/5">
         <div
           ref={testimonialsRef}
           className={`transition-[opacity,transform] duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] ${
@@ -404,8 +483,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 1.8 MAPA */}
-      <section className="bg-[var(--canvas-soft)] py-24 border-y border-white/5">
+      {/* 10. MAPA */}
+      <section className="bg-[var(--canvas)] py-24">
         <div className="mx-auto max-w-7xl px-5 md:px-8">
           <p
             ref={mapTitleRef}
@@ -441,7 +520,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 1.10 CIERRE FINAL */}
+      {/* 11. CIERRE FINAL */}
       <section className="bg-[var(--canvas)] py-24">
         <div className="mx-auto max-w-4xl px-5 md:px-8 text-center">
           <h2

@@ -1,71 +1,12 @@
-import { useState } from 'react'
 import SEO from '../components/SEO'
 import { useInView } from '../lib/useInView'
-import { useHoverCapable } from '../lib/useHoverCapable'
 import { TRAINERS } from '../data/trainers'
+import TrainerCard from '../components/TrainerCard'
 
 // Instructores de Indoor Cycling y clases de salón — solo nombre y horario por ahora
 const OTHER_INSTRUCTORS = {
   cycling: ['Andrés', 'Larry', 'Estty', 'Simón', 'Lisset'],
   salon: ['Alex', 'Reimer', 'Brayan', 'Elvis', 'Johan', 'Miguel Ángel'],
-}
-
-// Tarjeta de entrenador: slide desde abajo con bounce, con cascada por posición en la grilla.
-// La foto hace crossfade a su versión cómic al pasar el cursor (o al tocar, en móvil).
-function TrainerCard({ index, trainer }) {
-  const [ref, inView] = useInView()
-  const hoverCapable = useHoverCapable()
-  const [showComic, setShowComic] = useState(false)
-  const [comicFailed, setComicFailed] = useState(false)
-
-  const effectActive = !comicFailed
-  const hoverHandlers = hoverCapable
-    ? {
-        onMouseEnter: () => effectActive && setShowComic(true),
-        onMouseLeave: () => effectActive && setShowComic(false),
-      }
-    : {
-        onClick: () => effectActive && setShowComic((v) => !v),
-      }
-
-  return (
-    <div
-      ref={ref}
-      style={{ transitionDelay: inView ? `${index * 80}ms` : '0ms' }}
-      className={`transition-[opacity,transform] duration-500 ease-[cubic-bezier(0.34,1.2,0.64,1)] ${
-        inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-      } border border-white/10 bg-[var(--surface)] overflow-hidden group`}
-    >
-      <div className="relative aspect-[2/3] overflow-hidden" {...hoverHandlers}>
-        <img
-          src={trainer.photo}
-          alt={trainer.name}
-          loading="lazy"
-          decoding="async"
-          width={400}
-          height={600}
-          className="absolute inset-0 w-full h-full object-cover transition-opacity duration-[350ms]"
-          style={{ opacity: effectActive && showComic ? 0 : 1 }}
-        />
-        <img
-          src={trainer.comicPhoto}
-          alt=""
-          loading="lazy"
-          decoding="async"
-          width={400}
-          height={600}
-          onError={() => setComicFailed(true)}
-          className="absolute inset-0 w-full h-full object-cover pointer-events-none transition-opacity duration-[350ms]"
-          style={{ opacity: effectActive && showComic ? 1 : 0 }}
-        />
-      </div>
-      <div className="p-5">
-        <h3 className="text-white font-semibold text-lg mb-2">{trainer.name}</h3>
-        <p className="eyebrow mb-1">Poder</p>
-        <p className="text-[var(--muted)] text-sm italic leading-snug">{trainer.power}</p>
-      </div>
-    </div>
-  )
 }
 
 // Tarjeta de instructores (Indoor Cycling / salón): slide desde la izquierda.

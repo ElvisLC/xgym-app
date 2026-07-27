@@ -18,11 +18,27 @@ const FAQ = lazy(() => import('./pages/FAQ'))
 const NotFound = lazy(() => import('./pages/NotFound'))
 
 function ScrollToTop() {
-  const { pathname } = useLocation()
+  const { pathname, hash } = useLocation()
   useEffect(() => {
-    window.scrollTo(0, 0)
+    if (hash) {
+      // La ruta puede estar en un chunk lazy-loaded que todavía no montó el nodo del ancla:
+      // reintenta unos frames antes de rendirse.
+      const id = hash.slice(1)
+      let attempts = 0
+      const tryScroll = () => {
+        const el = document.getElementById(id)
+        if (el) {
+          el.scrollIntoView()
+        } else if (attempts++ < 30) {
+          requestAnimationFrame(tryScroll)
+        }
+      }
+      requestAnimationFrame(tryScroll)
+    } else {
+      window.scrollTo(0, 0)
+    }
     trackPageView(pathname, document.title)
-  }, [pathname])
+  }, [pathname, hash])
   return null
 }
 
