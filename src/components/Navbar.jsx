@@ -104,7 +104,7 @@ export default function Navbar() {
           className="hidden lg:inline-flex items-center gap-2 bg-[var(--accent)] text-black font-semibold text-sm px-5 py-2.5 x-cut hover:bg-[var(--accent-dim)] transition-colors"
         >
           <MessageCircle size={16} strokeWidth={2.5} />
-          Preinscribirme
+          Únete a XGYM
         </a>
 
         <button
@@ -150,7 +150,7 @@ export default function Navbar() {
               className="mt-4 flex items-center justify-center gap-2 bg-[var(--accent)] text-black font-semibold text-sm px-5 py-3 x-cut"
             >
               <MessageCircle size={16} strokeWidth={2.5} />
-              Preinscribirme
+              Únete a XGYM
             </a>
           </motion.div>
         )}
