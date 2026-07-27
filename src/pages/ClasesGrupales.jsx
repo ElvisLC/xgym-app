@@ -43,7 +43,7 @@ export default function ClasesGrupales() {
             Incluidas en tu mensualidad · Clase individual $2
           </p>
 
-          <FadeUp className="overflow-x-auto border border-white/10 mb-4">
+          <FadeUp variant="fade-only" className="overflow-x-auto border border-white/10 mb-4">
             <table aria-label="Horario de clases grupales" className="w-full min-w-[760px] border-collapse font-mono text-sm">
               <caption className="sr-only">Horario semanal de clases grupales por hora y día de la semana</caption>
               <thead>

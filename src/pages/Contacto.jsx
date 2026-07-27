@@ -168,7 +168,7 @@ export default function Contacto() {
                       placeholder="Cuéntanos qué necesitas"
                     />
                   </FadeUp>
-                  <FadeUp index={4}>
+                  <FadeUp index={4} variant="pop-in">
                     <button
                       type="submit"
                       className="w-full inline-flex items-center justify-center gap-2 bg-[var(--accent)] text-black font-semibold px-6 py-3.5 x-cut hover:bg-[var(--accent-dim)] transition-colors"

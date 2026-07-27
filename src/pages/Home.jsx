@@ -171,12 +171,12 @@ export default function Home() {
         <div className="mx-auto max-w-7xl px-5 md:px-8">
           <div className="grid md:grid-cols-2 gap-px bg-white/10">
             {VALUE_PROPS.map((v, i) => (
-              <FadeUp key={v.title} index={i} className="bg-[var(--canvas)] p-8 md:p-10">
+              <FadeUp key={v.title} index={i} variant="scale-fade" className="bg-[var(--canvas)] p-8 md:p-10">
                 <h2 className="text-white text-xl font-semibold mb-2">{v.title}</h2>
                 <p className="text-[var(--muted)] text-sm leading-relaxed">{v.text}</p>
               </FadeUp>
             ))}
-            <FadeUp index={VALUE_PROPS.length} className="bg-[var(--surface)] p-8 md:p-10 flex flex-col justify-center">
+            <FadeUp index={VALUE_PROPS.length} variant="scale-fade" className="bg-[var(--surface)] p-8 md:p-10 flex flex-col justify-center">
               <p className="display text-2xl md:text-3xl text-white leading-tight mb-4">
                 No vendemos cuerpos perfectos. Construimos <span className="text-[var(--accent)]">héroes reales</span>.
               </p>
@@ -201,7 +201,7 @@ export default function Home() {
           <FadeUp as="h2" className="display text-4xl md:text-6xl text-white mb-10">Así se entrena en XGYM</FadeUp>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {GALLERY.map((img, i) => (
-              <FadeUp key={img.src} index={i} className="aspect-[3/4] overflow-hidden border border-white/10">
+              <FadeUp key={img.src} index={i} variant="zoom-fade" className="aspect-[3/4] overflow-hidden border border-white/10">
                 <img
                   src={img.src}
                   alt={img.alt}
@@ -222,7 +222,7 @@ export default function Home() {
         <div className="mx-auto max-w-7xl px-5 md:px-8">
           <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-6">
             {BENEFITS.map((b, i) => (
-              <FadeUp key={b.category} index={i} className="border border-white/10 bg-[var(--surface)] p-6">
+              <FadeUp key={b.category} index={i} variant="scale-fade" className="border border-white/10 bg-[var(--surface)] p-6">
                 <b.icon className="text-[var(--accent)] mb-4" size={26} strokeWidth={1.5} />
                 <p className="eyebrow mb-1">{b.category}</p>
                 <p className="text-white font-medium">{b.text}</p>
@@ -243,6 +243,7 @@ export default function Home() {
               <FadeUp
                 key={p.name}
                 index={i}
+                variant="scale-fade"
                 className={`p-8 relative ${
                   p.featured
                     ? 'bg-[var(--surface)] border-2 border-[var(--accent)]'
@@ -277,7 +278,7 @@ export default function Home() {
       {/* 1.6 ACCESO RÁPIDO A HORARIOS */}
       <section className="bg-[var(--canvas)] py-16">
         <div className="mx-auto max-w-7xl px-5 md:px-8">
-          <FadeUp className="flex flex-col sm:flex-row items-center justify-between gap-6 border border-white/10 bg-[var(--surface)] p-8">
+          <FadeUp variant="fade-only" className="flex flex-col sm:flex-row items-center justify-between gap-6 border border-white/10 bg-[var(--surface)] p-8">
           <p className="font-mono text-white text-sm md:text-base text-center sm:text-left">
             Abrimos L-V {BRAND.hours.weekdays} · Sáb y feriados {BRAND.hours.weekend}
           </p>
@@ -308,7 +309,7 @@ export default function Home() {
         <div className="mx-auto max-w-7xl px-5 md:px-8">
           <FadeUp as="p" className="eyebrow mb-3">Ubicación</FadeUp>
           <FadeUp as="h2" className="display text-3xl md:text-5xl text-white mb-8">Encuéntranos en Catia</FadeUp>
-          <FadeUp className="border border-white/10 aspect-video overflow-hidden">
+          <FadeUp variant="fade-only" className="border border-white/10 aspect-video overflow-hidden">
             <iframe
               title="Ubicación de XGYM — CC La Laguna, Recta de Los Magallanes, Catia"
               src="https://www.google.com/maps?q=XGYM+Catia+Caracas&z=17&output=embed"

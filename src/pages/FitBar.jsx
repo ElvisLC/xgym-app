@@ -41,7 +41,7 @@ export default function FitBar() {
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-16">
             {JUICES.map((j, i) => (
-              <FadeUp index={i} key={j.name} className="border border-white/10 bg-[var(--surface)] p-6">
+              <FadeUp index={i} key={j.name} variant="scale-fade" className="border border-white/10 bg-[var(--surface)] p-6">
                 <h3 className="text-white font-semibold text-lg mb-1">{j.name}</h3>
                 <p className="text-[var(--subtle)] text-xs mb-3">{j.ingredients}</p>
                 <p className="text-[var(--muted)] text-sm italic">{j.tagline}</p>
@@ -56,7 +56,7 @@ export default function FitBar() {
           </div>
           <div className="grid sm:grid-cols-3 gap-4 mb-16">
             {SHAKES.map((s, i) => (
-              <FadeUp index={i} key={s.name} className="border border-white/10 bg-[var(--surface)] p-6">
+              <FadeUp index={i} key={s.name} variant="scale-fade" className="border border-white/10 bg-[var(--surface)] p-6">
                 <h3 className="text-white font-semibold text-lg mb-1">{s.name}</h3>
                 <p className="text-[var(--subtle)] text-xs">{s.ingredients}</p>
               </FadeUp>

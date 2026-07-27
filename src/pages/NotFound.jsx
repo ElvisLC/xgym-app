@@ -16,6 +16,7 @@ export default function NotFound() {
         <div className="mx-auto max-w-7xl px-5 md:px-8 text-center">
           <FadeUp
             as="p"
+            variant="pop-in"
             className="display text-[10rem] md:text-[14rem] leading-none text-[var(--accent)] select-none"
           >
             404
@@ -35,7 +36,7 @@ export default function NotFound() {
             Lo sentimos, la página que buscas no existe o fue movida.
           </FadeUp>
 
-          <FadeUp className="flex flex-col sm:flex-row items-center justify-center gap-4">
+          <FadeUp variant="pop-in" className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link
               to="/"
               className="inline-flex items-center justify-center bg-[var(--accent)] text-black font-semibold px-8 py-3.5 x-cut hover:bg-[var(--accent-dim)] transition-colors"

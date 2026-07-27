@@ -96,7 +96,7 @@ export default function Planes() {
           {/* Precios base */}
           <div className="grid sm:grid-cols-3 gap-4 mb-20">
             {BASE.map((b, i) => (
-              <FadeUp index={i} duration={800} distance={3} key={b.concept} className="border border-white/10 bg-[var(--surface)] p-6">
+              <FadeUp index={i} duration={800} variant="scale-fade" key={b.concept} className="border border-white/10 bg-[var(--surface)] p-6">
                 <p className="text-white font-semibold mb-1">{b.concept}</p>
                 <p className="text-2xl font-bold text-[var(--accent)] mb-1">{b.price}</p>
                 <p className="text-[var(--subtle)] text-sm">{b.detail}</p>
@@ -108,7 +108,7 @@ export default function Planes() {
           <h2 className="display text-3xl text-white mb-6">Planes Gym</h2>
           <div className="grid md:grid-cols-3 gap-6 mb-20">
             {GYM_PLANS.map((p, i) => (
-              <FadeUp index={i} duration={800} distance={3} key={p.name}>
+              <FadeUp index={i} duration={800} variant="scale-fade" key={p.name}>
                 <PlanCard {...p} />
               </FadeUp>
             ))}
@@ -118,7 +118,7 @@ export default function Planes() {
           <h2 className="display text-3xl text-white mb-6">Gen X + Spinning</h2>
           <div className="grid md:grid-cols-2 gap-6 mb-20">
             {SPINNING_PLANS.map((p, i) => (
-              <FadeUp index={i} duration={800} distance={3} key={p.name}>
+              <FadeUp index={i} duration={800} variant="scale-fade" key={p.name}>
                 <PlanCard {...p} />
               </FadeUp>
             ))}
@@ -129,7 +129,7 @@ export default function Planes() {
           <p className="text-[var(--subtle)] text-sm mb-6">Planes de permanencia — el compromiso más largo, el mejor precio por mes.</p>
           <div className="grid md:grid-cols-3 gap-6 mb-20">
             {DISCIPLINE_PLANS.map((p, i) => (
-              <FadeUp index={i} duration={800} distance={3} key={p.name}>
+              <FadeUp index={i} duration={800} variant="scale-fade" key={p.name}>
                 <PlanCard {...p} />
               </FadeUp>
             ))}

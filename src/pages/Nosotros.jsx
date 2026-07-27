@@ -27,7 +27,7 @@ export default function Nosotros() {
 
           {/* Misión / Visión / Propósito */}
           <div className="grid md:grid-cols-3 gap-px bg-white/10 mb-20">
-            <FadeUp index={0} className="bg-[var(--canvas)] p-8">
+            <FadeUp index={0} variant="scale-fade" className="bg-[var(--canvas)] p-8">
               <p className="eyebrow mb-3">Misión</p>
               <p className="text-neutral-300 text-sm leading-relaxed">
                 Despertar el héroe que existe en cada persona a través de la disciplina, el entrenamiento y una comunidad
@@ -36,7 +36,7 @@ export default function Nosotros() {
                 personas descubren que el verdadero poder nace de la constancia.
               </p>
             </FadeUp>
-            <FadeUp index={1} className="bg-[var(--canvas)] p-8">
+            <FadeUp index={1} variant="scale-fade" className="bg-[var(--canvas)] p-8">
               <p className="eyebrow mb-3">Visión</p>
               <p className="text-neutral-300 text-sm leading-relaxed">
                 Convertirnos en la comunidad fitness más inspiradora de Venezuela y un referente latinoamericano de cómo
@@ -44,7 +44,7 @@ export default function Nosotros() {
                 mucho más que un lugar para hacer ejercicio.
               </p>
             </FadeUp>
-            <FadeUp index={2} className="bg-[var(--canvas)] p-8">
+            <FadeUp index={2} variant="scale-fade" className="bg-[var(--canvas)] p-8">
               <p className="eyebrow mb-3">Propósito</p>
               <p className="text-neutral-300 text-sm leading-relaxed">
                 Recordarle a las personas que los héroes sí existen. No aparecen en películas. No llevan capa. Llevan
@@ -68,7 +68,7 @@ export default function Nosotros() {
                 no aparece el día que alcanza su meta: empieza a existir el día que decide no rendirse.
               </p>
             </FadeUp>
-            <FadeUp index={1} className="border border-white/10 bg-[var(--surface)] p-10 flex flex-col justify-center">
+            <FadeUp index={1} variant="fade-only" className="border border-white/10 bg-[var(--surface)] p-10 flex flex-col justify-center">
               <p className="display text-3xl md:text-4xl text-white leading-tight mb-6">
                 "XGYM. El <span className="text-[var(--accent)]">hábito</span> forja héroes."
               </p>

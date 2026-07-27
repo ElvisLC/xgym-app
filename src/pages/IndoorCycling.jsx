@@ -60,7 +60,7 @@ export default function IndoorCycling() {
           <h2 className="display text-3xl text-white mb-6">Precios</h2>
           <div className="grid sm:grid-cols-3 gap-4 mb-16">
             {PRICES.map((p, i) => (
-              <FadeUp index={i} key={p.option} className="border border-white/10 bg-[var(--surface)] p-6">
+              <FadeUp index={i} key={p.option} variant="scale-fade" className="border border-white/10 bg-[var(--surface)] p-6">
                 <p className="text-white font-semibold mb-1">{p.option}</p>
                 <p className="text-2xl font-bold text-[var(--accent)]">{p.price}</p>
               </FadeUp>
@@ -74,7 +74,7 @@ export default function IndoorCycling() {
           </p>
           <div className="grid sm:grid-cols-3 gap-4 mb-16">
             {LEVELS.map((l, i) => (
-              <FadeUp index={i} key={l.level} className="border border-white/10 bg-[var(--surface)] p-6">
+              <FadeUp index={i} key={l.level} variant="scale-fade" className="border border-white/10 bg-[var(--surface)] p-6">
                 <p className="font-mono text-[var(--accent)] font-bold mb-2">{l.level}</p>
                 <p className="text-[var(--muted)] text-sm">{l.meaning}</p>
               </FadeUp>

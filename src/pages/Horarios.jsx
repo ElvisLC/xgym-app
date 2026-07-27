@@ -22,11 +22,11 @@ export default function Horarios() {
           {/* Horario general del gimnasio */}
           <h2 className="display text-3xl text-white mb-6">Horario general del gimnasio</h2>
           <div className="grid sm:grid-cols-2 gap-4 mb-20 max-w-2xl">
-            <FadeUp index={0} className="border border-white/10 bg-[var(--surface)] p-6">
+            <FadeUp index={0} variant="scale-fade" className="border border-white/10 bg-[var(--surface)] p-6">
               <p className="eyebrow mb-2">Lunes a viernes</p>
               <p className="font-mono text-white text-lg">{BRAND.hours.weekdays}</p>
             </FadeUp>
-            <FadeUp index={1} className="border border-white/10 bg-[var(--surface)] p-6">
+            <FadeUp index={1} variant="scale-fade" className="border border-white/10 bg-[var(--surface)] p-6">
               <p className="eyebrow mb-2">Sábados y feriados</p>
               <p className="font-mono text-white text-lg">{BRAND.hours.weekend}</p>
             </FadeUp>
@@ -35,7 +35,7 @@ export default function Horarios() {
           {/* Enlaces a horarios detallados */}
           <h2 className="display text-3xl text-white mb-6">Clases de salón e Indoor Cycling</h2>
           <div className="grid sm:grid-cols-2 gap-4 mb-16">
-            <FadeUp index={0}>
+            <FadeUp index={0} variant="scale-fade">
               <Link
                 to="/clases-grupales"
                 className="border border-white/10 bg-[var(--surface)] p-6 flex items-center justify-between hover:border-[var(--accent)]/50 transition-colors"
@@ -47,7 +47,7 @@ export default function Horarios() {
                 <ArrowRight className="text-[var(--muted)] shrink-0" size={20} />
               </Link>
             </FadeUp>
-            <FadeUp index={1}>
+            <FadeUp index={1} variant="scale-fade">
               <Link
                 to="/indoor-cycling"
                 className="border border-white/10 bg-[var(--surface)] p-6 flex items-center justify-between hover:border-[var(--accent)]/50 transition-colors"

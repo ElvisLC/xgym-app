@@ -38,7 +38,7 @@ export default function Entrenadores() {
           <h2 className="display text-3xl text-white mb-8">Personal trainers / monitores de sala</h2>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-20">
             {TRAINERS.map((t, i) => (
-              <FadeUp index={i} key={t.name} className="border border-white/10 bg-[var(--surface)] overflow-hidden group">
+              <FadeUp index={i} key={t.name} variant="scale-fade" className="border border-white/10 bg-[var(--surface)] overflow-hidden group">
                 <div className="aspect-[2/3] overflow-hidden">
                   <img
                     src={t.photo}
@@ -64,11 +64,11 @@ export default function Entrenadores() {
             Por ahora, solo con nombre y horario — sus fotos y "Poder" se agregan en una fase posterior.
           </p> */}
           <div className="grid sm:grid-cols-2 gap-4">
-            <FadeUp index={0} className="border border-white/10 bg-[var(--surface)] p-6">
+            <FadeUp index={0} variant="scale-fade" className="border border-white/10 bg-[var(--surface)] p-6">
               <p className="eyebrow mb-3">Indoor Cycling</p>
               <p className="text-neutral-300 text-sm">{OTHER_INSTRUCTORS.cycling.join(' · ')}</p>
             </FadeUp>
-            <FadeUp index={1} className="border border-white/10 bg-[var(--surface)] p-6">
+            <FadeUp index={1} variant="scale-fade" className="border border-white/10 bg-[var(--surface)] p-6">
               <p className="eyebrow mb-3">Clases de salón</p>
               <p className="text-neutral-300 text-sm">{OTHER_INSTRUCTORS.salon.join(' · ')}</p>
             </FadeUp>
