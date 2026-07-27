@@ -1,5 +1,4 @@
-import { useState, useEffect, useRef } from 'react'
-import { motion, useInView } from 'framer-motion'
+import { motion } from 'framer-motion'
 import SEO from '../components/SEO'
 
 const fadeUp = {
@@ -23,21 +22,6 @@ const PILLARS = [
 ]
 
 export default function Nosotros() {
-  const [count, setCount] = useState(0)
-  const pillarsRef = useRef(null)
-  const isInView = useInView(pillarsRef, { once: true, margin: '-100px' })
-
-  useEffect(() => {
-    if (!isInView) return
-    let current = 0
-    const interval = setInterval(() => {
-      current++
-      setCount(current)
-      if (current >= 5) clearInterval(interval)
-    }, 150)
-    return () => clearInterval(interval)
-  }, [isInView])
-
   return (
     <>
       <SEO
@@ -108,12 +92,12 @@ export default function Nosotros() {
           </motion.div>
 
           {/* Pilares */}
-          <div ref={pillarsRef}>
+          <motion.div {...fadeUp}>
             <h2 className="display text-3xl text-white mb-8">Los cinco pilares de XGYM</h2>
             <div className="grid md:grid-cols-5 gap-px bg-white/10 mb-20">
-              {PILLARS.map((p, i) => (
+              {PILLARS.map((p) => (
                 <div key={p.num} className="bg-[var(--canvas)] p-6">
-                  <span className={`font-mono text-lg font-bold transition-all duration-300 ${i < count ? 'text-[var(--accent)] opacity-100' : 'text-transparent opacity-0'}`}>
+                  <span className="font-mono text-lg font-bold text-[var(--accent)]">
                     {p.num}
                   </span>
                   <h3 className="text-white font-semibold mt-3 mb-2 text-sm leading-snug">{p.title}</h3>
@@ -121,7 +105,7 @@ export default function Nosotros() {
                 </div>
               ))}
             </div>
-          </div>
+          </motion.div>
 
           {/* PENDIENTE (no visible en el sitio): insertar aquí, tal cual, el texto oficial de
               "El Origen de XGYM" y el juramento de marca cuando XGYM lo entregue. No reescribir ni resumir. */}
