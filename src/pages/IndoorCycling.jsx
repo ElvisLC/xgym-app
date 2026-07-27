@@ -130,7 +130,15 @@ export default function IndoorCycling() {
           {/* Quórum */}
           <div className="border border-white/10 bg-[var(--surface)] p-6 mb-14 max-w-2xl">
             <p className="text-sm text-neutral-300">
-              Las clases pueden estar sujetas a cambios por quórum (mínimo 5 personas). Consulta actualizaciones en nuestro canal oficial.
+              Las clases pueden estar sujetas a cambios por quórum (mínimo 5 personas). Consulta actualizaciones en nuestro{' '}
+              <a
+                href="https://www.whatsapp.com/channel/0029VbDJNyuKgsNnQG1QXg3o"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[var(--accent)] underline underline-offset-4"
+              >
+                canal oficial
+              </a>.
             </p>
           </div>
 
