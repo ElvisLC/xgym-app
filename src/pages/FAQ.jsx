@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import { ChevronDown } from 'lucide-react'
 import SEO from '../components/SEO'
 import { waLink } from '../config'
@@ -64,13 +64,21 @@ function FaqItem({ q, a }) {
           className={`text-[var(--accent)] shrink-0 transition-transform ${open ? 'rotate-180' : ''}`}
         />
       </button>
-      <div className={`grid transition-all duration-200 ${open ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'}`}>
-        <div className="overflow-hidden">
-          <p className="px-5 pb-5 text-[var(--muted)] text-sm leading-relaxed">
-            {a}
-          </p>
-        </div>
-      </div>
+      <AnimatePresence initial={false}>
+        {open && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.25, ease: [0.4, 0, 0.2, 1] }}
+            className="overflow-hidden"
+          >
+            <p className="px-5 pb-5 text-[var(--muted)] text-sm leading-relaxed">
+              {a}
+            </p>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   )
 }
