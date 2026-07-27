@@ -195,7 +195,7 @@ export default function Home() {
                 onClick={() => trackWhatsAppClick('home_value_props')}
                 className="inline-flex items-center gap-2 text-[var(--accent)] text-sm font-semibold w-fit"
               >
-                Quiero empezar <ArrowRight size={14} />
+                Preinscribirme <ArrowRight size={14} />
               </a>
             </motion.div>
           </motion.div>
