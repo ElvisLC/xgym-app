@@ -319,7 +319,7 @@ export default function Home() {
           <motion.div {...fadeUp} className="border border-white/10 aspect-video overflow-hidden">
             <iframe
               title="Ubicación de XGYM — CC La Laguna, Recta de Los Magallanes, Catia"
-              src="https://www.google.com/maps?q=10.4917,-66.9664&z=17&output=embed"
+              src="https://www.google.com/maps?q=10.5148187,-66.9519959&z=17&output=embed"
               className="w-full h-full grayscale invert-[92%] contrast-[1.1]"
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
