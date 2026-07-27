@@ -56,7 +56,7 @@ const GALLERY = [
     alt: 'Sesión de entrenamiento funcional en grupo',
   },
   {
-    src: 'https://assets.mixkit.co/videos/14661/14661-thumb-480-0.jpg',
+    src: 'https://images.pexels.com/photos/416778/pexels-photo-416778.jpeg?auto=compress&cs=tinysrgb&w=500',
     alt: 'Cardio intensivo en cinta de correr',
   },
 ]
